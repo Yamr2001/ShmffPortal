@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "تنبيه";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+
+}
+
+
+
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row m-0">
+            @TempData["error"]
+        </div>
+    </div>
+</div>

@@ -1,0 +1,334 @@
+﻿@using ShmffPortal.Helpers
+@model ShmffPortal.Models.RegisterViewModel
+@using ShmffPortal.BLL
+
+@{
+    ViewBag.Title = "تسجيل مستخدم جديد  ";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+}
+<style>
+    .block-head {
+        position: relative;
+        margin-bottom: 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px #e2e2e2 solid;
+        font-weight: normal;
+        color: red;
+    }
+</style>
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+        $("#SSNTEXT").keypress(function (evt) {
+            debugger
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            var ssn = $("#SSNTEXT").val();
+            if (ssn.length == 14) {
+                return false;
+            }
+            return true;
+        })
+
+        //$("#Password").keypress(function (e) {
+        //    debugger
+        //    var unicode = e.charCode ? e.charCode : e.keyCode
+        //    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+        //        if (unicode == 32)
+        //            return false;
+        //        else {
+        //            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+        //                return true; //disable key press
+        //        }
+        //    }
+        //    var charCode = (e.which) ? e.which : e.keyCode;
+        //    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //    return true;
+        //})
+        //$("#ConfirmPassword").keypress(function (e) {
+        //    debugger
+        //    var unicode = e.charCode ? e.charCode : e.keyCode
+        //    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+        //        if (unicode == 32)
+        //            return false;
+        //        else {
+        //            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+        //                return true; //disable key press
+        //        }
+        //    }
+        //    var charCode = (e.which) ? e.which : e.keyCode;
+        //    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //    return true;
+        //})
+        //$("#ConfirmPassword").keypress(function (e) {
+        //    debugger
+        //    var unicode = e.charCode ? e.charCode : e.keyCode
+        //    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+        //        if (unicode == 32)
+        //            return true;
+        //        else {
+        //            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+        //                return false; //disable key press
+        //        }
+        //    }
+        //    var charCode = (e.which) ? e.which : e.keyCode;
+        //    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        //        return true;
+        //    }
+        //    else {
+        //        return false;
+        //    }
+        //    return true;
+        //})
+        $("#FullName").keypress(function (e) {
+            debugger
+            var unicode = e.charCode ? e.charCode : e.keyCode
+            if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                if (unicode == 32)
+                    return true;
+                else {
+                    if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                        return false; //disable key press
+                }
+            }
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+            return true;
+        })
+        $("#Phone").keypress(function (evt) {
+            var phonenum = $("#Phone").val();
+            var strFirst = phonenum.substring(0, 1);
+            var strSec = phonenum.substring(0, 2);
+            var strtThird = phonenum.substring(0, 3);
+            if (phonenum.length >= 3) {
+                debugger
+                if (strtThird == "010" || strtThird == "011" || strtThird == "012" || strtThird == "015") {
+                } else {
+                    $("#Phone").val('');
+                    return false;
+                }
+            }
+            if (phonenum.length == 11) {
+                return false;
+            }
+        })
+
+    })
+</script>
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2>تسجيل مستخدم جديد</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+
+                @{ Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "false" });
+                    @Html.AntiForgeryToken()
+                }
+
+                <div class="form-group">
+                    <label for="snnInput">الاسم كما هو مدون في بطاقة الرقم القومي باللغة العربية </label>
+                    @Html.TextBoxFor(m => m.FullName, new { id = "FullName", @class = "form-control", @placeholder = "", onDrag = "return false", @onDrop = "return false", @onPaste = "return false", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+
+
+                    <div id="SSNError" class="alert alert-danger" style="@(@ViewBag.FullnameError==null?"display:none":"display:block")">
+                        @ViewBag.FullnameError
+                    </div>
+                    <div id="SSNError" class="alert alert-danger" style="@(@TempData["FullnameError"]==null?"display:none":"display:block")">
+                        @TempData["FullnameError"]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="snnInput">رقم البطاقة الشخصية </label>
+                    @Html.TextBoxFor(m => m.SSN, new { id = "SSNTEXT", @class = "form-control", @placeholder = "", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+
+
+                    <div id="SSNError" class="alert alert-danger" style="@(@ViewBag.SSNError==null?"display:none":"display:block")">
+                        @ViewBag.SSNError
+                    </div>
+                    <div id="SSNError" class="alert alert-danger" style="@(@TempData["SSNError"]==null?"display:none":"display:block")">
+                        @TempData["SSNError"]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="snnInput">رقم التليفون المحمول</label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "", @autocomplete = "false" })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="snnInput">كلمة المرور</label>
+                    @Html.PasswordFor(m => m.password, new { id = "Password", @class = "form-control" })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="snnInput">تأكيد كلمة المرور</label>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { id = "ConfirmPassword", @class = "form-control" })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="row">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.GoogleCaptcha()
+                            @Html.InvalidGoogleCaptchaLabel("Captcha is not valid !")
+                        </div>
+                    </div>
+                </div>*@
+
+                @*<div class="form-group">
+                        @Html.CheckBoxFor(x => x.TermsAndConditions)
+                        @Html.LabelFor(x => x.TermsAndConditions)
+                        <span class="text-danger"> @Html.ValidationMessageFor(x => x.TermsAndConditions)</span>
+                    </div>*@
+                <div id="Error" class="alert alert-danger" style="@(@TempData["Error"]==null?"display:none":"display:block")">
+                    @TempData["Error"]
+                </div>
+                <button type="submit" class="btn btn-success" name="Result" onclick="return validateSNN();"> تسجيل</button>
+                @* <a href="~/Account/Login" class="btn btn-primary">دخول</a>*@
+                @{ Html.EndForm(); }
+
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="black_font box warning-box fx animated fadeInRight alert alert-warning" data-animate="fadeInRight">
+                    @*<p dir="rtl"><strong><span style="font-size:16px;color:red">ملاحظات </span></strong></p>*@
+                    <p dir="rtl"> يجب التسـجيل بالاسم والرقم القومى لصاحب الطلب المُسدد لمبلغ مُقدم جدية الحجز .</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br /><br /><br /><br />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+    <script src="~/Scripts/ValidateSSN.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('input[type=text]').on('copy paste cut', function (e) {
+                e.preventDefault();
+            });
+
+        });
+        function clearValidation() {
+            $('#SSNError').attr('style', 'display:none');
+            $('#QuestionError').attr('style', 'display:none');
+        }
+        $("body").on("submit", "#send_btn", function () {
+            return confirm("Do you want to submit?");
+        });
+        function validateNameNumber(name) {
+            debugger;
+            var NAME = name.value;
+            var values = name.split(' ').filter(function (v) { return v !== '' });
+            if (values.length >= 4) {
+                //4 or more words
+                return true;
+            } else {
+                //not enough words
+                return false;
+            }
+        }
+        function validateSNN() {
+            $('.error').remove();
+            var checkName = validateNameNumber($('#FullName').val().trim());
+            if (!checkName) {
+                $('#FullName').after('<span class="text-danger  error">برجاء إدخال الاسم رباعي</span>');
+                $('#FullName').focus();
+                return false;
+            }
+
+
+            debugger
+            if ($('#SSNTEXT').val() == "") {
+                var snn = isValidSSN($('#SSN_hid').val());
+                if (!snn) {
+                    $('#SSNError').html('برجاء إدخال رقم بطاقة صحيح');
+                    $('#SSNError').attr('style', 'display:block');
+                }
+            }
+            else {
+                var sNNResult = isValidSSN($('#SSNTEXT').val());
+
+                if (!sNNResult) {
+                    debugger
+
+                    $('#SSNError').html('برجاء إدخال رقم بطاقة صحيح');
+                    $('#SSNError').attr('style', 'display:block');
+                }
+            }
+            return sNNResult;
+        }
+        function validateQuestion() {
+
+            var questionResult = $('#Question').val().trim().length > 0;
+            if (!questionResult) {
+                $('#QuestionError').html('برجاء إدخال السؤال');
+                $('#QuestionError').attr('style', 'display:block');
+            }
+
+            return questionResult;
+        }
+        function validate() {
+            clearValidation();
+            return validateSNN();
+        }
+
+        function validateSend() {
+            clearValidation();
+            var s = validateSNN();
+            var q = validateQuestion();
+            return s && q;
+        }
+
+        // extend jquery range validator to work for required checkboxes
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            if (element.type === 'checkbox') {
+                // if it's a checkbox return true if it is checked
+                return element.checked;
+            }
+            else {
+                // otherwise run the default validation function
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+    </script>
+}

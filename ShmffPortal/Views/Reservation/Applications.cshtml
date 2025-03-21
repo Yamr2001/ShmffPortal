@@ -1,0 +1,247 @@
+﻿@model IEnumerable<ShmffPortal.Models.Allsubsidy_requests>
+@using ShmffPortal.Helpers
+
+
+@{
+    ViewBag.Title = " طلبات حجز وحدة سكنية ";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+}
+<style>
+    .mff_theme .block-head {
+        position: relative;
+        margin-bottom: 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px #e2e2e2 solid;
+        font-weight: normal;
+    }
+
+    .mff_theme .green_font {
+        color: rgb(17, 148, 17) !important;
+    }
+
+    .mff_theme h1, .mff_theme h2, .mff_theme h3, .mff_theme h4, .mff_theme h5, .mff_theme h6 {
+        margin: 0 0 10px;
+        padding: 0;
+        font-weight: normal;
+        line-height: 1.5;
+    }
+
+    .mff_theme h1 {
+        font-size: 36px;
+    }
+
+    .required:after {
+        content: ' *';
+        color: red;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/jquery.datetimepicker.min.css">
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+
+<div class="contact-box-main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 col-sm-12">
+                <div id="SSNError" class="alert alert-danger" style="@(TempData["Error"]==null?"display:none":"display:block")">
+                    @TempData["Error"]
+                </div>
+                <div id="SuccessMsg" class="alert alert-success" style="@(TempData["Success"]==null?"display:none":"display:block")">
+                    @TempData["Success"]
+                </div>
+                @if (ViewBag.SBK != null)
+                {
+                    if (ViewBag.SBK == 1)
+                    {
+                        <div id="SSNError" class="alert alert-danger">
+                            يوجد سبق استفادة وسيتم مراجعة الطلب
+                        </div>
+                    }
+                }
+                @if (Model.Where(a => a.IS_CANCELED != 1).Count() > 1)
+                {
+                    <div id="SSNError" class="alert alert-danger">
+                        في حالة وجود أكثر من طلب يرجي الغاء احد الطلبات حيث انه لا يمكن الحجز لأكثر من طلب
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 pull-left left">
+                        @if (ViewBag.paid != null)
+                        {
+                        <div class="row">
+                            <div class="col-md-3 alert alert-info">بيانات السداد</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @{
+                                        var payments = (List<ShmffPortal.Models.HDB_Payment_Confirmation>)ViewBag.Payment;
+                                        foreach (var item in payments)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-6"><p>رقم الايصال : @item.PAYMENT_NUMBER</p></div>
+                                                <div class="col-md-6"><p>المبلغ : @item.DOWNPAYMENT_AMOUNT_COLLECTED_MFF</p></div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="alert alert-danger">
+                                لا يوجد بيانات سداد
+                            </div>
+                            }
+                        </div>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>الرقم القومي لصاحب الطلب</th>
+                            <th>اسم صاحب الطلب</th>
+                            <th>الاعلان الأصلي</th>
+                            <th>تاريخ تسجيل الطلب</th>
+                            <th>حالة الطلب</th>
+                            <th>تاريخ حجز الوحدة</th>
+                            <th> </th>
+                            @*<td> </td>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PRIMARY_INVESTOR_SSN</td>
+                                <td>@item.PRIMARY_INVESTOR_FULL_NAME</td>
+                                <td>@item.ADVNAME</td>
+                                @*<td>@item.PROJECTNAMe</td>*@
+                                <td>@Helper.GetFormatedDate(item.CREATION_DATE)</td>
+                                <td>@item.StatusName @item.RejectionReason </td>
+                                <td>@item.Resevunitdate</td>
+                                <td>
+                                    @if (item.IS_CANCELED == 1)
+                                    {
+                                        <span class="text-danger">ملغي بتاريخ @item.CANCELATIONDATE</span>
+                                    }
+                                    else
+                                    {
+                                        @*<a href="~/Reservation/Create" class="btn btn-info">تعديل الطلب</a>*@
+                                        if (item.IS_CANCELED != 1 && DateTime.Now >= item.REGISTRATIONSTARTDATE && DateTime.Now <= item.REGISTRATIONSENDDATE)
+                                        {
+                                            <a href="~/Reservation/Create" class="btn btn-info">تعديل الطلب</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/Reservation/Create" class="btn btn-info">عرض بيانات الطلب</a>
+                                        }
+                                    }
+                                </td>
+                                @*<td>
+                                    @if (item.IS_CANCELED == 1)
+                                    {
+                                        <span class="text-danger">ملغي بتاريخ @item.CANCELATIONDATE</span>
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.canres != null)
+                                        {
+                                            if (DateTime.Now >= ViewBag.reservStartDate && DateTime.Now < ViewBag.reservEndDate)
+                                            {
+                                                if (item.Resevunitdate == null || item.UNITCODE == null)
+                                                {
+                                                    <a href="~/Reservation/ReservUnitNew/@item.ID" class="btn btn-warning">حجز الوحدة</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="~/Reservation/ReservUnitNew/@item.ID" class="btn btn-warning">عرض بيانات الوحدة</a>
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            if (ViewBag.settings != null)
+                                            {
+                                                var settings = (ShmffPortal.Models.SETTING)ViewBag.settings;
+                                                if (settings.OPENRESERV == true)
+                                                {
+                                                    if (item.Resevunitdate == null || item.UNITCODE == null)
+                                                    {
+                                                        <a href="~/Reservation/ReservUnitNew/@item.ID" class="btn btn-warning">حجز الوحدة</a>
+                                                    }
+                                                    else
+                                                    {
+                                                         <a href="~/Reservation/ReservUnitNew/@item.ID" class="btn btn-warning">عرض بيانات الوحدة</a> 
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                }
+                                            }
+                                        }
+                                    }
+                                </td>*@
+                                <td>
+                                    @if (item.IS_CANCELED == 1)
+                                    {
+                                        <span class="text-danger">ملغي بتاريخ @item.CANCELATIONDATE</span>
+                                    }
+                                    else
+                                    {
+
+                                        //if (ViewBag.StartDatetime != null && ViewBag.StartDatetime != null && ViewBag.ENDDATEtime != null)
+                                        //{
+                                        //var starttime = (DateTime)ViewBag.StartDatetime;
+                                        //var endate = (DateTime)ViewBag.ENDDATEtime;
+
+                                        @*if (ViewBag.ssn == "28909071400852" || ViewBag.ssn == "27309240102385" || ViewBag.ssn == "29805042103397" || ViewBag.ssn == "25612231202854" || ViewBag.ssn== "27001018827156")
+                                            {
+                                                <a href="https://cservices.shmff.gov.eg/@(item.ADVNAME+".pdf")" class="btn btn-success"> عرض أكواد الوحدات المتاحة</a>
+                                            }*@
+
+                                        @*if (DateTime.Now > starttime.AddHours(-1) && DateTime.Now < endate && ViewBag.canres != null)
+                                            {
+                                                    <a href="https://cservices.shmff.gov.eg/@(item.ADVNAME+".pdf")" class="btn btn-success"> عرض أكواد الوحدات المتاحة</a>
+                                                }*@
+                                        //}
+                                        @*<a href="~/Reservation/Cancel/@item.ID" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من أنك تريد الغاء الطلب؟');">الغاء الطلب</a>*@
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        التواصل مع مركز الاتصالات على رقم (090071117 من أى خط أرضى -1188 /5777/5999 من أى رقم موبايل
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,247 @@
+﻿@model ShmffPortal.Models.CalculateLoan
+
+@{
+    /**/
+
+    ViewBag.Title = "احتساب القسط";
+}
+
+
+<div class="categories-shop">
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>احتساب القسط</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SalaryCut, htmlAttributes: new { @class = "control-label col-md-7" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SalaryCut, new { htmlAttributes = new { @class = "form-control", @min = "0", @Value = (Model == null) ? "40" : Model.SalaryCut.ToString() } })
+                                @Html.ValidationMessageFor(model => model.SalaryCut, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="MaritalStatus">الحالة الاجتماعية</label>
+                            @*@Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                            <div class="col-md-9">
+                                <select class="form-control" data-val="true" data-val-number="يجب ادخال ارقام" data-val-required="هذا الحقل مطلوب" id="MaritalStatus" name="MaritalStatus">
+                                    <option value="">---اختار---</option>
+                                    <option value="0">أعزب</option>
+                                    <option value="1">متزوج</option>
+                                    <option value="2">أرمل</option>
+                                    <option value="3">أرمل و يعول</option>
+                                    <option value="4">مطلق</option>
+                                    <option value="5">مطلق و يعول</option>
+                                    <option value="6">متزوج ويعول</option>
+                                </select>
+                                @*@Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control", @min = "0" } })*@
+                                @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpouseSalary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpouseSalary, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.SpouseSalary, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-6" for="MaximumFinancingPeriod">الحد الاقصي لمدة التمويل</label>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.MaximumFinancingPeriod, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                                <span class="field-validation-valid text-danger" data-valmsg-for="MaximumFinancingPeriod" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "30" } })
+                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InstallmentPrice, htmlAttributes: new { @class = "control-label col-md-2 text-danger" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.InstallmentPrice, new { htmlAttributes = new { @class = "form-control", @readonly = "@readonly" } })
+                        @Html.ValidationMessageFor(model => model.InstallmentPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InterestRate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(m => m.InterestRate, 3) 3% <br />
+                        @Html.RadioButtonFor(m => m.InterestRate, 8) 8%
+                        @Html.ValidationMessageFor(model => model.InterestRate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="احتساب" class="btn btn-default" />
+                    </div>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DownPayment, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="text" id="DownPayment" class="form-control" name="DownPayment" readonly value="@Model.DownPayment" />
+                            @Html.ValidationMessageFor(model => model.DownPayment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Loan, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="text" id="Loan" class="form-control" name="Loan" readonly value="@Model.Loan" />
+                            @Html.ValidationMessageFor(model => model.Loan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <span style="color:red">
+                        - قيمة القسط أعلاه استرشادية لا يمكن الاعتماد عليها كلياً في احتساب القيم الماليةالمطلوبة من العميل (المقدم-القسط الشهري)، حيث يتم احتساب تلك القيم في ضوء الدراسة الإئتمانية لكل عميل على حدا.
+                        إعتمادا ً على بعض المتغيرات والتي من أهمها (السن-الدخل-نسبة الزيادة السنوية للدخل الشهري-مدة الزيادة السنوية للقسط الشهري) فضلاً عن الإجراءات المنظمة للمبادرة الصادرة من البنك المركزي المصري
+                        <br />
+                        -          في حالة إنخفاض مدة التمويل عن الحد الاقصى المتاح طبقاً لمبادرة التمويل العقاري يتم زيادة المقدم وانخفاض القرض.
+                        <br />
+                        -          في حالة الرغبة في تقليل المقدم لابد من زيادة قيمة القسط ( بما لا يتجاوز 40% من قيمة الدخل الشهري) أو زيادة مدة التمويل (بما لا يجاوز سن المعاش) وذلك كله وفقاً لسن العميل وماينتهي إليه الدراسة الإئتمانية بجهة التمويل.
+
+                    </span>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        //$("#DownPayment").change(function () {
+        //    var downpayment = parseFloat($("#DownPayment").val());
+        //    var unitprice = parseFloat($("#UnitPrice").val());
+        //    if (!isNaN(unitprice) && !isNaN(downpayment)) {
+        //        $("#Loan").val(unitprice - downpayment);
+        //    }
+        //});
+
+        //$("#UnitPrice").change(function () {
+        //    var downpayment = parseFloat($("#DownPayment").val());
+        //    var unitprice = parseFloat($("#UnitPrice").val());
+        //    if (!isNaN(unitprice) && !isNaN(downpayment)) {
+        //        $("#Loan").val(unitprice - downpayment);
+        //    }
+        //}//);
+
+        $("#Age").change(function () {
+            var age = parseFloat($("#Age").val());
+            //var years = parseFloat($("#UnitPrice").val());
+            if (!isNaN(age) && !isNaN(age)) {
+                var remainingage = 60 - age;
+                if (remainingage < 0) {
+                    remainingage = 0;
+                }
+                if (remainingage > 30) {
+                    remainingage = 30
+                }
+                $("#Year").val(remainingage);
+            }
+        });
+
+
+        $("#MaritalStatus").change(function () {
+            var MaritalStatus = parseFloat($("#MaritalStatus").val());
+            //var years = parseFloat($("#UnitPrice").val());
+
+            if (MaritalStatus == '1' || MaritalStatus == '6') {
+                $('#SpouseSalary').prop('disabled', false)
+            } else {
+                $('#SpouseSalary').prop('disabled', true)
+            }
+
+        });
+
+        $("#Salary").change(function () {
+            var Salary = parseFloat($("#Salary").val());
+            var SalaryCut = parseFloat($("#SalaryCut").val());
+            if (!isNaN(Salary) && !isNaN(SalaryCut)) {
+                var installmetPrice = Salary * (SalaryCut / 100);
+                if (installmetPrice < 0) {
+                    installmetPrice = 0;
+                }
+                $("#InstallmentPrice").val(installmetPrice);
+            }
+        });
+
+        $("#SalaryCut").change(function () {
+            var Salary = parseFloat($("#Salary").val());
+            var SalaryCut = parseFloat($("#SalaryCut").val());
+            if (!isNaN(Salary) && !isNaN(SalaryCut)) {
+                var installmetPrice = Salary * (SalaryCut / 100);
+                if (installmetPrice < 0) {
+                    installmetPrice = 0;
+                }
+                $("#InstallmentPrice").val(installmetPrice);
+            }
+
+        });
+
+
+    </script>
+}

@@ -1,0 +1,127 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>فحص الرقم القومي</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables.min.css" />
+    <style>
+        #pageloader {
+            background: rgba( 255, 255, 255, 0.8 );
+            display: none;
+            height: 100%;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+            #pageloader img {
+                left: 50%;
+                margin-left: -32px;
+                margin-top: -32px;
+                position: absolute;
+                top: 50%;
+            }
+    </style>
+</head>
+<body>
+    <div>
+
+        @{
+            Html.BeginForm();
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-3">
+                    الرقم القومي
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="ssn" id="ssn" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="فحص" name="Checkssn" class="btn btn-success"/>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.NoCancelled != null)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        يوجد لديك تقديم في اعلان سابق <span class="text text-danger">@ViewBag.Dimsub.Adv_Name</span> وفي حالة الرغبة في الاستمرار في الحجز يرجي ارفاق ما يفيد سحب مقدم جدية الحجز بذلك الاعلان
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.HasUnitBefore != null)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        يوجد سبق تخصيص
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>الاعلان: </td>
+                                <td>@ViewBag.CheckHasUnit.Adv_Name</td>
+                                <td>الموقع: </td>
+                                <td>@ViewBag.CheckHasUnit.LOCATION</td>
+                                <td>الوحدة: </td>
+                                <td>>@ViewBag.CheckHasUnit.UNIT_NUMBER</td>
+                            </tr>
+                            <tr>
+                                <td>المساحة: </td>
+                                <td>@ViewBag.CheckHasUnit.AREA</td>
+
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            if (ViewBag.Noprom != null)
+            {
+            <div class="row">
+                <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6 alert alert-success">
+                       @ViewBag.Noprom
+                    </div>
+                </div>
+            }
+        }
+
+        @if (ViewBag.msg != null)
+        {
+            <div class="row">
+                <div class="col-md-6 alert alert-warning">
+                    @ViewBag.msg
+                </div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>

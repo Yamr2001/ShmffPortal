@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ShmffPortal.Models.HDB_Payment_Confirmation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENT_SSN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENT_NAME_AR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADVERTISEMENT_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADVERTISEMENT_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOWNPAYMENT_AMOUNT_COLLECTED_MFF)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLIENT_SSN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLIENT_NAME_AR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADVERTISEMENT_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADVERTISEMENT_NAME)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.DOWNPAYMENT_AMOUNT_COLLECTED_MFF)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

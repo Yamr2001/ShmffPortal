@@ -1,0 +1,1094 @@
+﻿@model ShmffPortal.Models.NEWADVERTISMENT
+@using ShmffPortal.Helpers
+
+@{
+    ViewBag.Title = Model.ADVNAME_AR;
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+
+}
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+<div class="contact-box-main">
+    <div class="container-fluid">
+        <div class="row m-0">
+            <div class="col-md-2"></div>
+            <div class="col-md-5 col-sm-7">
+                <div class="heading-title heading-border">
+                    <h2>@Model.ADVNAME_AR</h2>
+                    @*<ul class="list-inline categories m-0">
+                        <a href="/hdb/displayProjects?type=2#projects">أراضى</a>
+                        </ul>*@
+                </div>
+                <p>@Model.ADV_DESC</p>
+                <br>
+                <img src="~/Content/images/@Model.ADV_IMG" class="img-fluid" />
+                <br />
+                <br />
+                @if (Model.CitiesLocations.Count() > 0)
+                {
+
+                    <table dir="RTL" style="border: solid; border: solid windowtext 1.0pt; height: 480.355px;" width="1072">
+                        <colgroup><col style="width: 151px;" width="139"><col style="width: 493px;" width="458"><col style="width: 360px;" width="312"></colgroup>
+                        <tbody>
+                            <tr style="height: 34.9953px; background: #222B35; font-size: 19px; color: white; padding: 0in 5.4pt 0in 5.4pt; ">
+                                <td class="xl34" dir="RTL" style="border: solid windowtext 1.0pt; width: 104pt; height: 34.9953px;" width="139">المدينة</td>
+                                <td class="xl34" dir="RTL" style="border: solid windowtext 1.0pt; width: 344pt; height: 34.9953px;" width="458">اسم المنطقة </td>
+                                <td class="xl35" dir="LTR" style="border: solid windowtext 1.0pt; width: 234pt; height: 34.9953px;" width="312">الموقع بالخريطة</td>
+                            </tr>
+                            @foreach (var item in Model.CitiesLocations)
+                            {
+                                <tr style="height: 21.0142px;">
+                                    <td class="xl36" dir="RTL" style="border: solid windowtext 1.0pt; height: 21.0142px;">@item.CityName</td>
+                                    <td class="xl37" dir="RTL" style="border: solid windowtext 1.0pt; height: 21.0142px;">@item.SiteLocaion</td>
+                                    <td class="xl44" dir="LTR" style="border: solid windowtext 1.0pt; height: 21.0142px;"><a style="color:blue;" style="color:blue;" target="_blank" href="@item.MapUrl">عرض</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+                @*@if (Model.ID == 4)
+                          {
+                        <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="width:774.4pt;margin-left:1.5pt;border-collapse:collapse;" width="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">المدينة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border:solid windowtext 1.0pt;border-right:none;background:  #222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">اسم المنطقة </span></strong></p>
+                                    </td>
+                                    <td style="width:256.5pt;border:solid windowtext 1.0pt;border-right:none;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">LINK</span></strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">أكتوبر الجديدة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">جنوب طريق الواحات شمال الواحة&nbsp;</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/BGTWiQd7DbqURa1RA</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">الشروق</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">شارع طلعت حرب الواجهة الشرقية - بجوار الإسكان الإجتماعى</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/nSUyNu7Ud7sGswxJ8</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">العبور الجديدة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">منطقة 2600 فدان بشمال المدينة</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border:none;border-left:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/65Q1N27C4JSXGnrm7</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="6" style="width:104.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">القاهرة الجديدة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">ارض المعارض 1</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border:solid windowtext 1.0pt;border-right:none;background:  white;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/YvgU62BkU5jct3ZB9</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">ارض المعارض 2</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;background:  white;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/bnaX9uLvJWYgnXqY9</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">المنطقة الثالثة ارض المعارض</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;background:  white;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/CYPi58nXFrEJYrYV7</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">غرب الجامعات</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;background:  white;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/17rQ7LNuLANM6SeN9</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">منطقة مسلسل 5جنوب طريق القطامية العين السخنة القديم</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://maps.app.goo.gl/udPArfRzqHS8MM5N7</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">منطقة مسلسل 6شمال طريق القطامية العين السخنة القديم&nbsp;</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://maps.app.goo.gl/7DszYgPsiqafGLg58</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">المنيا الجديدة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:12px;color:black;">منطقة 140 فدان بامتداد التوسعات الشمالية المحصورة بين منطقة ابني بيتك 3 وطريق المنيا / أسيوط الصحراوي</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border:none;border-left:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/AdSPN5nYFVHDV1He6</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">بدر</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">منطقة سكن مصر بالامتداد الشرقي للمدينة بجوار طريق القاهرة السويس</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/4ymzezgwRVtddozy6</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" style="width:104.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">حدائق اكتوبر</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">بجوار الداون تاون</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/7SUrLVrANrHkNEjNA</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">بجوار مدينة الانتاج الاعلامي ودار مصر</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/JBzpSf1x3xtbr9Uz5</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3" style="width:104.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">دمياط الجديدة</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">الحى المتميز شرق المدينه بجوار مشروع دار مصر مج33 حى6 مسلسل 3&nbsp;</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/tNGHTc14mEAYLp637</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">جنوب الحى الاول &nbsp;مسلسل 2</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/rEoCSkAH4KwhcFxE9</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">غرب جامعه دمياط &nbsp;مسلسل 1</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/HoK3FvZkV2EVtcKE6</span></a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">ناصر (غرب اسيوط )</span></strong></p>
+                                    </td>
+                                    <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                        <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">الحى الاول</span></p>
+                                    </td>
+                                    <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                        <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/fZfVEjxAbfpmpAiZ8<br>&nbsp;</span></a></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                    else if (Model.ID == 5)
+                    {
+                        <div align="right" id="isPasted" style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>
+
+                            <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="width:774.4pt;margin-left:1.5pt;border-collapse:collapse;" width="0">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">المدينة</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border:solid windowtext 1.0pt;border-right:none;background:  #222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">اسم المنطقة  </span></strong></p>
+                                        </td>
+                                        <td style="width:256.5pt;border:solid windowtext 1.0pt;border-right:none;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">LINK</span></strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">السادات</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">بالمنطقة السكنية &nbsp;17 المرحلة الاولي - المرحلة الثانية</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/VrhtxWeXPgQtzTen6</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2" style="width:104.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">الشروق</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">شمال مركز المدينة 2 امام نادي جرين هيلز - المرحلة الاولى</span></p>
+                                        </td>
+                                        <td rowspan="2" style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/AiGbghvHJPo18J5QA</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="100%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">شمال مركز المدينة 2 امام نادي جرين هيلز - المرحلة الثانية</span></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="4" style="width:104.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">العاشر من رمضان</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">شرق منطقة مركز المال والاعمال</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/Ro3HKYxrfvRhnYgw8</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">غرب منطقة مركز المال والاعمال</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/uEWiVKjemqw4YwiX8</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">موقع 1 بجوار مركز المدينة شرقا وامام المعهد التكنولوجي</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/uWwm2D2TmBKv5xGp9</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="53.225806451612904%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">موقع 2 بجوار مركز المينة غربا وامام المعهد التكنولوجي</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="46.774193548387096%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/DniGQhaH3ypRJ1Sb8</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">بدر</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">الحي المتميز &nbsp;شمالا</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/eGCnr4GvQnJePY8E9</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">برج العرب الجديدة</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">الحي السكني الثالث مجتمع محلي خامس&nbsp;</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/XsPdzgydDP6rrDFt5</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">حدائق أكتوبر</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">جنوب طريق الواحات خلف مدينة الانتاج الاعلامى&nbsp;</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/8ZSqG9WZbkBkRgz96</span></a></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
+                    else if (Model.ID == 6)
+                    {
+                        <div align="right" id="isPasted" style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>
+
+                            <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="width:774.4pt;margin-left:1.5pt;border-collapse:collapse;" width="0">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">المدينة</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border:solid windowtext 1.0pt;border-right:none;background:  #222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">اسم المنطقة </span></strong></p>
+                                        </td>
+                                        <td style="width:256.5pt;border:solid windowtext 1.0pt;border-right:none;background:#222B35;padding:0in 5.4pt 0in 5.4pt;height:26.25pt;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;color:white;">LINK</span></strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">الشروق</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">بمركز المدينة 2 إمتداد دار مصر المراحل الاولى و الثانية</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/ZrpiuKNMDvGwUKyH9</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">العبور</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">مركز الحى الثانى</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/8325oCQRiyCc9B3n8</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">القاهرة الجديدة</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">جنوب الجمعيات بالقرب من طريق العين السخنة</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/gDBDaF7nKzFG6Kdm6</span></a></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:104.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="15.972894482090997%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="color:black;">المنيا الجديدة&nbsp;</span></strong></p>
+                                        </td>
+                                        <td style="width:291.9pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="44.72410454985479%">
+
+                                            <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">المركز الترفيهى جنوب نادى نقابة المهندسين</span></p>
+                                        </td>
+                                        <td style="width:256.5pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:.25in;" width="39.303000968054214%">
+
+                                            <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><a href="https://goo.gl/maps/fZfVEjxAbfpmpAiZ8"><span style="color:#0563C1;">https://goo.gl/maps/bbYCh1eJ4n32sdQLA</span></a></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }*@
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <div class="card card-default">
+                    <div class="card-block">
+                        <p>تفاصيل المشروع</p>
+                        @*@if (Model.ID == 4)
+                            {
+                                <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="margin-left:31.9pt;border-collapse:collapse;" width="0">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 242.9pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ فتح باب التقدم ودفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;15/ 2 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية دفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;8/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية التقدم وتسجيل البيانات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;13/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">العملاء المُتقدمين سابقاً بالإعلان الأول ولم يقوموا بحجز وحدة سكنية ولم يقوموا باسترداد مُقدم جدية الحجز فقط</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;20 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">من9:00 ص حتى 11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">لكل المتقدمين بمشروع سكن مصر</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;21 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;22 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">كافة المتقدمين بكل المشاريع (سكن مصر - دار مصر - جنة)</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;29 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;30 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                            else if (Model.ID == 5)
+                            {
+
+                                <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="margin-left:31.9pt;border-collapse:collapse;" width="0">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 242.9pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ فتح باب التقدم ودفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;15/ 2 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية دفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;8/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية التقدم وتسجيل البيانات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;13/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">العملاء المُتقدمين سابقاً بالإعلان الأول ولم يقوموا بحجز وحدة سكنية ولم يقوموا باسترداد مُقدم جدية الحجز فقط</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;20 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">من9:00 ص حتى 11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">كل المتقدمين بمشروع دار مصر</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;23 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;24 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">كافة المتقدمين بكل المشاريع (سكن مصر - دار مصر - جنة)</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;29 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;30 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            }
+                            else if (Model.ID == 6)
+                            {
+                                <table border="0" cellpadding="0" cellspacing="0" dir="rtl" style="margin-left:31.9pt;border-collapse:collapse;" width="0">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 242.9pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ فتح باب التقدم ودفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;15/ 2 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border:solid windowtext 1.0pt;border-right:none;padding:0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية دفع مقدمات الحجز:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;8/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية التقدم وتسجيل البيانات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;13/ 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">العملاء المُتقدمين سابقاً بالإعلان الأول ولم يقوموا بحجز وحدة سكنية ولم يقوموا باسترداد مُقدم جدية الحجز فقط</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;20 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">من9:00 ص حتى 11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">كل المتقدمين بمشروع جنه</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;27 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;28 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="width: 589pt;border-top: none;border-left: 1pt solid black;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: black;padding: 0in 5.4pt;height: 15.75pt;vertical-align: bottom;" valign="bottom" width="100%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;color:white;">كافة المتقدمين بكل المشاريع (سكن مصر - دار مصر - جنة)</span></strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ بداية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;29 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">9:00 ص</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 242.9pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: bottom;" valign="bottom" width="41.244725738396625%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:16px;color:#666666;">تاريخ نهاية حجز الوحدات:</span></p>
+                                            </td>
+                                            <td style="width:189.0pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="32.06751054852321%">
+
+                                                <p dir="LTR" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">&nbsp;30 / 3 / 2022&nbsp;</span></p>
+                                            </td>
+                                            <td style="width:157.1pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:none;padding:  0in 5.4pt 0in 5.4pt;height:15.0pt;" width="26.68776371308017%">
+
+                                                <p dir="RTL" style='margin-top:0in;margin-right:0in;margin-bottom:  .0001pt;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">11:59 م</span></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }*@
+
+                        <ul class="portfolio-detail-list list-unstyled m-0">
+                            <li class="row">
+                                <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                <span class="col-sm-6">تاريخ فتح باب التقدم ودفع مقدمات الحجز:</span>
+                                <span class="col-sm-5"> @Helper.GetFormatedShortDate(Model.REGISTRATIONSTARTDATE)</span>
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                <span class="col-sm-6">تاريخ نهاية التقدم ودفع مقدمات الحجز:</span>
+                                <span class="col-sm-5">@Helper.GetFormatedShortDate(Model.REGISTRATIONSENDDATE)</span>
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                <span class="col-sm-6">تاريخ بداية حجز الوحدات:</span>
+                                <span class="col-sm-5">
+                                    @Helper.GetFormatedShortDate(Model.RESERVATIONSTARTDATE)
+                                </span>
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                <span class="col-sm-6">تاريخ نهاية حجز الوحدات:</span>
+                                <span class="col-sm-5">
+                                    @Helper.GetFormatedShortDate(Model.RESERVATIONSENDDATE)
+                                </span>
+                            </li>
+
+                            @*<li class="row">
+                                    <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                    <span class="col-sm-6">تاريخ فتح باب التقدم:</span>
+                                    <span class="col-sm-5">
+                                        10-11-2022 09:00 ص
+                                    </span>
+                                </li>
+                                <li class="row">
+                                    <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                    <span class="col-sm-6">تاريخ اغلاق باب التقدم:</span>
+                                    <span class="col-sm-5">
+                                        13-11-2022 11:59 م
+
+                                    </span>
+                                </li>*@
+                            @*@if (Model.ID == 4)
+                                {
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ بداية حجز وحدات سكن مصر:</span>
+                                        <span class="col-sm-5">
+                                            14-11-2022 09:00 ص
+                                        </span>
+                                    </li>
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ نهاية حجز وحدات سكن مصر:</span>
+                                        <span class="col-sm-5">
+                                            14-11-2022 11:59 م
+                                        </span>
+                                    </li>
+                                }
+                                @if (Model.ID == 5)
+                                {
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ بداية حجز وحدات دار مصر:</span>
+                                        <span class="col-sm-5">
+                                            15-11-2022 09:00 ص
+                                        </span>
+                                    </li>
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ نهاية حجز وحدات دار مصر:</span>
+                                        <span class="col-sm-5">
+                                            15-11-2022 11:59 م
+                                        </span>
+                                    </li>
+                                }
+                                @if (Model.ID == 6) {
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ بداية حجز وحدات جنة:</span>
+                                        <span class="col-sm-5">
+                                            16-11-2022 09:00 ص
+                                        </span>
+                                    </li>
+                                <li class="row">
+                                    <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                    <span class="col-sm-6">تاريخ نهاية حجز وحدات جنة:</span>
+                                    <span class="col-sm-5">
+                                        16-11-2022 11:59 م
+                                    </span>
+                                </li>
+                                }
+                                <li class="row">
+                                    <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                    <span class="col-sm-6">تاريخ بداية  حجز الوحدات بالمشروعات الثلاثة:</span>
+                                    <span class="col-sm-5">
+                                        17-11-2022 09:00 ص
+                                    </span>
+                                </li>
+                                <li class="row">
+                                    <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                    <span class="col-sm-6">تاريخ نهاية  حجز الوحدات بالمشروعات الثلاثة:</span>
+                                    <span class="col-sm-5">
+                                        17-11-2022 11:59 م
+                                    </span>
+                                </li>*@
+                            @*@if (Model.RESERVATIONSTARTDATE != null)
+                                {
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ بداية حجز الوحدات للمرحلة الثانيه:</span>
+                                        <span class="col-sm-5">
+                                            @Helper.GetFormatedDate(Model.RESERVATIONSTARTDATE)
+                                        </span>
+                                    </li>
+                                }
+
+                                @if (Model.RESERVATIONSENDDATE != null)
+                                {
+                                    <li class="row">
+                                        <span class="col-sm-1"><i class="fa fa-calendar"></i></span>
+                                        <span class="col-sm-6">تاريخ نهاية حجز الوحدات للمرحلة الثانيه:</span>
+                                        <span class="col-sm-5">
+                                            @Helper.GetFormatedDate(Model.RESERVATIONSENDDATE)
+                                        </span>
+                                    </li>
+
+                                }*@
+
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <span>
+                                <a href="@Model.BOURCHOUR" class="mb-6 btn btn-info btn-sm" target="_blank"> كراسة الشروط   </a>
+                                @if (DateTime.Now > Model.REGISTRATIONSTARTDATE)
+                                {
+                                    <a href="~/Reservation/Index?advid=@Model.ID" class="mb-6 btn btn-warning btn-sm pull-left"> تقديم طلب حجز وحدة سكنية </a>
+                                }
+
+                            </span>
+                        </span>
+                        &nbsp;&nbsp;
+
+                        &nbsp;&nbsp;
+
+                    </div>
+                    <div class="card-block">
+                        @if (@Model.ID == 4)
+                        {
+                        }
+                        else if (Model.ID == 5)
+                        {
+
+                        }
+                        else if (Model.ID == 6)
+                        {
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

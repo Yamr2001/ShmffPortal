@@ -1,0 +1,103 @@
+﻿@using ShmffPortal.Helpers
+@model ShmffPortal.Models.VerifyViewModel
+@{
+    ViewBag.Title = " حجز الوحدات السكنية  -تفعيل الحساب";
+}
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<div class="container h-100">
+    <div class="row h-100 align-items-center">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <p style="color:red"><font size="5">@ViewBag.Title</font></p>
+                </div>
+                @*@Html.HiddenFor(Model => Model.SSN, new { id = "SSN_hid" })*@
+                <div class="card-body">
+                    @{
+                        Html.BeginForm("VerifyCode", "Account", FormMethod.Post, new { enctype = "multipart/form-data" });
+                        @Html.AntiForgeryToken()
+
+                        <div id="SSNError" class="alert alert-danger" style="@(TempData["Error"]==null?"display:none":"display:block")">
+                            @TempData["Error"]
+                        </div>
+                        <div id="SSNError" class="alert alert-success" style="@(TempData["Success"]==null?"display:none":"display:block")">
+                            @TempData["Success"]
+                        </div>
+
+                        <div class="form-group">
+                            <label for="snnInput">رمز التأكيد</label>
+                            @Html.TextBoxFor(m => m.Verify_Code, new { @class = "form-control", @placeholder = "رمز التأكيد" })
+                            @Html.ValidationMessageFor(model => model.Verify_Code, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            اعادة ارسال خلال : <span id="timing"></span> ثانية   <a href="#" id="begin" class="btn btn-warning">ارسال كود التفعيل</a>
+
+                        </div>
+                        <input type="submit" class="btn btn-success" name="Result" value="تفعيل"/> 
+
+                        <a href="#" onclick="$('#signoutfrm').submit(); return false;" class="btn btn-danger">تسجيل خروج</a>
+                    }
+                    <div class="row"> في حالة وجود خطأ برقم الهاتف المسجل أو في حالة عدم وصول رسالة التفعيل يُمكنك تغييـر رقم الهاتف من <a href="~/Account/changePhone" class="btn btn-primary">هنا</a></div>
+                    @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { @id = "signoutfrm", @style = "display:none;" }))
+            {
+                        @Html.AntiForgeryToken();
+            }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script>
+        $(document).ready(function () {
+
+            brginsend();
+            $("#begin").click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Resend", "Account")',
+                    dataType: 'json',
+                    data: { id: $("#GovID").val() },
+                    success: function (mems) {
+                        alert("تم ارسال الكود مرة اخري")
+                        brginsend();
+                    },
+                    error: function (ex)
+                    {
+                        $('#begin').prop('disabled', false);
+                    }
+                });
+            });
+
+
+            // brginsend();
+        });
+
+        function brginsend() {
+            var myTimer, timing = 70;
+            $('#timing').html(timing);
+            $('#begin').prop('disabled', true);
+            myTimer = setInterval(function () {
+                --timing;
+                $('#timing').html(timing);
+                if (timing === 0) {
+                    $('#begin').prop('disabled', false);
+                    //alert('Too late! Try again');
+                    //$('#begin').prop('disabled', true);
+                    clearInterval(myTimer);
+                }
+            }, 1000);
+        }
+
+    </script>
+
+
+}

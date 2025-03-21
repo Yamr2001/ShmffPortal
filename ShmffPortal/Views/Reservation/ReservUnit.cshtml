@@ -1,0 +1,581 @@
+﻿@model ShmffPortal.Models.subsidy_request
+@using ShmffPortal.Helpers
+
+@{
+    ViewBag.Title = " حجز وحدة سكنية";
+}
+<style>
+    .mff_theme .block-head {
+        position: relative;
+        margin-bottom: 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px #e2e2e2 solid;
+        font-weight: normal;
+    }
+
+    .mff_theme .green_font {
+        color: rgb(17, 148, 17) !important;
+    }
+
+    .mff_theme h1, .mff_theme h2, .mff_theme h3, .mff_theme h4, .mff_theme h5, .mff_theme h6 {
+        margin: 0 0 10px;
+        padding: 0;
+        font-weight: normal;
+        line-height: 1.5;
+    }
+
+    .mff_theme h1 {
+        font-size: 36px;
+    }
+
+    .required:after {
+        content: ' *';
+        color: red;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+
+    /* Tables */
+    .Table-Normal {
+        position: relative;
+        //display: block;
+        margin: 10px auto;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+        .Table-Normal thead tr {
+            background-color: #E74C3C;
+            font-weight: bold;
+        }
+
+        .Table-Normal tr {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border: 1px solid #999;
+            width: 100%;
+        }
+
+            .Table-Normal tr td {
+                margin: 0;
+                padding: 4px 8px;
+                border: 0;
+                border: 1px solid #999;
+            }
+
+        .Table-Normal tbody tr:nth-child(2) {
+            background-color: #EEE;
+        }
+</style>
+
+
+
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>@ViewBag.Title</h2>
+                @*<ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+                        <li class="breadcrumb-item active">إحجز وحدتك</li>
+                    </ul>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="SSNError" class="alert alert-danger" style="@(TempData["Error"]==null?"display:none":"display:block")">
+                    @TempData["Error"]
+                </div>
+                <div id="SuccessMsg" class="alert alert-success" style="@(TempData["Success"]==null?"display:none":"display:block")">
+                    @TempData["Success"]
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            @if (ViewBag.Isreserved != null)
+            {
+                var Unitdetails = (ShmffPortal.Models.v_Unconditional_Unit)ViewBag.UnitDetails;
+
+                <div class="row">
+                    <div class="col-md-12 Table-Normal" style="width:100%">
+                        <table class="table table-bordered table-striped table-hover Table-Normal" style="width:100%">
+                            <tr>
+                                <td class="alert-success"><label class="label-danger">الاعلان:</label></td>
+                                <td>@Unitdetails.ADV_NAME</td>
+                                <td class="alert-success"><label class="ng-binding label-danger">المدينة: </label></td>
+                                <td><label class="ng-binding">@Unitdetails.CITYNAME </label></td>
+                                <td class="alert-success">
+                                    <label class="ng-binding label-danger">كود الوحدة: </label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding">@Unitdetails.UNIT_CODE</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="alert-success">
+                                    <label class="ng-binding label-danger">الشركة المنفذة :</label>
+                                </td>
+                                <td>
+                                    @Unitdetails.CONTRACTOR
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding label-danger">كود المنطقة :</label>
+                                </td>
+                                <td>
+                                    @Unitdetails.AREA_CODE
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding label-danger">إسم المنطقة :</label>
+                                </td>
+                                <td>
+                                    @Unitdetails.AREA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="alert-success">
+                                    <label class="ng-binding">الموقع: </label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding"> @Unitdetails.LOCATION</label>
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding">النموذج  :</label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding">@Unitdetails.SAMPLE</label>
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding">رقم العمارة  :</label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding"> @Unitdetails.BUILDING_NUMBER</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="alert-success">
+                                    <label class="ng-binding  label-danger">رقم الوحدة:</label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding"> @Unitdetails.UNIT_NUMBER</label>
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding  label-danger">الدور :</label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding">  @Unitdetails.LEVEL_NUMBER</label>
+                                </td>
+                                <td class="alert-success">
+                                    <label class="ng-binding  label-danger">المساحة   :</label>
+                                </td>
+                                <td>
+                                    <label class="ng-binding"> @Unitdetails.SPACE</label>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        @if (Model.ATTACHMENT_NAME != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.ATTACHMENT_NAME))
+                            {
+                                <span> المرفق الأساسي :</span> <a href="~/Reservation/getAttachment?fileName=@Model.ATTACHMENT_NAME"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a>
+                            }
+                        }
+                    </div>
+                  
+                    <div class="col-md-2">
+                        <a href="~/reservation/UnReserveUnit/@Model.ID" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من أنك تريد الالغاء ؟');">الغاء الوحدة</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        @if (Model.OTHER_ATTACHMENT_NAME != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.OTHER_ATTACHMENT_NAME))
+                            {
+                                <span>استمارة الحجز للرغبة الجديدة :</span> <a href="~/Reservation/getAttachment?fileName=@Model.OTHER_ATTACHMENT_NAME"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-12">
+                    @*<div class="row">
+                            <div class="col-md-3">
+                                <label class="ng-binding">الاعلان: @Unitdetails.ADV_NAME </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">المدينة: @Unitdetails.CITYNAME </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">كود الوحدة: @Unitdetails.UNIT_CODE </label>
+                            </div>
+                        </div>*@
+                    @*<div class="row">
+
+                            <div class="col-md-3">
+                                <label class="ng-binding">الشركة المنفذة : @Unitdetails.CONTRACTOR </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">كود المنطقة : @Unitdetails.AREA_CODE </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">إسم المنطقة : @Unitdetails.AREA </label>
+                            </div>
+
+
+
+                        </div>*@
+                    @*<div class="row">
+                            <div class="col-md-3">
+                                <label class="ng-binding">الموقع: @Unitdetails.LOCATION </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">النموذج  : @Unitdetails.SAMPLE </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">رقم العمارة  : @Unitdetails.BUILDING_NUMBER </label>
+                            </div>
+                        </div>*@
+                    @*<div class="row">
+                            <div class="col-md-3">
+                                <label class="ng-binding">رقم الوحدة: @Unitdetails.UNIT_NUMBER </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">الدور : @Unitdetails.LEVEL_NUMBER     </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="ng-binding">المساحة   : @Unitdetails.SPACE </label>
+                            </div>
+                        </div>*@
+                </div>
+                @*<div class="row">
+                        @if (Model.ATTACHMENT_NAME != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.ATTACHMENT_NAME))
+                            {
+
+                                <div class="col-md-6">المرفق الأساسي : <a href="~/Reservation/getAttachment?fileName=@Model.ATTACHMENT_NAME"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a></div>
+
+                            }
+                        }
+                        @if (Model.OTHER_ATTACHMENT_NAME != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.OTHER_ATTACHMENT_NAME))
+                            {
+                                <div class="col-md-6">الرغبة الجديدة : <a href="~/Reservation/getAttachment?fileName=@Model.OTHER_ATTACHMENT_NAME"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a></div>
+                            }
+                        }
+                    </div>*@
+                @*<div class="row">
+                        <div class="col-md-6">
+                            <a href="~/reservation/UnReserveUnit/@Model.ID" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من أنك تريد الالغاء ؟');">الغاء الوحدة</a>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>*@
+            }
+            else
+            {
+                <div class="col-lg-10 col-sm-12">
+                    @{
+                        Html.BeginForm("ReservUnit", "Reservation", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "false" });
+                        @Html.AntiForgeryToken()
+                        var user = (ShmffPortal.Models.RegisterSSN)ViewBag.User;
+
+
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i> البيانات الاساسية لمقدم الطلب
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label class="ng-binding">بطاقة الرقم القومي: @ViewBag.PrimaryInvestorSSN </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label class="ng-binding">اسم صاحب الطلب : @ViewBag.PrimaryInvestorName </label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="PRIMARY_INVESTOR_SSN" value="@ViewBag.PrimaryInvestorSSN" />
+                        <input type="hidden" name="PRIMARY_INVESTOR_GENDER" value="@ViewBag.Gander" />
+                        <input type="hidden" name="ID" value="@ViewBag.ID" />
+                        <input type="hidden" id="MyMainADv" name="MyMainADv" value="@ViewBag.MyMainADv" />
+                        @*<input type="hidden" id="ADVID" name="MyMainADv" value="@ViewBag.MyMainADv" />*@
+
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i> الوحدة السكنية المراد شرائها
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">الاعلان :</label><i class="fa fa-question-circle" title="الاعلان" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("ADVID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المشروع : </label><i class="fa fa-question-circle" title="المشروع" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    <select name="PROJECTID" id="PROJECTID"></select>
+                                    @Html.ValidationMessageFor(model => model.PROJECTID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required"> كود الوحدة : </label><i class="fa fa-question-circle" title="كود الوحدة المطلوبة  " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    <select name="UNITCODE" id="UNITCODE">
+                                        <option>أختر</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.UNITCODE, "", new { @class = "text-danger" })
+                                    <span id="Errmsg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="attachmentsdiv" style="display:none;">
+                            <div class="col-md-6">
+                                <label for="snnInput" class="required">المستندات المطلوبة </label><i class="fa fa-question-circle" title="يرجى تحميل كل المرفقات المطلوبة على هيئة ملف PDF واحد  " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    <input type="file" name="OTHER_ATTACHMENT_NAME" id="OTHER_ATTACHMENT_NAME" accept="application/pdf" />
+                                    @if (Model != null && Model.ID != 0)
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(Model.OTHER_ATTACHMENT_NAME))
+                                        {
+                                            <a href="~/Reservation/getAttachment?fileName=@Model.OTHER_ATTACHMENT_NAME"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a>
+                                        }
+                                    }
+                                    <br />
+                                    <span class="text-danger">
+                                        ارفاق استمارة الحجز للرغبة الجديدة
+                                    </span>
+                                    <br />
+                                    <span class="text-danger">الملفات المسموح بها  Pdf</span> ,
+                                    <br />
+                                    <span class="text-danger">اقصي حجم للملف المطلوب (2MB)</span>
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.ATTACHMENT_NAME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="اختيار" id="ReservUnit" name="ReservUnit" class="btn btn-success" onclick="return ValidateU();" />
+                        <div class="row" id="Unitdetails">
+                        </div>
+                        <div class="row" id="Endsession" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="alert-danger">
+                                    أنتهت الجلسة الخاصة بكم برجاء تسجيل الدخول مره اخري
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                        }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        function ValidateU() {
+            var isAllValid = true;
+            $('#pageloader').show();
+            $('.error').remove();
+
+          //  debugger;
+            var ADVID = $('#ADVID').val().trim();
+
+            if (ADVID.length < 1) {
+                $('#ADVID').after('<span class="text-danger error">مطلوب </span>');
+                $('#ADVID').focus();
+                isAllValid = false;
+            }
+
+            var pro = $('#PROJECTID').val().trim();
+
+            if (pro.length < 1) {
+                $('#PROJECTID').after('<span class="text-danger error">مطلوب </span>');
+                $('#PROJECTID').focus();
+                isAllValid = false;
+            }
+
+            var UNITCODE = $('#UNITCODE').val();
+            if (UNITCODE.length < 1) {
+                $('#UNITCODE').after('<span class="text-danger error">مطلوب </span>');
+                $('#UNITCODE').focus();
+                isAllValid = false;
+            }
+
+            var mainadv = $('#MyMainADv').val();
+            var ADVID = $('#ADVID').val();
+
+            if (mainadv != ADVID) {
+                // $('#attachmentsdiv').hide();
+                if ($('#OTHER_ATTACHMENT_NAME')[0].files.length === 0) {
+                    $('#OTHER_ATTACHMENT_NAME').after('<span class="text-danger error">مطلوب</span>');
+                    $('#OTHER_ATTACHMENT_NAME').focus();
+                    // return false;
+                    isAllValid = false;
+                }
+            }
+
+            if (isAllValid) {
+                $('#pageloader').show();
+            } else {
+                $('#pageloader').hide();
+                $('#ReservUnit').after('<span class="text-danger error"> يرجي إدخال كافة البيانات المطلوبة بالاعلي </span>');
+                return false;
+            }
+            $('#pageloader').hide();
+
+        }
+
+        $(document).ready(function () {
+
+
+            var mainadv = $('#MyMainADv').val();
+            var ADVID = $('#ADVID').val();
+
+            if (mainadv == ADVID) {
+                $('#attachmentsdiv').hide();
+            } else {
+                $('#attachmentsdiv').show();
+            }
+
+
+            $("#ADVID").change(function () {
+
+
+                var mainadv = $('#MyMainADv').val();
+                var ADVID = $('#ADVID').val();
+
+                if (mainadv == ADVID) {
+                    $('#attachmentsdiv').hide();
+                } else {
+                    $('#attachmentsdiv').show();
+                }
+
+                $("#PROJECTID").empty();
+                $("#UNITCODE").empty();
+                $("#UNITCODE").append($('<option/>', {
+                    value: "",
+                    text: "اختر"
+                }));
+                //$("#PROJECTID").after('<img src="~/Content/spinner.gif"/>')
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPRoJECTS", "Reservation")',
+                    dataType: 'json',
+                    data: { id: $("#ADVID").val() },
+                    success: function (mems) {
+                        $("#PROJECTID").append($('<option/>', {
+                            value: "",
+                            text: "اختر"
+                        }));
+                        $.each(mems, function (i, member) {
+                            $("#PROJECTID").append('<option value="'
+                        + member.Value + '">'
+                        + member.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                      //  debugger;
+                        $('#Endsession').show();
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+                return false;
+            });
+
+            $("#PROJECTID").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetPRoJECTS", "Reservation")',
+                dataType: 'json',
+                data: { id: $("#ADVID").val() },
+                success: function (mems) {
+                    $("#PROJECTID").append($('<option/>', {
+                        value: "",
+                        text: "اختر"
+                    }));
+                    $.each(mems, function (i, member) {
+                        $("#PROJECTID").append('<option value="'
+                    + member.Value + '">'
+                    + member.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                   // debugger;
+                    $('#Endsession').show();
+                    // alert('برجاء انشاء الطلب مره اخري');
+                }
+            });
+
+            $("#PROJECTID").change(function () {
+                $("#UNITCODE").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetUnits", "Reservation")',
+                    dataType: 'json',
+                    data: { id: $("#PROJECTID").val(), ADVID: $("#ADVID").val() },
+                    success: function (mems) {
+                       // debugger;
+                        console.log(mems.length);
+                        //if (mems.length == 0) {
+                        //    alert("لا يوجد وحدات");
+                        //}
+                        $("#UNITCODE").append($('<option/>', {
+                            value: "",
+                            text: "اختر"
+                        }));
+                        $.each(mems, function (i, member) {
+                            $("#UNITCODE").append('<option value="'
+                        + member.Value + '">'
+                        + member.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                      //  debugger;
+                        $('#Endsession').show();
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}

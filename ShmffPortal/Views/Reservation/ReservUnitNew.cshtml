@@ -1,0 +1,212 @@
+﻿@model ShmffPortal.Models.subsidy_request
+@using ShmffPortal.Helpers
+@{
+    ViewBag.Title = " حجز وحدة سكنية";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+
+}
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+
+<div class="card" style="margin:16px 0 24px 0">
+    <div class="card-body">
+        <div class="contact-box-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="SSNError" class="alert alert-danger" style="@(TempData["Error"]==null?"display:none":"display:block")">
+                            @TempData["Error"]
+                        </div>
+                        <div id="SuccessMsg" class="alert alert-success" style="@(TempData["Success"]==null?"display:none":"display:block")">
+                            @TempData["Success"]
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    @if (ViewBag.Isreserved != null)
+                    {
+                        var Unitdetails = (ShmffPortal.Models.v_Unconditional_Unit)ViewBag.UnitDetails;
+
+                        <div class="row">
+                            <div class="col-md-12 Table-Normal" style="width:100%">
+                                <table class="table table-bordered table-striped table-hover Table-Normal" style="width:100%">
+                                    <tr>
+                                        <td class="alert-success"><label class="label-danger">الاعلان:</label></td>
+                                        <td>@Unitdetails.ADV_NAME</td>
+                                        <td class="alert-success"><label class="ng-binding label-danger">المدينة: </label></td>
+                                        <td><label class="ng-binding">@Unitdetails.CITYNAME </label></td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding label-danger">كود الوحدة: </label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding">@Unitdetails.UNIT_CODE</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="alert-success">
+                                            <label class="ng-binding label-danger">الشركة المنفذة :</label>
+                                        </td>
+                                        <td>
+                                            @Unitdetails.CONTRACTOR
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding label-danger">كود المنطقة :</label>
+                                        </td>
+                                        <td>
+                                            @Unitdetails.AREA_CODE
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding label-danger">إسم المنطقة :</label>
+                                        </td>
+                                        <td>
+                                            @Unitdetails.AREA
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="alert-success">
+                                            <label class="ng-binding">الموقع: </label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding"> @Unitdetails.LOCATION</label>
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding">النموذج  :</label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding">@Unitdetails.SAMPLE</label>
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding">رقم العمارة  :</label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding"> @Unitdetails.BUILDING_NUMBER</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="alert-success">
+                                            <label class="ng-binding  label-danger">رقم الوحدة:</label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding"> @Unitdetails.UNIT_NUMBER</label>
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding  label-danger">الدور :</label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding">  @Unitdetails.LEVEL_NUMBER</label>
+                                        </td>
+                                        <td class="alert-success">
+                                            <label class="ng-binding  label-danger">المساحة   :</label>
+                                        </td>
+                                        <td>
+                                            <label class="ng-binding"> @Unitdetails.SPACE</label>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @*<a href="~/reservation/UnReserveUnit/@Model.ID" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من أنك تريد الالغاء ؟');">الغاء الوحدة</a>*@
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <div class="col-lg-10 col-sm-12">
+                            @{
+                                Html.BeginForm("ReservUnitNew", "Reservation", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "false" });
+                                @Html.AntiForgeryToken()
+                                var user = (ShmffPortal.Models.RegisterSSN)ViewBag.User;
+
+
+                                <div class="row mff_theme">
+                                    <div class="cell-12">
+                                        <h3 class="block-head block-head-green green_font ng-scope">
+                                            <i class="fa fa-check-circle"></i> البيانات الاساسية لمقدم الطلب
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-input">
+                                            <label class="ng-binding">بطاقة الرقم القومي: @ViewBag.PrimaryInvestorSSN </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-input">
+                                            <label class="ng-binding">اسم صاحب الطلب : @ViewBag.PrimaryInvestorName </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="PRIMARY_INVESTOR_SSN" value="@ViewBag.PrimaryInvestorSSN" />
+                                <input type="hidden" name="PRIMARY_INVESTOR_GENDER" value="@ViewBag.Gander" />
+                                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                                <input type="hidden" id="MyMainADv" name="MyMainADv" value="@ViewBag.MyMainADv" />
+                                <div class="row mff_theme">
+                                    <div class="cell-12">
+                                        <h3 class="block-head block-head-green green_font ng-scope">
+                                            <i class="fa fa-check-circle"></i> الوحدة السكنية المراد شرائها
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="snnInput" class="required"> كود الوحدة : </label><i class="fa fa-question-circle" title="كود الوحدة المطلوبة  " data-toggle="tooltip" data-placement="top"></i>
+                                        <div class="form-group">
+                                            <input type="text" name="UNITCODE" id="UNITCODE" />
+                                            @Html.ValidationMessageFor(model => model.UNITCODE, "", new { @class = "text-danger" })
+                                            <span id="Errmsg"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="اختيار" id="ReservUnit" name="ReservUnit" class="btn btn-success" onclick="return ValidateU();" />
+                                <div class="row" id="Unitdetails">
+                                </div>
+                                <div class="row" id="Endsession" style="display:none;">
+                                    <div class="col-md-12">
+                                        <div class="alert-danger">
+                                            أنتهت الجلسة الخاصة بكم برجاء تسجيل الدخول مره اخري
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                @*<div class="row">
+                        <div class="col-md-6">
+                            في حالة الرغبة في حجز وحدة غير متاحة حاليا <a href="~/Reservation/Wishes" class="text-danger"> اضغط هنا</a>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ValidateU() {
+        $('.error').remove();
+        var isAllValid = true;
+        var UNITCODE = $('#UNITCODE').val();
+        if (UNITCODE.length < 1) {
+            $('#UNITCODE').after('<span class="text-danger error">مطلوب </span>');
+            $('#UNITCODE').focus();
+            isAllValid = false;
+            return false;
+        }
+    }
+</script>

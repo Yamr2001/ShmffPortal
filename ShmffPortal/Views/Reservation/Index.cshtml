@@ -1,0 +1,430 @@
+﻿@model ShmffPortal.Models.TermsCondition
+@{
+    ViewBag.Title = " اقرار ";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+}
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                @{
+
+                    //if (ViewBag.HasApp == null)
+                    //{
+                    //if (ViewBag.Nopaid == null)
+                    //{
+                    if (ViewBag.HasUnitBefore == null)
+                    {
+                        if (ViewBag.NoCancelled == null)
+                        {
+                            if (ViewBag.HasUnitMiddelBefore == null)
+                            {
+                                if (ViewBag.HasAppBefore == null)
+                                {
+                                    Html.BeginForm();
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ADVID" value="@ViewBag.ID" />
+
+                                    <div class="cell-12 rit">
+                                        <div class="notices">
+                                            <div class="black_font box warning-box fx animated fadeInRight alert alert-warning" data-animate="fadeInRight">
+                                                <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:justify;"><strong><u><span style="font-family:Sakkal Majalla;"><span style="font-size:14.0pt;">إقرار</span></span></u></strong></p>
+                                                <ul dir="ltr">
+                                                    <li dir="RTL" style="margin-top:0in;margin-right:14.05pt;margin-bottom:0in;margin-bottom:.0001pt;text-align:justify;">
+                                                        <table align="right" border="0" cellpadding="0" cellspacing="0" dir="rtl" style="border-collapse:collapse;margin-left:6.75pt;margin-right:6.75pt;">
+                                                            <tbody>
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span>
+                                                                            <span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	بإطلاعى وإلتزامى بالشروط الأساسية للتمويل العقارى وفقا لأحكام القانون رقم 148 لسنة 2001 ولائحته التنفيذية وتعديلاتهما، كما أقر  بالتزامي بأحكام قانون الإسكان الإجتماعى ودعم التمويل العقاري رقم 93 لسنة 2018 وقرارات مجلس إدارة الصندوق، وكذلك شروط مبادرة البنك المركزي المصرى وتعديلاتها لإتاحة التمويل العقاري.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أن جميع المستندات المرفقة بالطلب المقدم منى صحيحة وتحت مسئوليتي وكذا جميع البيانات المحررة بالطلب مدونة بمعرفتى وصحيحة وتحت مسئوليتى، وفي حالة المخالفة أكون مسئولاً جنائياً ومدنياً وأعاقب طبقاً لأحكام مواد قانون العقوبات وقانون الإسكان الإجتماعى ودعم التمويل العقارى. ويحق للجهة المالكة للوحدات (صندوق الإسكان الاجتماعي ودعم التمويل العقاري) إلغاء التخصيص واسترداد الوحدة دون إنذار أو حكم قضائي واتخاذ كافة الإجراءات القانونية اللازمة لحفظ حقوقها.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أنني لم يسبق لى أو الأسرة (الزوج/الزوجة/الأولاد القصر) الإستفادة من مبادرات التمويل العقارى السابقة الصادرة من البنك المركزي بقرارات مجلس إدارته بتاريخ فبراير 2014 و/ أو بتاريخ ديسمبر 2019 وتعديلاتهما و/أو بتاريخ يوليو 2021.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أن جميع البيانات الخاصة بالدخل المدونة بالطلب هى صافى الدخل السنوى/الشهري الخاص بى من جميع مصادر الدخل سواء أساسى أو إضافى. وأقر بأننى لا أمتلك أى أملاك تدر علي دخل إضافى مثل الأملاك الزراعية أو العقارات أو الأراضى أو اى معاش إستثنائي أو خلافه. كما أقر بأننى لا أمتلك أى محلات تجارية ولا أعمل بأى مهن تجارية أو غير تجارية أو أية أعمال حرة أو خلافه و ليس لى أى مصادر أخرى تدر على دخل إضافى، بخلاف الموضح بالطلب المقدم مني.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أنني لا أمتلك أى سندات أو أسهم أو ودائع أو أى أوعية إدخارية بأى من فروع البنوك العاملة فى جمهورية مصر العربية أو حسابات التوفير أو أى أوراق مالية تدر على دخل إضافى لم أذكرها بطلبى.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	بإلتزامى بالانتفاع بالوحدة السكنية التى سيتم تخصيصها لي وأن أقوم بشغلها بغرض السكن وفقاً لقواعد صندوق الإسكان الاجتماعي ودعم التمويل العقاري.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	يتعين موافقه الصندوق على أى تصرفات فى الوحدة السكنية سواء بالبيع أو الهبة أو غيــر ذلك من التصرفات أو ترتيب أى حق عينى على الوحدة أو تأجيرها أو تمكين الغير من الإنفراد بشغلها أو فى حالة الرغبة فى السداد المعجل بباقى الأقساط، وذلك خلال مدة سبع سنوات من تاريخ الاستلام، أو ما بعد تلك المدة.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	انه فى حالة إخلالى بأى مما سبق أو استعمال الوحدة السكنية المخصصة لى فى غيــر غرض السكنى، أو فى حالة ثبوت وجود مصدر من مصادر الدخل لم افصح عنها عند تقديم طلب الحصول على الوحدة السكنية المدعومه غير مباشر من الصندوق، أو في حالة عدم الإبلاغ عن أى تغييرات إيجابية تطرأ على دخلى خلال أسبوع من حدوث تلك التغييرات وقبل الحصول على قيمة الدعم غيـر المباشر، أو  في حالة عدم صحة البيانات المقدمة منى والتى ترتب عليها حصولى على دعم غيـر مستحق، أقر بإلتزامى برد قيمة تكلفة الدعم غير المباشر والتعويضات المناسبة وتحمل المسئولية الجنائية والمدنية المترتبة على الإخلال بأى مما سبق ذكره، وللصندوق الحق فى اتخاذ الإجراءات القانونية التى يراها مناسبة لضمان حقوقه بما فيها حق كل من الصندوق أو جهه التمويل في إسترداد الوحدة المدعومة حتى ولو كان قد تم تسليمها لى، وإلتزامى بالخضوع لقواعد السـحب الإدارى للوحدة المقررة من الصندوق فى حالة مخالفتى لأحكام قانون الإسكان الاجتماعي ودعم التمويل العقاري رقم 93 لسنه 2018 ووفقاً لقرارات مجلس إدارة الصندوق.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أن أقوم بإنهاء الإجراءات التعاقدية المطلوبة مع جهة التمويل فى أجل غايته 30 يوما من تاريخ التخصيص وألا جاز  للصندوق إعتبار التأخيـر عن ذلك الأجل تنازلاً عن الوحدة المخصصة وفى هذه الحالة لا يكون لى الحق فى التمسك بأولوية الحجز.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أنني على علم ودراية أن الحد الأقصى للتعامل على طلبى لن تزيد عن مدة عام يتم احتسابها من تاريخ ورود نتيجة الاستعلام الميداني فى حال إنطباقى للشروط.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	بإلتزامى أنني أفوض صندوق الإسكان الإجتماعى ودعم التمويل العقارى بالإطلاع بنفسه أو بواسطة جهة التمويل على جميع الودائع والأرصدة النقدية وغيرها وشهادات الاستثمار والمودعة لدى البنوك. وكذلك فوضته فى الإطلاع على جميع حساباتى بجميع البنوك العاملة فى مصر وعلى أية بيانات أو معلومات تخص أرصدتى. أو استخدام أي وسيلة أخرى يراها مناسبة للتحقق من صحة بيانات الدخل المقدمة مني متضمنة مراجعة كافة الاستهلاكات وأنماط الإنفاق.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	بعدم التعامل بأى تعاملات مالية مع أى طرف من الأطراف المُتعامل معها الصندوق فيما عدا الجهات المنصوص عليها بالإعلان كبنك التعمير والإسكان وجهات التمويل، وفى حالة دفع أى مبالغ فى غيـر الإطار الرسمى (للحصول على الوحدة السكنية (أكون مسئولاً مسئولية كاملة عن ضياع فرصة التخصيص للوحدة السكنية مع تحملى المسؤلية القانونية كاملة ولايحق لى الرجوع على الصندوق.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أن عنوان المراسلات الموضح بهذا الطلب هو محلى المختار، وأية مراسلات أو إعلانات ترسل إلى على هذا العنوان تعتبر صحيحة ومنتجة لجميع آثارها القانونية، وكذلك الرسائل النصية التى تُرسل على رقم الهاتف المُسجل باستمارة الحجز للصندوق.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أنني أوافق على قيام الصندوق بالاستعلام بنفسه أو بواسطة جهة التمويل أو أي وسيلة أخرى يراها مناسبة للتحقق عن صحة كافة البيانات والمستندات المقدمة مني للصندوق.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أقر بمعرفتى الكاملة بكافة المبالغ المالية المطلوب سدادها وذلك من خلال المحددات الموضحة بتطبيق الحاسبة الإلكترونية (سعر الوحدة - السن - الدخل - معدل العائد) والتي تبين القيمة التقديرية لكل من (مبلغ التمويل - القسط الشهري - فترة التمويل) ، مع موافقتي على خصم كافة المصروفات المقررة حال عدولي عن رغبتي في استكمال إجراءات الحصول على الوحدة السكنية المخصصة لي وفقاَ لما هو مشار إليه بالضوابط العامة من كراسة الشروط.
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height:77px;">
+                                                                    <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                        <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                            <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                <span style="font-size:12.0pt;">
+                                                                                    ▪	أنني على علم أن الحد الأقصى للمدة الزمنية لإستلام الوحدات السكنية (6 اشهر) من تاريخ استلام خطاب التسليم من جهة التمويل، مع اعطائي مهلة إضافية قدرها(6أشهر)لسحب الوحدة في حالة عدم استلامها
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                @*<tr style="height:77px;">
+                                                                        <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                            <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                                <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                    <span style="font-size:12.0pt;">
+                                                                                        أنني أوافق على قيام الصندوق بالاستعلام بنفسه أو بواسطة جهة التمويل أو أي وسيلة أخرى يراها مناسبة للتحقق عن صحة كافة البيانات والمستندات المقدمة مني للصندوق.
+                                                                                    </span>
+                                                                                </span>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>*@
+
+
+
+                                                                @*<tr style="height:77px;">
+                                                                        <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                            <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                                <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                    <span style="font-size:12.0pt;">
+                                                                                        أقر بمعرفتى الكاملة بكافة المبالغ المالية المطلوب سدادها وذلك من خلال المحددات الموضحة بتطبيق الحاسبة الإلكترونية (سعر الوحدة - السن - الدخل - معدل العائد) والتي تبين القيمة التقديرية لكل من (مبلغ التمويل - القسط الشهري - فترة التمويل) ، مع موافقتي على خصم كافة المصروفات المقررة حال عدولي عن رغبتي في استكمال إجراءات الحصول على الوحدة السكنية المخصصة لي وفقاَ لما هو مشار إليه بالضوابط العامة من كراسة الشروط.
+                                                                                    </span>
+                                                                                </span>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>*@
+                                                                @*<tr style="height:77px;">
+                                                                        <td style="padding:0in 5.4pt 0in 5.4pt;height:77px;vertical-align:top;">
+                                                                            <p dir="RTL" style="margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal;direction:rtl;unicode-bidi:embed;">
+                                                                                <span dir="LTR"><span style="font-family:Sakkal Majalla;"><span style="font-size:12.0pt;">-</span></span></span><span style="font-family:Sakkal Majalla;">
+                                                                                    <span style="font-size:12.0pt;">
+                                                                                        ▪	أنه فى حالة وفاة المُتقدم صاحب الطلب ولم يصل الملف إلى مرحلة إنهاء التعاقد ومنح التمويل يعتبـر مقدم حجز الوحدة السكنية وجميع المبالغ المالية التى قام بسدادها للحصول على الوحدة السكنية بمثابة حق خالص للزوج/الزوجة والأولاد القصر دون غيرهم من باقى الورثة الشرعيين للمتوفى وذلك فقط فى حالة رغبتهم فى استكمال الإجراءات على الوحدة السكنية المتقدم عليها المتوفى .
+                                                                                    </span>
+                                                                                </span>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>*@
+
+                                                            </tbody>
+                                                        </table>
+
+
+
+                                                        <div style="clear:both;">&nbsp;</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="cell-12 rit ng-hide">
+                                            <div class="form-group">
+                                                @Html.CheckBoxFor(x => x.accepted)
+                                                @Html.LabelFor(x => x.accepted)
+                                                <span class="text-danger"> @Html.ValidationMessageFor(x => x.accepted)</span>
+                                            </div>
+                                        </div>
+                                        <div class="cell-12 rit ng-hide">
+                                            <div class="box warning-box animated fadeInRight" data-animate="fadeInRight">
+                                                <input type="submit" class="btn btn-success" value="موافق">
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-warning">
+                                                یوجد لدیكم طلب اخر باسم الشريك.
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-warning">
+                                            یوجد لدیكم  @ViewBag.CheckHasMiddleUnit.PRIMARY_INVESTOR_FULL_NAME  تقدیم سابق في
+                                            (@ViewBag.CheckHasMiddleUnit.ADV_NAME) (@ViewBag.CheckHasMiddleUnit.NAME_AR)،
+                                            وفي حالة الرغبة في الاستمرار في تسجيل طلبكم وقد قمتم بالفعل بسحب مقدم جدية الحجز بالاعلان السابق/ أو لم تقوموا باسترداد مقدم جدية الحجز بالإعلان السابق، يرجى التواصل مع مركز الاتصالات على رقم (090071117 من أى خط أرضى -1188 /5777/5999 من أى رقم موبايل من الأحد إلى الخميس من الساعة التاسعة صباحاً حتى السادسة مساءاً
+                                            @*فى حالة وجود أى استفسار برجاء إرسال رسالة إلى البرید
+                                                الإلكتروني com.gmail@shmff.middleincome أو التواصل مع مركز الإتصالات
+                                                (090071117 من أى خط أرضى -1188/ 5999/5777 من أى رقم موبایل من الأحد إلى
+                                                الخمیس من الساعة التاسعة صباحاً حتى السادسة مساءاً على أن یتم ذلك خلال مرحلة التسجیل
+                                                على البوابة الإلكترونیة.*@
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning">
+                                        يوجد لديك تقديم في اعلان سابق <span class="text text-danger">@ViewBag.Dimsub.Adv_Name</span>
+                                        وفي حالة الرغبة في الاستمرار في تسجيل طلبكم وقد قمتم بالفعل بسحب مقدم جدية الحجز بالاعلان السابق/ أو لم تقوموا باسترداد مقدم جدية الحجز بالإعلان السابق، يرجى التواصل مع مركز الاتصالات على رقم (090071117 من أى خط أرضى -1188 /5777/5999 من أى رقم موبايل من الأحد إلى الخميس من الساعة التاسعة صباحاً حتى السادسة مساءاً
+
+                                        @*وفي حالة الرغبة في الاستمرار في الحجز يرجي ارفاق ما يفيد سحب مقدم جدية الحجز بذلك الاعلان علي البريد الالكتروني
+                                            middleincome.shmff@gmail.com أو التواصل  مع مركز الإتصالات
+                                            (090071117 من أى خط أرضى -1188/ 5999/5777 من أى رقم موبایل من الأحد إلى
+                                            الخمیس من الساعة التاسعة صباحاً حتى السادسة مساءاً على أن یتم ذلك خلال مرحلة التسجیل
+                                            على البوابة الإلكترونیة..*@
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    يوجد سبق تخصيص
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td>الاعلان: </td>
+                                            <td>@ViewBag.CheckHasUnit.Adv_Name</td>
+                                            <td>الموقع: </td>
+                                            <td>@ViewBag.CheckHasUnit.LOCATION</td>
+                                            <td>الوحدة: </td>
+                                            <td>>@ViewBag.CheckHasUnit.UNIT_NUMBER</td>
+                                        </tr>
+                                        <tr>
+                                            <td>المساحة: </td>
+                                            <td>@ViewBag.CheckHasUnit.AREA</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    @*}
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning">
+                                        برجاء التأكد من سداد مقدم الحجز
+                                    </div>
+                                </div>
+                            </div>
+                            }*@
+                    @*}
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning">
+                                        يوجد لديك طلب مُقدم بالفعل يمكنك متابعته من <a href="~/reservation/applications">هنا</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }*@
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        // extend jquery range validator to work for required checkboxes
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            if (element.type === 'checkbox') {
+                // if it's a checkbox return true if it is checked
+                return element.checked;
+            }
+            else {
+                // otherwise run the default validation function
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+    </script>
+
+}

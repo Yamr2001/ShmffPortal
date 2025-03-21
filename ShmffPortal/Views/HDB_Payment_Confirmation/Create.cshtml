@@ -1,0 +1,54 @@
+﻿@model ShmffPortal.Models.HDB_Payment_Confirmation
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>HDB_Payment_Confirmation</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">الرقم القومي</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CLIENT_SSN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CLIENT_SSN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">الاسم </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CLIENT_NAME_AR, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CLIENT_NAME_AR, "", new { @class = "text-danger" })
+            </div>
+        </div>
+ 
+ 
+        <div class="form-group">
+            <label class="control-label col-md-2">جدية الحجز (50500) </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DOWNPAYMENT_AMOUNT_COLLECTED_MFF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DOWNPAYMENT_AMOUNT_COLLECTED_MFF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

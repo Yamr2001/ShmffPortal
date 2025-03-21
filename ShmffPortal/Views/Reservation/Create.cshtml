@@ -1,0 +1,2656 @@
+﻿@model ShmffPortal.Models.subsidy_request
+@using ShmffPortal.Helpers
+
+@{
+    ViewBag.Title = "استمارة تقديم طلب حجز وحدة سكنية";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+    var isHasSubsidy = Model != null;
+    string gov = "";
+    string city = "";
+    string adv = "";
+    string proj = "";
+
+    if (isHasSubsidy)
+    {
+        gov = Model.Gov_Id.ToString();
+        city = Model.CityID.Value.ToString();
+        adv = Model.Adv_Id.ToString();
+        proj = Model.Project_Id.ToString();
+    }
+}
+<style>
+    .mff_theme .block-head {
+        position: relative;
+        margin-bottom: 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px #e2e2e2 solid;
+        font-weight: normal;
+    }
+
+    .mff_theme .green_font {
+        color: rgb(17, 148, 17) !important;
+    }
+
+    .mff_theme h1, .mff_theme h2, .mff_theme h3, .mff_theme h4, .mff_theme h5, .mff_theme h6 {
+        margin: 0 0 10px;
+        padding: 0;
+        font-weight: normal;
+        line-height: 1.5;
+    }
+
+    .mff_theme h1 {
+        font-size: 36px;
+    }
+
+    .required:after {
+        content: ' *';
+        color: red;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/jquery.datetimepicker.min.css">
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2> @ViewBag.Title</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</main>
+<br />
+
+<div class="contact-box-main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 col-sm-12">
+                @{
+                    DateTime startDate = new DateTime(2024, 11, 18);
+                    DateTime endDate = new DateTime(2025, 1, 1);
+
+                    Html.BeginForm("Create", "Reservation", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "false" });
+                    @Html.AntiForgeryToken()
+                    var user = (ShmffPortal.Models.RegisterSSN)ViewBag.User;
+                    <div id="SSNError" class="alert alert-danger" style="@(TempData["Error"]==null?"display:none":"display:block")">
+                        @TempData["Error"]
+                    </div>
+
+
+                    if (ViewBag.SBK != null)
+                    {
+                        if (ViewBag.SBK == 1)
+                        {
+                            <div id="SSNError" class="alert alert-danger">
+                                يوجد سبق استفادة وسيتم مراجعة الطلب
+                            </div>
+                        }
+                    }
+
+                    <div id="SuccessMsg" class="alert alert-success" style="@(TempData["Success"]==null?"display:none":"display:block")">
+                        @TempData["Success"]
+                    </div>
+                    <div class="row mff_theme">
+                        <div class="cell-12">
+                            <h3 class="block-head block-head-green green_font ng-scope">
+                                <i class="fa fa-check-circle"></i> البيانات الاساسية لمقدم الطلب
+                            </h3>
+                        </div>
+                    </div>
+
+
+                    @*<div class="row">
+                        <div class="col-md-4">
+                            <div class="form-input">
+                                <label for="snnInput" class="required">طريقة السداد : </label><i title="نوع التقديم" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-input">
+                                @Html.DropDownList("TamwelTypeId", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-input">
+                                <label class="ng-binding">بطاقة الرقم القومي: @ViewBag.PrimaryInvestorSSN </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-input">
+                                <label class="ng-binding">تاريخ الميلاد: @ViewBag.BDate </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-input">
+                                <label class="ng-binding">
+                                    النوع: @if (ViewBag.Gander == 1)
+                                    {
+                                        <span>ذكر</span>
+                                    }
+                                    else
+                                    {
+                                        <span>انثي</span>
+                                    }
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="PRIMARY_INVESTOR_SSN" value="@ViewBag.PrimaryInvestorSSN" />
+                    <input type="hidden" name="PRIMARY_INVESTOR_GENDER" value="@ViewBag.Gander" />
+                    <input type="hidden" name="ID" value="@ViewBag.ID" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="snnInput" class="required">اسم صاحب الطلب (كما هو مدون في بطاقة الرقم القومي باللغة العربية):</label><i class="fa fa-question-circle" title="الاسم الرباعي لصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_FULL_NAME, new { Value = ViewBag.PrimaryInvestorName, @class = "form-control" })
+                                <div>
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_FULL_NAME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">محمول: </label><i title="رقم الهاتف المحمول الشخصي لصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_CELL_NUMBER, new { Value = ViewBag.PrimaryPhone, @class = "form-control", @data_val_required = "مطلوب", @onkeypress = "return isNumberKey(event)" })
+                                <div>
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_CELL_NUMBER, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">الحالة الاجتماعية:</label><i title="الحالة الاجتماعية لصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("MARITAL_STATUS_ID", null, "أختر", htmlAttributes: new { @data_val_required = "مطلوب", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MARITAL_STATUS_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="childnumber" style="display:none;">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">عدد الابناء القصر: </label><i title="كتابة عدد الأبناء القصر" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.NUMBER_OF_FAMILY_MEMBERS, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                <div>
+                                    @Html.ValidationMessageFor(model => model.NUMBER_OF_FAMILY_MEMBERS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="SpouseInfo" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-12 text-success">
+                                <h4> بيانات الزوج/الزوجة</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">اسم الزوج/الزوجة (كما هو مدون في بطاقة الرقم القومي)* </label><i class="fa fa-question-circle" title="الاسم الرباعي للزوج/الزوجة" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_FULL_NAME, new { @class = "form-control", @autocomplete = "off" })
+                                    <div>
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_FULL_NAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required">مصري: </label><i class="fa fa-question-circle" title="يتم اختيار للجنسية المصرية " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("SPOUSE_EGYPTIAN", null, "أختر", htmlAttributes: new { @class = "form-control" })
+
+
+                                    @*@Html.CheckBox("SPOUSE_EGYPTIAN", new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @*@Html.CheckBoxFor(model => model.SPOUSE_EGYPTIANB)*@
+
+                                    @*<select id="SPOUSE_EGYPTIAN" name="SPOUSE_EGYPTIAN" class="form-control">
+                                            <option>أختر</option>
+                                            <option value="0">لا</option>
+                                            <option value="1">نعم</option>
+                                        </select>*@
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required">تاريخ الميلاد: </label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="إذا كان الزوج/ة مصري/ة سيتم ملء البيان من خلال النظام، وفي حال أن الزوج/ة غير مصري/ة سيتم ملء البيان يدوياً"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_BIRTH_DATE, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_BIRTH_DATE, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required" id="nameforssn">مستند إثبات الشخصية:</label><i title="الـ 14 رقم الموجودين أسفل البطاقة لمن يتمتع بالجنسية المصرية وكتابة الرقم المذكور بجواز السفر في حالة كونه غير مصري" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_SSN, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return checkSSN(event)" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_SSN, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">محمول </label><i class="fa fa-question-circle" title="رقم الهاتف المحمول الشخصي للزوج/ه" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_CELL_NUMBER, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_CELL_NUMBER, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required">هل الزوج/الزوجة تعمل؟: </label><i class="fa fa-question-circle" title="في حالة العمل يتم اختيار نعم وفي حالة عدم العمل يتم اختيار لا" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+
+                                    @Html.DropDownList("SPOUSE_IS_WORKING", null, "أختر", htmlAttributes: new { @class = "form-control" })
+
+                                    @*<select id="SPOUSE_IS_WORKING" name="SPOUSE_IS_WORKING" class="form-control">
+                                            <option>اختر</option>
+                                            <option value="0">لا</option>
+                                            <option value="1">نعم</option>
+                                        </select>*@
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="ISJOINDIV">
+                                <label for="snnInput" class="required">الزوج/الزوجة شريك في تملك الوحدة: </label><i class="fa fa-question-circle" title="إذا كان صاحب الطلب يرغب في إضافة دخل الزوج/ة بحيث تصبح شريك له بالشقة ولها احقية التوقيع معه" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @*@Html.CheckBoxFor(model => model.IS_JOINT_OWNERSHIPB)*@
+                                    @Html.DropDownList("IS_JOINT_OWNERSHIP", null, "أختر", htmlAttributes: new { @class = "form-control" })
+
+                                    @*<select id="IS_JOINT_OWNERSHIP" name="IS_JOINT_OWNERSHIP" class="form-control">
+                                            <option>اختر</option>
+                                            <option value="0">لا</option>
+                                            <option value="1">نعم</option>
+                                        </select>*@
+                                    @Html.ValidationMessageFor(model => model.IS_JOINT_OWNERSHIP, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mff_theme">
+                        <div class="cell-12">
+                            <h3 class="block-head block-head-green green_font ng-scope">
+                                <i class="fa fa-check-circle"></i>  بيانات مصادر دخل صاحب الطلب
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">تصنيف جهة العمل: </label><i class="fa fa-question-circle" title="قطاع حكومي / قطاع خاص / أعمال حرة ...الخ" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">محافظه العمل:</label><i title="المحافظة التي يوجد بها مكان العمل الخاص بصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">جهة العمل :</label><i class="fa fa-question-circle" title="ويقصد بها اسم محل العمل" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_NAME, new { @class = "form-control", @data_val_required = "مطلوب", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required"> وصف تفصيلي لمحل جهة العمل: </label><i class="fa fa-question-circle" title="عنوان جهة العمل الذي تم استخراج شهادة الدخل منه" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_ADDRESS, new { @class = "form-control", @data_val_required = "مطلوب", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_ADDRESS, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">المؤهل الدراسي:</label><i class="fa fa-question-circle" title="الدرجة العلمية أو الشهادة الجامعية" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput">الرقم التأميني :</label><i class="fa fa-question-circle" title="رقم صاحب الطلب بالتأمينات الاجتماعية سواء قطاع عام أو خاص أو أعمال حرة بوثيقة طابعة التأمينات" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.INSURANCE_NUMBER, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.INSURANCE_NUMBER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" id="Primary_OTHER_WORK" style="display:none;">
+                            <label for="snnInput" class="required">وصف العمل: </label><i class="fa fa-question-circle" title="وصف العمل في حالة أخري" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS, new { @class = "form-control", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">صافي الدخل الشهري :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_MONTHLY_INCOME, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_MONTHLY_INCOME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="button" value="اضافة مصدر دخل اخر" id="addextraPrimaryIncome" class="btn btn-success" />
+                        </div>
+                    </div>
+                    <div id="PrimaryIncomeExtra" style="display:none;">
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i>  بيانات مصادر دخل صاحب الطلب الاخري
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">تصنيف جهة العمل: </label><i class="fa fa-question-circle" title="قطاع حكومي / قطاع خاص / أعمال حرة ...الخ" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">محافظه العمل:</label><i title="المحافظة التي يوجد بها مكان العمل الخاص بصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">جهة العمل :</label><i class="fa fa-question-circle" title="ويقصد بها اسم محل العمل" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">وصف تفصيلي لمحل جهة العمل: </label><i class="fa fa-question-circle" title="عنوان جهة العمل الذي تم استخراج شهادة الدخل منه" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                    <label for="snnInput" class="required">المؤهل الدراسي:</label><i class="fa fa-question-circle" title="الدرجة العلمية أو الشهادة الجامعية" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.DropDownList("PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA, "" , new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4" id="Primary_Extra_OTHER_WORK" style="display:none;">
+                                <label for="snnInput" class="required">وصف العمل: </label><i class="fa fa-question-circle" title="وصف العمل في حالة أخري" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">صافي الدخل الشهري :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                    <label for="snnInput" class="required"> إجمالي صافي الدخل الشهري الأصلي والإضافي :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, new { @class = "form-control", @autocomplete = "off", @type = "number", @step = "0.01", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="button" value="حذف" id="DelextraPrimaryIncome" class="btn btn-danger" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="button" value="اضافة مصدر دخل اخر" id="addsecextraPrimaryIncome" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="PrimaryIncomesecExtra" style="display:none;">
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i>  بيانات مصادر دخل صاحب الطلب الاخري
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">تصنيف جهة العمل: </label><i class="fa fa-question-circle" title="قطاع حكومي / قطاع خاص / أعمال حرة ...الخ" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">محافظه العمل:</label><i title="المحافظة التي يوجد بها مكان العمل الخاص بصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">جهة العمل :</label><i class="fa fa-question-circle" title="ويقصد بها اسم محل العمل" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">وصف تفصيلي لمحل جهة العمل: </label><i class="fa fa-question-circle" title="عنوان جهة العمل الذي تم استخراج شهادة الدخل منه" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                    <label for="snnInput" class="required">المؤهل الدراسي:</label><i class="fa fa-question-circle" title="الدرجة العلمية أو الشهادة الجامعية" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.DropDownList("PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA, "" , new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4" id="Primary_Extra_OTHER_WORK" style="display:none;">
+                                <label for="snnInput" class="required">وصف العمل: </label><i class="fa fa-question-circle" title="وصف العمل في حالة أخري" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_SECEXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">صافي الدخل الشهري :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                    <label for="snnInput" class="required"> إجمالي صافي الدخل الشهري الأصلي والإضافي :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, new { @class = "form-control", @autocomplete = "off", @type = "number", @step = "0.01", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="button" value="حذف" id="DelsecextraPrimaryIncome" class="btn btn-danger" />
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required"> إجمالي صافي الدخل السنوي الأصلي والإضافي :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, new { @class = "form-control", @autocomplete = "off", @type = "number", @step = "0.01", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div id="spouseIncome" style="display:none;">
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i> بيانات مصادر دخل الزوج/الزوجة
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">تصنيف جهة العمل: </label><i class="fa fa-question-circle" title="قطاع حكومي / قطاع خاص / أعمال حرة ...الخ" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("SPOUSE_CLASSIFICATION_OF_WORK_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_CLASSIFICATION_OF_WORK_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">محافظه العمل:</label><i title="المحافظة التي يوجد بها مكان العمل الخاص بصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("SPOUSE_EMPLOYER_GOVERNORATE", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_GOVERNORATE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">جهة العمل :</label><i class="fa fa-question-circle" title="ويقصد بها اسم محل العمل" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_EMPLOYER_NAME, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_NAME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">وصف تفصيلي لمحل جهة العمل: </label><i class="fa fa-question-circle" title="عنوان جهة العمل الذي تم استخراج شهادة الدخل منه" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_EMPLOYER_ADDRESS, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_ADDRESS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المؤهل الدراسي:</label><i class="fa fa-question-circle" title="الدرجة العلمية أو الشهادة الجامعية" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("SPOUSE_ACADEMIC_DEGREE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_ACADEMIC_DEGREE_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput"> الرقم التأميني ::</label><i class="fa fa-question-circle" title="رقم الزوج/الزوجة بالتأمينات الاجتماعية سواء قطاع عام أو خاص أو أعمال حرة بوثيقة طابعة التأمينات" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_INSYRANCE_NUMBER, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_INSYRANCE_NUMBER, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4" id="SPOUSE_OTHER_WORK" style="display:none;">
+                                <label for="snnInput" class="required">وصف العمل: </label><i class="fa fa-question-circle" title="وصف العمل في حالة أخري" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_OTHER_WORK_CLASSIFICATIONS, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_OTHER_WORK_CLASSIFICATIONS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">صافي الدخل الشهري :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_MONTHLY_INCOME, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_MONTHLY_INCOME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="button" value="اضافة مصدر دخل اخر" id="addextraSpouseIncome" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                        <div id="Spouse_Extra_Income" style="display:none;">
+                            <div class="row mff_theme">
+                                <div class="cell-12">
+                                    <h3 class="block-head block-head-green green_font ng-scope">
+                                        <i class="fa fa-check-circle"></i> بيانات مصدر دخل الزوج/الزوجة اخر
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="snnInput" class="required">تصنيف جهة العمل: </label><i class="fa fa-question-circle" title="قطاع حكومي / قطاع خاص / أعمال حرة ...الخ" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.DropDownList("SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="snnInput" class="required">محافظه العمل:</label><i title="المحافظة التي يوجد بها مكان العمل الخاص بصاحب الطلب" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.DropDownList("SPOUSE_EMPLOYER_GOVERNORATE_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_GOVERNORATE_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="snnInput" class="required">جهة العمل :</label><i class="fa fa-question-circle" title="ويقصد بها اسم محل العمل" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SPOUSE_EMPLOYER_NAME_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_NAME_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="snnInput" class="required">وصف تفصيلي لمحل جهة العمل: </label><i class="fa fa-question-circle" title="عنوان جهة العمل الذي تم استخراج شهادة الدخل منه" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SPOUSE_EMPLOYER_ADDRESS_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_EMPLOYER_ADDRESS_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="col-md-4">
+                                        <label for="snnInput" class="required">المؤهل الدراسي:</label><i class="fa fa-question-circle" title="الدرجة العلمية أو الشهادة الجامعية" data-toggle="tooltip" data-placement="top"></i>
+                                        <div class="form-group">
+                                            @Html.DropDownList("SPOUSE_ACADEMIC_DEGREE_ID_EXTRA", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SPOUSE_ACADEMIC_DEGREE_ID_EXTRA, "" , new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4" id="SPOUSE_OTHER_WORK_EXTRA" style="display:none;">
+                                    <label for="snnInput" class="required">وصف العمل: </label><i class="fa fa-question-circle" title="وصف العمل في حالة أخري" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA, new { @class = "form-control", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="snnInput" class="required">صافي الدخل الشهري :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SPOUSE_MONTHLY_INCOME_EXTRA, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                        @Html.ValidationMessageFor(model => model.SPOUSE_MONTHLY_INCOME_EXTRA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="col-md-4">
+                                        <label for="snnInput" class="required"> إجمالي صافي الدخل الشهري الأصلي والإضافي :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.SPOUSE_TOTAL_ANNUAL_INCOME, new { @class = "form-control", @autocomplete = "off", @type = "number", @step = "0.01", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.SPOUSE_TOTAL_ANNUAL_INCOME, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="button" value="حذف" id="DelextraSpouseIncome" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required"> إجمالي صافي الدخل السنوي الأصلي والإضافي :</label><i class="fa fa-question-circle" title="قيمة صافي الدخل الشهري متضمن الحوافز والبدلات ويخصم منه الاستقطاعات" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.SPOUSE_TOTAL_ANNUAL_INCOME, new { @class = "form-control", @autocomplete = "off", @type = "number", @step = "0.01", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.SPOUSE_TOTAL_ANNUAL_INCOME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">مجموع صافي الدخل الشهري لصاحب الطلب والزوج أو الزوجة :</label><i class="fa fa-question-circle" title="مجموع صافي الدخل الأصلي والإضافي للزوج والزوجة" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.FAMILY_MONTHLY_INCOME, new { @class = "form-control", @autocomplete = "off", @readonly = "readonly", @type = "number", @step = "0.01" })
+                                @Html.ValidationMessageFor(model => model.FAMILY_MONTHLY_INCOME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mff_theme">
+                        <div class="cell-12">
+                            <h3 class="block-head block-head-green green_font ng-scope">
+                                <i class="fa fa-check-circle"></i> محل السكن الحالي<i class="fa fa-question-circle" title="محل الإقامة والمراسلات" data-toggle="tooltip" data-placement="top"></i>
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">اسم الشارع:</label><i class="fa fa-question-circle" title="الشارع الذي يقع به محل الإقامة الخاصة بصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_STREET_NAME, new { @class = "form-control", @data_val_required = "مطلوب", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_STREET_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">رقم العقار : </label><i class="fa fa-question-circle" title="رقم المنزل أو العمارة التي تتواجد بها الوحدة التي يسكن بها صاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_BUILDING_NUMBER, new { @class = "form-control", @data_val_required = "مطلوب", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_BUILDING_NUMBER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="snnInput" class="required"> رقم الوحدة  : </label><i class="fa fa-question-circle" title="رقم الوحدة السكنية داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_UNIT_NUMBER, new { @class = "form-control", @data_val_required = "مطلوب", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_UNIT_NUMBER, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="snnInput" class="required"> رقم الدور : </label><i class="fa fa-question-circle" title="رقم الدور داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_UNIT_FLOOR, new { @class = "form-control", @data_val_required = "مطلوب", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_UNIT_FLOOR, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">المحافظة :</label><i class="fa fa-question-circle" title="المحافظة التي يتبع لها السكن الحالي لصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("CURRENT_RESIDENCE_GOVERNORATE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_GOVERNORATE_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">المدينة  : </label><i class="fa fa-question-circle" title="المدينة التي يتواجد بها السكن الحالي لصاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_CITY, new { @class = "form-control", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_CITY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput">الرقم البريدي  : </label><i class="fa fa-question-circle" title="الرقم البريدي الذي يتبع له المنطقة او الحي الذي يسكن به صاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_POSTAL_CODE, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_POSTAL_CODE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">وصف تفصيلي لمحل السكن :</label><i class="fa fa-question-circle" title="وصف تفصيلي لمحل السكن" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_COMMENT, new { @class = "form-control", @data_val_required = "مطلوب" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_COMMENT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">نوع السكن  : </label><i class="fa fa-question-circle" title="نوع السكن" data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.DropDownList("CURRENT_RESIDENCE_RESIDENCE_TYPE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_RESIDENCE_TYPE_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="OTHER_RESIDENCE" style="display:none;">
+                            <label for="snnInput" class="required">وصف السكن : </label><i class="fa fa-question-circle" title="وصف نوع السكن في حالة أخري " data-toggle="tooltip" data-placement="top"></i>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                        <div class="col-md-6">
+                            <input type="button" value="اضافة محل سكن اخر" id="addextraAddress" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                    <div id="extra_Address" style="display:none;">
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i> محل السكن الاخر<i class="fa fa-question-circle" title="محل الإقامة والمراسلات الثاني" data-toggle="tooltip" data-placement="top"></i>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">اسم الشارع:</label><i class="fa fa-question-circle" title="الشارع الذي يقع به محل الإقامة الخاصة بصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">رقم العقار : </label><i class="fa fa-question-circle" title="رقم المنزل أو العمارة التي تتواجد بها الوحدة التي يسكن بها صاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required"> رقم الوحدة  : </label><i class="fa fa-question-circle" title="رقم الوحدة السكنية داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required"> رقم الدور : </label><i class="fa fa-question-circle" title="رقم الدور داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المحافظة :</label><i class="fa fa-question-circle" title="المحافظة التي يتبع لها السكن الحالي لصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المدينة  : </label><i class="fa fa-question-circle" title="المدينة التي يتواجد بها السكن الحالي لصاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput">الرقم البريدي  : </label><i class="fa fa-question-circle" title="الرقم البريدي الذي يتبع له المنطقة او الحي الذي يسكن به صاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_EXTRA_INVESTOR_POSTAL_CODE, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_EXTRA_INVESTOR_POSTAL_CODE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">وصف تفصيلي لمحل السكن :</label><i class="fa fa-question-circle" title="وصف تفصيلي لمحل السكن" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">نوع السكن  : </label><i class="fa fa-question-circle" title="نوع السكن" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("RESIDENTIAL_EXTRA_TYPE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.RESIDENTIAL_EXTRA_TYPE_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="EXTRA_OTHER_RESIDENCE" style="display:none;">
+                                <label for="snnInput" class="required">وصف السكن : </label><i class="fa fa-question-circle" title="وصف نوع السكن في حالة أخري " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                            <div class="col-md-6">
+                                <input type="button" value="حذف" id="DelextraAddress" class="btn btn-danger" />
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                            <div class="col-md-6">
+                                <input type="button" value="اضافة محل سكن اخر" id="addsecextraAddress" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="secextra_Address" style="display:none;">
+                        <div class="row mff_theme">
+                            <div class="cell-12">
+                                <h3 class="block-head block-head-green green_font ng-scope">
+                                    <i class="fa fa-check-circle"></i> محل السكن الاخر<i class="fa fa-question-circle" title="محل الإقامة والمراسلات الثاني" data-toggle="tooltip" data-placement="top"></i>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">اسم الشارع:</label><i class="fa fa-question-circle" title="الشارع الذي يقع به محل الإقامة الخاصة بصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">رقم العقار : </label><i class="fa fa-question-circle" title="رقم المنزل أو العمارة التي تتواجد بها الوحدة التي يسكن بها صاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER, new { @class = "form-control", @autocomplete = "off", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required"> رقم الوحدة  : </label><i class="fa fa-question-circle" title="رقم الوحدة السكنية داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="snnInput" class="required"> رقم الدور : </label><i class="fa fa-question-circle" title="رقم الدور داخل العقار " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المحافظة :</label><i class="fa fa-question-circle" title="المحافظة التي يتبع لها السكن الحالي لصاحب الطلب" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">المدينة  : </label><i class="fa fa-question-circle" title="المدينة التي يتواجد بها السكن الحالي لصاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput">الرقم البريدي  : </label><i class="fa fa-question-circle" title="الرقم البريدي الذي يتبع له المنطقة او الحي الذي يسكن به صاحب الطلب " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_SECEXTRA_INVESTOR_POSTAL_CODE, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_SECEXTRA_INVESTOR_POSTAL_CODE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">وصف تفصيلي لمحل السكن :</label><i class="fa fa-question-circle" title="وصف تفصيلي لمحل السكن" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="snnInput" class="required">نوع السكن  : </label><i class="fa fa-question-circle" title="نوع السكن" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.DropDownList("RESIDENTIAL_SECEXTRA_TYPE_ID", null, "أختر", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.RESIDENTIAL_SECEXTRA_TYPE_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="EXTRA_OTHER_RESIDENCE" style="display:none;">
+                                <label for="snnInput" class="required">وصف السكن : </label><i class="fa fa-question-circle" title="وصف نوع السكن في حالة أخري " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_INFO, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_INFO, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                            <div class="col-md-6">
+                                <input type="button" value="حذف" id="DelsecextraAddress" class="btn btn-danger" />
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row mff_theme">
+                        <div class="cell-12">
+                            <h3 class="block-head block-head-green green_font ng-scope">
+                                <i class="fa fa-check-circle"></i> الوحدة السكنية المراد شرائها
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <select required="" id="selectedAdvertisment" name="Adv_Id" onchange="changeUnitsMode()" 
+                                class="ng-dirty ng-touched ng-valid-parse ng-valid ng-valid-required form-control" fdprocessedid="krqfud">
+                            <option value="">اختر الاعلان</option>
+                            <option value="5000270">إعلان  سكن لكل المصريين (5) مدن جديدة (جاهز للتسليم)- منخفض الدخل -مساحة 75م2- بمقدم 30 ألف </option>
+                            <option value="5000271">إعلان  سكن لكل المصريين (5)  مدن جديدة (جاهز للتسليم) -منخفض الدخل - مساحة 90م2-بمقدم 30 ألف </option>
+                            <option value="5000272">إعلان سكن لكل المصريين (5) مدن جديدة (تسليم 36 شهر)- منخفض الدخل - مساحة 75م2-بمقدم 30 ألف </option>
+                            <option value="5000273">إعلان  سكن لكل المصريين (5) مدن جديدة  (تسليم 36 شهر)-  منخفض الدخل- مساحة90م2- بمقدم 30 ألف </option>
+                            <option value="5000274">إعلان  سكن لكل المصريين (5) محافظات-(جاهز للتسليم)- منخفض  الدخل- مساحة 75م2- بمقدم 20 ألف </option>
+                            <option value="5000275">إعلان  سكن لكل المصريين (5) محافظات- (جاهز للتسليم) منخفض الدخل - مساحة 90م2 -بمقدم 20 ألف </option>
+                            <option value="5000276">إعلان  سكن لكل المصريين (5) محافظات- (جاهز للتسليم)- متوسطي الدخل - مساحة 90م2 -بمقدم 20 ألف </option>
+                            <option value="5000277">إعلان سكن لكل المصريين (5) محافظات-(جاهز للتسليم)- متوسط  الدخل- مساحة 75م2- بمقدم 20 ألف </option>
+                            
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Adv_Id, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <select required="" class="form-control disabledInput ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="selectedGovernorate"
+                                    ng-model="subsidyRequest.selectedGovernorate"
+                                    name="Gov_Id"  fdprocessedid="11uci">
+                                <option value="">اختر المحافظة</option>
+                                <option label="القاهرة" value="0" @(Model != null && Model.Gov_Id ==0?"selected":"")>القاهرة</option>
+                                <option label="الجيزة" value="1" @(Model != null && Model.Gov_Id ==1?"selected":"")>الجيزة</option>
+                                <option label="الاسكندرية" value="2" @(Model != null && Model.Gov_Id ==2?"selected":"")>الاسكندرية</option>
+                                <option label="دمياط" value="3" @(Model != null && Model.Gov_Id ==3?"selected":"")>دمياط</option>
+                                <option label="الشرقية" value="4" @(Model != null && Model.Gov_Id ==4?"selected":"")>الشرقية</option>
+                                <option label="القليوبية" value="5" @(Model != null && Model.Gov_Id ==5?"selected":"")>القليوبية</option>
+                                <option label="السويس" value="6" @(Model != null && Model.Gov_Id ==6?"selected":"")>السويس</option>
+                                <option label="المنوفية" value="7" @(Model != null && Model.Gov_Id ==7?"selected":"")>المنوفية</option>
+                                <option label="البحيرة" value="8" @(Model != null && Model.Gov_Id ==8?"selected":"")>البحيرة</option>
+                                <option label="الفيوم" value="9" @(Model != null && Model.Gov_Id ==9?"selected":"")>الفيوم</option>
+                                <option label="بني سويف" value="10" @(Model != null && Model.Gov_Id ==10?"selected":"")>بني سويف</option>
+                                <option label="المنيا" value="11" @(Model != null && Model.Gov_Id ==11?"selected":"")>المنيا</option>
+                                <option label="أسيوط" value="12" @(Model != null && Model.Gov_Id ==12?"selected":"")>أسيوط</option>
+                                <option label="سوهاج" value="13" @(Model != null && Model.Gov_Id ==13?"selected":"")>سوهاج</option>
+                                <option label="قنا" value="14" @(Model != null && Model.Gov_Id ==14?"selected":"")>قنا</option>
+                                <option label="البحر الأحمر" value="15" @(Model != null && Model.Gov_Id ==15?"selected":"")>البحر الأحمر</option>
+                                <option label="أسوان" value="16" @(Model != null && Model.Gov_Id ==16?"selected":"")>أسوان</option>
+                                <option label="الدقهلية" value="17" @(Model != null && Model.Gov_Id ==17?"selected":"")>الدقهلية</option>
+                                <option label="الغربية" value="18" @(Model != null && Model.Gov_Id ==18?"selected":"")>الغربية</option>
+                                <option label="الإسماعيلية" value="19" @(Model != null && Model.Gov_Id ==19?"selected":"")>الإسماعيلية</option>
+                                <option label="كفر الشيخ" value="20" @(Model != null && Model.Gov_Id ==20?"selected":"")>كفر الشيخ</option>
+                                <option label="مطروح" value="21" @(Model != null && Model.Gov_Id ==21?"selected":"")>مطروح</option>
+                                <option label="الوادي الجديد" value="22" @(Model != null && Model.Gov_Id ==22?"selected":"")>الوادي الجديد</option>
+                                <option label="جنوب سيناء" value="23" @(Model != null && Model.Gov_Id ==23?"selected":"")>جنوب سيناء</option>
+                                <option label="شمال سيناء" value="24" @(Model != null && Model.Gov_Id ==24?"selected":"")>شمال سيناء</option>
+                                <option label="الأقصر" value="25" @(Model != null && Model.Gov_Id ==25?"selected":"")>الأقصر</option>
+                                <option label="بورسعيد" value="26" @(Model != null && Model.Gov_Id ==26?"selected":"")>بورسعيد</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Gov_Id, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control disabledInput ng-pristine ng-invalid ng-invalid-required ng-touched" id="selectedCity" name="CityID" fdprocessedid="md2pey">
+                                <option selected="selected"></option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        @*<input type="hidden" id="ADVFLAG" name="ADVFLAG" value="@ViewBag.ADVFLAG" />
+                        <input type="hidden" id="ADVID" value="@ViewBag.ADVFLAG" />
+                        <input type="hidden" id="RequestedUnitID" name="RequestedUnitID" />
+                        <input type="hidden" id="extraAddress" name="extraAddress" value="@ViewBag.extraAddress" />
+                        <input type="hidden" id="secextraAddress" name="secextraAddress" value="@ViewBag.secextraAddress" />
+                        <input type="hidden" id="Primaryextraincome" name="Primaryextraincome" value="@ViewBag.Primaryextraincome" />
+                        <input type="hidden" id="Primarysecextraincome" name="Primarysecextraincome" value="@ViewBag.Primarysecextraincome" />
+                        <input type="hidden" id="Spouseextraincome" name="Spouseextraincome" value="@ViewBag.Spouseextraincome" />*@
+
+                        @*<div class="col-md-4">
+                                    <label  for="snnInput" class="required" >الاعلان :</label><i class="fa fa-question-circle" title="الاعلان" data-toggle="tooltip" data-placement="top"></i>
+                                    <div class="form-group">
+                                        <input type="hidden" id="ADVID" value="@ViewBag.Advid" />
+                                    </div>
+                            </div>*@
+
+                        <div class="col-md-4">
+                                <label for="snnInput" class="required">المشروع : </label><i class="fa fa-question-circle" title="المشروع" data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    <select class="form-control" id="Project_Id" name="Project_Id"></select>
+                                </div>
+                            @Html.ValidationMessageFor(model => model.Project_Id, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        @*<div class="col-md-4">
+                                <label for="snnInput" class="required"> كود الوحدة   : </label><i class="fa fa-question-circle" title="كود الوحدة المطلوبة  " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.UNITCODE, new { @class = "form-control" })<input type="button" value="اختيار" id="ReservUnit" name="ReservUnit" class="btn btn-success" /> <input type="button" value="الغاء " id="UnReservUnit" name="UnReservUnit" class="btn btn-danger" style="display:none;" />
+                                    @Html.ValidationMessageFor(model => model.UNITCODE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+                    </div>
+
+                    @*<div class="row" id="Unitdetails">
+
+                        </div>*@
+
+                    <div class="row mff_theme">
+                        <div class="cell-12">
+                            <h3 class="block-head block-head-green green_font ng-scope">
+                                <i class="fa fa-check-circle"></i> مرفقات المُستندات المطلوبة (يتم ارفاق المستندات حسب كراسة الشروط)
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required PICTURE_SSNBRe">@Html.CheckBoxFor(model => model.PICTURE_SSNB) صورة من بطاقة الرقم القومي لصاحب الطلب: </label><i class="fa fa-question-circle" title="صورة من بطاقة الرقم القومي سارية" data-toggle="tooltip" data-placement="top"></i>
+                            @Html.ValidationMessageFor(model => model.PICTURE_SSNB, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label for="snnInput" PICTURE_INCOME_PROOFBRe">@Html.CheckBoxFor(model => model.PICTURE_INCOME_PROOFB) مستندات إثبات الدخل لصاحب الطلب: </label><i class="fa fa-question-circle" title="أصل شهادات بصافي الدخل الشهري لصاحب الطلب معتمدة ومختومة من جهة العمل " data-toggle="tooltip" data-placement="top"></i>
+                            @Html.ValidationMessageFor(model => model.PICTURE_INCOME_PROOFB, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="snnInput" PICTURE_CURRENT_RESIDENCE_PROOFBRe">
+                                @Html.CheckBoxFor(model => model.PICTURE_CURRENT_RESIDENCE_PROOFB)
+                                إيصال مرافق حديث للسكن الحالي:
+                            </label><i class="fa fa-question-circle" title="غاز/ كهرباء/ماء" data-toggle="tooltip" data-placement="top"></i>
+                            @Html.ValidationMessageFor(model => model.PICTURE_CURRENT_RESIDENCE_PROOFB, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required APPLICATION_CHECKBOXBRe">@Html.CheckBoxFor(model => model.APPLICATION_CHECKBOXB) استمارة الحجز: </label><i class="fa fa-question-circle" title="استمارة الحجز" data-toggle="tooltip" data-placement="top"></i>
+                            @Html.ValidationMessageFor(model => model.APPLICATION_CHECKBOXB, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required ACKNOWLEDGMENT_CHECKBOXBRe">@Html.CheckBoxFor(model => model.ACKNOWLEDGMENT_CHECKBOXB) الإقرار (موقع من المتقدم) : </label><i class="fa fa-question-circle" title="الإقرار (موقع من المتقدم) " data-toggle="tooltip" data-placement="top"></i>
+                            @Html.ValidationMessageFor(model => model.ACKNOWLEDGMENT_CHECKBOXB, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4" id="PICTURE_SPOUSE_SSNBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.PICTURE_SPOUSE_SSNB) صورة بطاقة الرقم القومي/مستند إثبات الشخصية (للزوج/للزوجة) : </label><i class="fa fa-question-circle" title="صورة من بطاقة الرقم القومي/مستند إثبات الشخصية (للزوج/للزوجة)*" data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" id="PICTURE_MARRIAGE_DIVISION_PROOFBDiv" style="display:none;">
+                            <label for="snnInput" class="required">
+                                @Html.CheckBoxFor(model => model.PICTURE_MARRIAGE_DIVISION_PROOFB)
+                                قسيمة الزواج :
+                            </label><i class="fa fa-question-circle" title="قسيمة الزواج " data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                        <div class="col-md-4" id="PICTURE_HUSBAND_NOT_WORKINGBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.PICTURE_HUSBAND_NOT_WORKINGB) إقرار بعدم عمل الزوج/الزوجة: </label><i class="fa fa-question-circle" title="إقرار بعدم عمل الزوج/بيان من التأمينات بعدم عمل الزوج: استمارة 6 أو إخلاء طرف من جهة العمل مع الإفادة الصحية التي تثبت عدم أهلية الزوج للعمل أو قدرته عليه  " data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="snnInput" class="required">@Html.CheckBoxFor(model => model.DOWNPAYMENT_CHECKBOXB) إيصال سدادمبلغ مُقدم جدية الحجز : </label>
+                            <i class="fa fa-question-circle" title="إيصال سدادمبلغ مُقدم جدية الحجز" data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" id="PARENT_PROOF_CHECKBOXBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.PARENT_PROOF_CHECKBOXB) شهادات ميلاد الأبناء القصر: </label><i class="fa fa-question-circle" title="شهادات ميلاد الأبناء القصر" data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                        <div class="col-md-4" id="DIVORCED_CHECKBOXBDiv" style="display:none;">
+                            <label for="snnInput"> @Html.CheckBoxFor(model => model.DIVORCED_CHECKBOXB) بيان النفقه (إن وجد)/إقرار بعدم وجود نفقة (موقع من المتقدم) : </label><i class="fa fa-question-circle" title="بيان النفقه (إن وجد)/إقرار بعدم وجود نفقة (موقع من المتقدم)" data-toggle="tooltip" data-placement="top"></i>
+
+                        </div>
+                        <div class="col-md-4" id="DIVORCED_PROOF_CHECKBOXBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.DIVORCED_PROOF_CHECKBOXB) صورة من قسيمة الطلاق: </label><i class="fa fa-question-circle" title="صورة من قسيمة الطلاق" data-toggle="tooltip" data-placement="top"></i>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" id="MARRIAGE_DEATH_PROOF_CHECKBOXBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.MARRIAGE_DEATH_PROOF_CHECKBOXB) صورة من شهادة وفاة الزوج/الزوجة* : </label><i class="fa fa-question-circle" title="صورة من شهادة وفاة الزوج/الزوجة* " data-toggle="tooltip" data-placement="top"></i>
+
+                        </div>
+                        <div class="col-md-4" id="WIDOWED_PROOF_CHECKBOXBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.WIDOWED_PROOF_CHECKBOXB) المعاش (إن وجد)/ إقرار بعدم وجود معاش (موقع من المتقدم) :</label><i class="fa fa-question-circle" title="المعاش (إن وجد)/ إقرار بعدم وجود معاش (موقع من المتقدم) " data-toggle="tooltip" data-placement="top"></i>
+
+                        </div>
+                        <div class="col-md-4" id="PICTURE_SPOUSE_INCOME_PROOFBDiv" style="display:none;">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.PICTURE_SPOUSE_INCOME_PROOFB) مستندات إثبات دخل الزوج/الزوجة : </label><i class="fa fa-question-circle" title="مستندات إثبات دخل الزوج/الزوجة " data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        @*
+                                <div class="col-md-4" id="PICTURE_REALESTATE_INTREST_PROOFB" style="display:none;">
+                                <label for="snnInput" class="required">كشف مشتملات (عوايد)عن العقار  : </label><i class="fa fa-question-circle" title="صورة من شهادة وفاة الزوج/الزوجة* " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">@Html.CheckBoxFor(model => model.PICTURE_REALESTATE_INTREST_PROOFB) </div>
+                            </div>*@
+                        @*<div class="col-md-4" id="PICTURE_INHERTINCE_PROOFB" style="display:none;">
+                                <label for="snnInput" class="required">@Html.CheckBoxFor(model => model.PICTURE_INHERTINCE_PROOFB) إعلام الوراثة :</label><i class="fa fa-question-circle" title="إعلام الوراثة" data-toggle="tooltip" data-placement="top"></i>
+
+                            </div>*@
+                        @*<div class="col-md-4">
+                                <label for="snnInput" class="required">إيصال شراء كراسةالشروط : </label><i class="fa fa-question-circle" title="إيصال شراء كراسةالشروط " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    @Html.CheckBox("PICTURE_SPOUSE_INCOME_PROOF", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.CheckBoxFor(model => model.BROUCHOUR_CHECKBOXB)
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="snnInput">@Html.CheckBoxFor(model => model.FAMILYREGISTRATION_CHECKBOXB) قيد عائلي مُميكن : </label><i class="fa fa-question-circle" title="قيد عائلي مُميكن* " data-toggle="tooltip" data-placement="top"></i>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                        <div class="col-md-6">
+                            <label for="snnInput">المستندات المطلوبة </label><i class="fa fa-question-circle" title="يرجى تحميل كل المرفقات المطلوبة على هيئة ملف PDF واحد  " data-toggle="tooltip" data-placement="top"></i><span style="font-size: 12px;" class="text-danger">يرجي التأكد من تحميل كافة المستندات المطلوبة طبقا لكراسة الشروط</span>
+                            <div class="form-group">
+                                <input type="file" name="ATTACHMENT_NAME" id="ATTACHMENT_NAME" accept="application/pdf" />
+                                @if (Model != null && Model.ID != 0)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(Model.ATTACHMENT_NAME))
+                                    {
+                                        <a href="~/Reservation/download?id=@Model.ID"><i class="fa fa-download  fa-2x" aria-hidden="true"></i>تحميل المرفقات</a>
+                                    }
+                                }
+                                <br />
+                                @*<span class="text-danger">
+                                        (لإرفاق مستند جديد يجب إرفاق جميع المستندات متضمنة المستند الجديد في ملف واحد)
+                                    </span><br />
+                                    <span class="text-danger">الملفات المسموح بها  Pdf</span> ,<br />
+                                    <span class="text-danger">اقصي حجم للملف المطلوب (2MB)</span><br />*@
+                                @Html.ValidationMessageFor(model => model.ATTACHMENT_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                                <label for="snnInput" class="required" >إيصال السداد بالبريد </label><i class="fa fa-question-circle" title="يرجى تحميل كل المرفقات المطلوبة على هيئة ملف PDF واحد  " data-toggle="tooltip" data-placement="top"></i>
+                                <div class="form-group">
+                                    <input type="file" name="OTHER_ATTACHMENT_NAME" id="OTHER_ATTACHMENT_NAME" />
+                                </div>
+                            </div>*@
+                    </div>
+
+                    
+                        <input type="submit" class="btn btn-lg btn-success" id="Send" onclick="return ValidateField();" value="ارسال">
+                    
+                }
+
+                <br />
+                <br />
+                <br /><br /><br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script src="~/Content/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/Scripts/ValidateSSN.js" type="text/javascript"></script>
+    <script src="~/Content/ParseSSN.js"></script>
+    <script>
+        $(document).ready(function () {
+            debugger
+            // Path to your JSON file
+            const cityJsonFilePath = "/city.json";
+            const projectJsonFilePath = "/project.json";
+
+            // Load JSON file
+            let citiesData = [];
+            let projectsData = [];
+            let citiesPromise = $.getJSON(cityJsonFilePath).done(function (data) {
+                citiesData = data;
+            });
+
+            let projectsPromise = $.getJSON(projectJsonFilePath).done(function (data) {
+                projectsData = data;
+            });
+            $.when(citiesPromise, projectsPromise).done(function () {
+                if ('@isHasSubsidy' === "True") {
+                    {
+                        $("#selectedGovernorate").val('@gov');
+                        $("#selectedAdvertisment").val('@adv');
+
+                        if($("#selectedGovernorate").val()){
+                            debugger
+                            $('#selectedCity').empty().append(new Option("اختر المدينة", ""));
+
+                            // Filter cities by selected governrateId
+                            const filteredCities = citiesData.filter(city => city.governrateId == $("#selectedGovernorate").val());
+
+                            // Populate cities dropdown
+                            filteredCities.forEach(city => {
+                                $('#selectedCity').append(new Option(city.cityName, city.cityId));
+                            });
+
+
+                            $("#selectedCity").val('@city');
+                        }
+
+                        if($("#selectedCity").val()){
+                            debugger
+                            $('#Project_Id').empty().append(new Option("اختر المشروع", ""));
+                            const selectedCityId = $("#selectedCity").val();
+                            const selectedAdvId = $("#selectedAdvertisment").val();
+                            // Populate cities dropdown
+                            const filteredProjects = projectsData.filter(project => project.cityId == selectedCityId && project.advertismentId == selectedAdvId);
+
+                            // Populate cities dropdown
+                            filteredProjects.forEach(project => {
+                                $('#Project_Id').append(new Option(project.projectName, project.projectId));
+                            });
+
+                            $("#Project_Id").val('@proj');
+
+                        }
+                    }
+                }});
+            // Handle governorate change
+            $('#selectedGovernorate').change(function () {
+debugger
+                const selectedGovernrateId = $(this).val();
+                $('#selectedCity').empty().append(new Option("اختر المدينة", "")).prop("disabled", true);
+
+                if (selectedGovernrateId) {
+                    // Filter cities by selected governrateId
+                    const filteredCities = citiesData.filter(city => city.governrateId == selectedGovernrateId);
+
+                    // Populate cities dropdown
+                    filteredCities.forEach(city => {
+                        $('#selectedCity').append(new Option(city.cityName, city.cityId));
+                    });
+
+                    $('#selectedCity').prop("disabled", false);
+                }
+            });
+
+
+            // Handle city change
+            $('#selectedCity').change(function () {
+debugger
+                const selectedCityId = $(this).val();
+                const selectedAdvId = $("#selectedAdvertisment").val();
+                $('#Project_Id').empty().append(new Option("اختر المشروع", "")).prop("disabled", true);
+
+                if (selectedCityId && selectedAdvId) {
+                    // Filter cities by selected governrateId
+                    const filteredProjects = projectsData.filter(project => project.cityId == selectedCityId && project.advertismentId == selectedAdvId);
+
+                    // Populate cities dropdown
+                    filteredProjects.forEach(project => {
+                        $('#Project_Id').append(new Option(project.projectName, project.projectId));
+                    });
+
+                    $('#Project_Id').prop("disabled", false);
+                }
+            });
+        });
+    </script>
+    <script>
+        //$('[data-toggle="tooltip"]').tooltip()
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function checkSSN(evt){
+            parseSSN('#SPOUSE_SSN','SPOUSE_BIRTH_DATE',true);
+        }
+        function validateNameNumber(name) {
+            var NAME = name.value;
+            var values = name.split(' ').filter(function (v) { return v !== '' });
+            if (values.length >= 4) {
+                //4 or more words
+                return true;
+            } else {
+                //not enough words
+                return false;
+            }
+        }
+
+        function changeUnitsMode(){
+            const selectedGovernrateId = $("#selectedGovernorate").val('');
+            $('#selectedCity').empty().append(new Option("اختر المدينة", "")).prop("disabled", true);
+            $('#Project_Id').empty().append(new Option("اختر المشروع", "")).prop("disabled", true);
+        }
+
+        function ValidateField() {
+            var isAllValid = true;
+            $('#pageloader').show();
+            $('.error').remove();
+
+
+            var checkName = validateNameNumber($('#PRIMARY_INVESTOR_FULL_NAME').val().trim());
+            if (!checkName) {
+                $('#PRIMARY_INVESTOR_FULL_NAME').after('<span class="text-danger error">برجاء إدخال الاسم رباعي</span>');
+                $('#PRIMARY_INVESTOR_FULL_NAME').focus();
+                isAllValid = false;
+            }
+
+            var MARITAL_STATUS_ID = $('#MARITAL_STATUS_ID').val();
+            if (MARITAL_STATUS_ID == 3 || MARITAL_STATUS_ID == 5 || MARITAL_STATUS_ID == 6) {
+                var NUMBER_OF_FAMILY_MEMBERS = $('#NUMBER_OF_FAMILY_MEMBERS').val();
+                if (NUMBER_OF_FAMILY_MEMBERS == "" || NUMBER_OF_FAMILY_MEMBERS == 0) {
+                    $('#NUMBER_OF_FAMILY_MEMBERS').after('<span class="text-danger error"> مطلوب</span>')
+                    isAllValid = false;
+                }
+            }
+
+            //if married
+            if (MARITAL_STATUS_ID == 1 || MARITAL_STATUS_ID == 6)
+            {
+                var SPOUSE_FULL_NAME = $('#SPOUSE_FULL_NAME').val();
+
+                if (SPOUSE_FULL_NAME == "") {
+                    $('#SPOUSE_FULL_NAME').after('<span class="text-danger error"> مطلوب</span>')
+                    isAllValid = false;
+                }
+                var checkName = validateNameNumber($('#SPOUSE_FULL_NAME').val().trim());
+                if (!checkName) {
+                    $('#SPOUSE_FULL_NAME').after('<span class="text-danger error">برجاء إدخال الاسم رباعي</span>');
+                    $('#SPOUSE_FULL_NAME').focus();
+                    isAllValid = false;
+                }
+                var SPOUSE_EGYPTIAN = $('#SPOUSE_EGYPTIAN').val();
+                if ($('#SPOUSE_EGYPTIAN').val() == "") {
+                    $('#SPOUSE_EGYPTIAN').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var SPOUSE_SSN = $('#SPOUSE_SSN').val();
+                if (SPOUSE_EGYPTIAN == 1) {
+                    var sNNResult = isValidSSN($('#SPOUSE_SSN').val());
+                    if (!sNNResult) {
+                        $('#SPOUSE_SSN').after('<span class="text-danger error"> برجاء إدخال رقم بطاقة صحيح </span>');
+                        isAllValid = false;
+                    }
+                }
+                else {
+                    if (SPOUSE_SSN == "") {
+                        $('#SPOUSE_SSN').after('<span class="text-danger error"> مطلوب</span>')
+                        isAllValid = false;
+                    }
+                }
+                var SPOUSE_CELL_NUMBER = $('#SPOUSE_CELL_NUMBER').val();
+                if (SPOUSE_CELL_NUMBER == "") {
+                    $('#SPOUSE_CELL_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+                //wife working
+                var SPOUSE_IS_WORKING = $('#SPOUSE_IS_WORKING').val();
+                if (SPOUSE_IS_WORKING == 1) {
+
+                    var SPOUSE_CLASSIFICATION_OF_WORK_ID = $('#SPOUSE_CLASSIFICATION_OF_WORK_ID').val();
+                    if (SPOUSE_CLASSIFICATION_OF_WORK_ID == "") {
+                        $('#SPOUSE_CLASSIFICATION_OF_WORK_ID').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_EMPLOYER_GOVERNORATE = $('#SPOUSE_EMPLOYER_GOVERNORATE').val();
+                    if (SPOUSE_EMPLOYER_GOVERNORATE == "") {
+                        $('#SPOUSE_EMPLOYER_GOVERNORATE').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_EMPLOYER_NAME = $('#SPOUSE_EMPLOYER_NAME').val();
+                    if (SPOUSE_EMPLOYER_NAME == "") {
+                        $('#SPOUSE_EMPLOYER_NAME').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_EMPLOYER_ADDRESS = $('#SPOUSE_EMPLOYER_ADDRESS').val();
+                    if (SPOUSE_EMPLOYER_ADDRESS == "") {
+                        $('#SPOUSE_EMPLOYER_ADDRESS').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_ACADEMIC_DEGREE_ID = $('#SPOUSE_ACADEMIC_DEGREE_ID').val();
+                    if (SPOUSE_ACADEMIC_DEGREE_ID == "") {
+                        $('#SPOUSE_ACADEMIC_DEGREE_ID').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_MONTHLY_INCOME = $('#SPOUSE_MONTHLY_INCOME').val();
+                    if (SPOUSE_MONTHLY_INCOME == "" || SPOUSE_MONTHLY_INCOME == 0) {
+                        $('#SPOUSE_MONTHLY_INCOME').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+
+                    var SPOUSE_CLASSIFICATION_OF_WORK_ID = $('#SPOUSE_CLASSIFICATION_OF_WORK_ID').val();
+                    if (SPOUSE_CLASSIFICATION_OF_WORK_ID == 3) {
+                        var SPOUSE_OTHER_WORK_CLASSIFICATIONS = $('#SPOUSE_OTHER_WORK_CLASSIFICATIONS').val();
+                        if (SPOUSE_OTHER_WORK_CLASSIFICATIONS == "") {
+                            $('#SPOUSE_OTHER_WORK_CLASSIFICATIONS').after('<span class="text-danger error"> مطلوب </span>')
+                            isAllValid = false;
+                        }
+                    }
+
+                }
+            }
+
+            //mash
+
+            var Primaryextraincome = $('#Primaryextraincome').val();
+            if (Primaryextraincome == 1)
+            {
+
+                var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA = $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA').val();
+                if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA == "") {
+                    $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+                var PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+                //var PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA = $('#PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA').val();
+                //if (PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA == "") {
+                //    $('#PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                //    isAllValid = false;
+                //}
+
+                var PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA = $('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val();
+                if (PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA == "") {
+                    $('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+            }
+            var Primarysecextraincome = $('#Primarysecextraincome').val();
+            if (Primarysecextraincome == 1)
+            {
+
+                var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA = $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA').val();
+                if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA == "") {
+                    $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_GOVERNORATE_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+                var PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA = $('#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA').val();
+                if (PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA == "") {
+                    $('#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+                //var PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA = $('#PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA').val();
+                //if (PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA == "") {
+                //    $('#PRIMARY_INVESTOR_ACADEMIC_DEGREE_ID_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                //    isAllValid = false;
+                //}
+
+                var PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA = $('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').val();
+                if (PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA == "") {
+                    $('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+            }
+
+
+            var extraAddress = $('#extraAddress').val();
+            if (extraAddress == 1) {
+
+                var PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET = $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET').val();
+                if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER = $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER').val();
+                if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+
+                var PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER = $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER').val();
+                if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER = $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER').val();
+                if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID = $('#PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID').val();
+                if (PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_GOVERNORATE_ID').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY = $('#PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY').val();
+                if (PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY == "") {
+                    $('#PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS = $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS').val();
+                if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS == "") {
+                    $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var RESIDENTIAL_EXTRA_TYPE_ID = $('#RESIDENTIAL_EXTRA_TYPE_ID').val();
+                if (RESIDENTIAL_EXTRA_TYPE_ID == "") {
+                    $('#RESIDENTIAL_EXTRA_TYPE_ID').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                if (RESIDENTIAL_EXTRA_TYPE_ID == 5) {
+                    //PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO
+                    var RESIDENTIAL_EXTRA_TYPE_ID = $('#RESIDENTIAL_EXTRA_TYPE_ID').val();
+                    if (PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO == "") {
+                        $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+                }
+
+            }
+
+            var secextraAddress = $('#secextraAddress').val();
+            if (secextraAddress == 1) {
+
+                var PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET = $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER = $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+
+                var PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER = $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER = $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID = $('#PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_GOVERNORATE_ID').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY = $('#PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY').val();
+                if (PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY == "") {
+                    $('#PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+
+                var PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS = $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS').val();
+                if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS == "") {
+                    $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var RESIDENTIAL_SECEXTRA_TYPE_ID = $('#RESIDENTIAL_SECEXTRA_TYPE_ID').val();
+                if (RESIDENTIAL_SECEXTRA_TYPE_ID == "") {
+                    $('#RESIDENTIAL_SECEXTRA_TYPE_ID').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                if (RESIDENTIAL_SECEXTRA_TYPE_ID == 5) {
+                    //PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO
+                    var RESIDENTIAL_SECEXTRA_TYPE_ID = $('#RESIDENTIAL_SECEXTRA_TYPE_ID').val();
+                    if (PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_INFO == "") {
+                        $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_INFO').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+                }
+
+            }
+
+            var Spouseextraincome = $('#Spouseextraincome').val();
+            if (Spouseextraincome==1) {
+                var SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA = $('#SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA').val();
+                if (SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA=="") {
+                    $('#SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var SPOUSE_EMPLOYER_GOVERNORATE_EXTRA = $('#SPOUSE_EMPLOYER_GOVERNORATE_EXTRA').val();
+                if (SPOUSE_EMPLOYER_GOVERNORATE_EXTRA=="") {
+                    $('#SPOUSE_EMPLOYER_GOVERNORATE_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var SPOUSE_EMPLOYER_NAME_EXTRA = $('#SPOUSE_EMPLOYER_NAME_EXTRA').val();
+                if (SPOUSE_EMPLOYER_NAME_EXTRA=="") {
+                    $('#SPOUSE_EMPLOYER_NAME_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                var SPOUSE_EMPLOYER_ADDRESS_EXTRA = $('#SPOUSE_EMPLOYER_ADDRESS_EXTRA').val();
+                if (SPOUSE_EMPLOYER_ADDRESS_EXTRA=="") {
+                    $('#SPOUSE_EMPLOYER_ADDRESS_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                //var SPOUSE_ACADEMIC_DEGREE_ID_EXTRA = $('#SPOUSE_ACADEMIC_DEGREE_ID_EXTRA').val();
+                //if (SPOUSE_ACADEMIC_DEGREE_ID_EXTRA=="") {
+                //    $('#SPOUSE_ACADEMIC_DEGREE_ID_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                //    isAllValid = false;
+                //}
+
+                var SPOUSE_MONTHLY_INCOME_EXTRA = $('#SPOUSE_MONTHLY_INCOME_EXTRA').val();
+                if (SPOUSE_MONTHLY_INCOME_EXTRA=="") {
+                    $('#SPOUSE_MONTHLY_INCOME_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+
+                if (SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA == 3)
+                {
+                    var SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA = $('#SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA').val();
+                    if (SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA=="") {
+                        $('#SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA').after('<span class="text-danger error"> مطلوب </span>')
+                        isAllValid = false;
+                    }
+                }
+            }
+
+
+            var CURRENT_RESIDENCE_RESIDENCE_TYPE_ID = $('#CURRENT_RESIDENCE_RESIDENCE_TYPE_ID').val()
+            if (CURRENT_RESIDENCE_RESIDENCE_TYPE_ID == 5) {
+                //PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_INFO
+                var CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO = $('#CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO').val();
+                if (CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO == "") {
+                    $('#CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+            }
+
+            var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID = $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID').val();
+            if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID == 3) {
+                var PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS = $('#PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS').val();
+                if (PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS == "") {
+                    $('#PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS').after('<span class="text-danger error"> مطلوب </span>')
+                    isAllValid = false;
+                }
+            }
+
+            if(@ViewBag.ID==0){
+                //  var attachfile=$('#ATTACHMENT_NAME')[0].files
+                if ($('#ATTACHMENT_NAME')[0].files.length === 0)
+                {
+                    $('#ATTACHMENT_NAME').after('<span class="error text-danger"> مطلوب </span>');
+                    isAllValid = false;
+                }
+
+                var maxSize = 2 * 1024 * 1024;
+                if ($('#ATTACHMENT_NAME')[0].files.size > maxSize) {
+                    $('#ATTACHMENT_NAME').after('<span class="error text-danger">الملف المسموح به 2 ميجا فقط</span>');
+                    isAllValid = false;
+                }
+            }
+            if ($('#PICTURE_SSNB').is(":checked")==false) {
+                $('.PICTURE_SSNBRe').after('<span class="error text-danger"> مطلوب</span>');
+                isAllValid = false;
+            }
+            //if ($('#PICTURE_INCOME_PROOFB').is(":checked")==false) {
+            //    $('.PICTURE_INCOME_PROOFBRe').after('<span class="error text-danger"> مطلوب</span>');
+            //    isAllValid = false;
+            //}
+            //if ($('#PICTURE_CURRENT_RESIDENCE_PROOFB').is(":checked")==false) {
+            //    $('#PICTURE_CURRENT_RESIDENCE_PROOFB').after('<span class="error text-danger"> مطلوب</span>');
+            //    isAllValid = false;
+            //}
+            if ($('#DOWNPAYMENT_CHECKBOXB').is(":checked") == false) {
+                $('#DOWNPAYMENT_CHECKBOXB').after('<span class="error text-danger"> مطلوب</span>');
+                isAllValid = false;
+            }
+            if ($('#APPLICATION_CHECKBOXB').is(":checked")==false) {
+                $('.APPLICATION_CHECKBOXBRe').after('<span class="error text-danger"> مطلوب</span>');
+                isAllValid = false;
+            }
+
+            if ($('#ACKNOWLEDGMENT_CHECKBOXB').is(":checked")==false) {
+                $('.ACKNOWLEDGMENT_CHECKBOXBRe').after('<span class="error text-danger"> مطلوب</span>');
+                isAllValid = false;
+            }
+
+            if (isAllValid) {
+                $('#pageloader').show();
+            } else
+            {
+                $('#pageloader').hide();
+                $('#Send').after('<span class="text-danger error"> يرجي إدخال كافة البيانات المطلوبة بالاعلي </span>');
+                return false;
+            }
+            $('#pageloader').hide();
+
+        }
+        //$(window).load(function() {
+        //    $('#loading').hide();
+        //});
+        $(document).ready(function ()
+        {
+            $('[data-toggle="tooltip"]').tooltip();
+            //$("#button").click(function () {
+            //    $("#form").submit();
+            //});
+            // $('form input').attr('readonly', 'readonly');
+            // $('form select').attr('readonly', 'readonly');
+            // $('form button').attr('readonly', 'readonly');
+            ////$('form select').attr('disabld', true);
+            // $("form select").prop('disabled', true);
+
+            $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+            $(window).on('load', function(){
+                setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
+            });
+
+            function removeLoader(){
+                $( "#loadingDiv" ).fadeOut(900, function() {
+                    // fadeOut complete. Remove the loading div
+                    $( "#loadingDiv" ).remove(); //makes page more lightweight
+                });
+            }
+
+            @*$("#ADVID").change(function () {
+                $("#PROJECTID").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPRoJECTS", "Reservation")',
+                    dataType: 'json',
+                    data: { id: $("#ADVID").val() },
+                    success: function (mems) {
+                        $("#PROJECTID").append($('<option/>', {
+                            value: "",
+                            text: "اختر"
+                        }));
+                        $.each(mems, function (i, member) {
+                            $("#PROJECTID").append('<option value="'
+                        + member.Value + '">'
+                        + member.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        debugger;
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+                return false;
+            });*@
+
+
+            var extraAddress = $('#extraAddress').val();
+            if (extraAddress == 1) {
+                $('#extra_Address').show();
+                $('#addextraAddress').hide();
+            }
+
+            var secextraAddress = $('#secextraAddress').val();
+            if (secextraAddress == 1) {
+                $('#secextra_Address').show();
+                $('#addsecextraAddress').hide();
+            }
+
+            var Primaryextraincome = $('#Primaryextraincome').val();
+            if (Primaryextraincome == 1) {
+                $('#Primaryextraincome').val("1");
+                $('#PrimaryIncomeExtra').show();
+                $('#addextraPrimaryIncome').hide();
+            }
+
+            var Primarysecextraincome = $('#Primarysecextraincome').val();
+
+            if (Primarysecextraincome == 1) {
+                $('#Primarysecextraincome').val("1");
+                $('#PrimaryIncomesecExtra').show();
+                $('#addsecextraPrimaryIncome').hide();
+            };
+
+
+            var Spouseextraincome = $('#Spouseextraincome').val();
+            if (Spouseextraincome == 1) {
+                $('#Spouse_Extra_Income').show();
+                $('#addextraSpouseIncome').hide();
+
+            }
+
+            var MARITAL_STATUSVal = $("#MARITAL_STATUS_ID").val();
+
+            if (MARITAL_STATUSVal == 3 || MARITAL_STATUSVal == 5 || MARITAL_STATUSVal == 6)
+            {
+                $("#childnumber").show();
+
+
+            }
+            else
+            {
+                $("#childnumber").hide();
+                //$('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+                //$('#PARENT_PROOF_CHECKBOXBDiv').hide();
+                //$('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+                //$('#DIVORCED_PROOF_CHECKBOXBDiv').hide();
+
+            }
+
+            if (MARITAL_STATUSVal == 1 || MARITAL_STATUSVal == 6)
+            {
+                $('#SpouseInfo').show();
+            }
+            else
+            {
+                $('#SpouseInfo').hide();
+            }
+            //check marital status doc
+            if (MARITAL_STATUSVal == 1)
+            {
+                $('#PICTURE_MARRIAGE_DIVISION_PROOFBDiv').show();
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+            }
+            else if(MARITAL_STATUSVal == 2)
+            {
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+                $('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                //$('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                //$('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+            }else if(MARITAL_STATUSVal==3)
+            {
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+                $('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                $('#PARENT_PROOF_CHECKBOXBDiv').show();
+            }
+            else if(MARITAL_STATUSVal==4)
+            {
+                $('#DIVORCED_PROOF_CHECKBOXBDiv').show();
+                $('#DIVORCED_CHECKBOXBDiv').show();
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+
+            }else if(MARITAL_STATUSVal==5){
+                $('#DIVORCED_PROOF_CHECKBOXBDiv').show();
+                $('#DIVORCED_CHECKBOXBDiv').show();
+                $('#PARENT_PROOF_CHECKBOXBDiv').show();
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+
+            }else if(MARITAL_STATUSVal==6){
+                $('#PICTURE_SPOUSE_SSNBDiv').show();
+                $('#PICTURE_MARRIAGE_DIVISION_PROOFBDiv').show();
+                $('#PARENT_PROOF_CHECKBOXBDiv').show();
+                $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').hide();
+            }
+
+
+            var SPOUSE_IS_WORKINGVal = $("#SPOUSE_IS_WORKING").val();
+            if (SPOUSE_IS_WORKINGVal == 1) {
+                //  $("#ISJOINDIV").show();
+                $('#spouseIncome').show();
+            }
+            else {
+                // $("#ISJOINDIV").hide();
+                $('#spouseIncome').hide();
+            }
+
+            $('#addextraAddress').click(function () {
+                $('#extraAddress').val("1");
+                $('#extra_Address').show();
+                $('#addextraAddress').hide();
+            });
+
+
+            $('#addsecextraAddress').click(function () {
+                $('#secextraAddress').val("1");
+                $('#secextra_Address').show();
+                $('#addsecextraAddress').hide();
+            });
+
+
+            $('#addextraPrimaryIncome').click(function () {
+                $('#Primaryextraincome').val("1");
+                $('#PrimaryIncomeExtra').show();
+                $('#addextraPrimaryIncome').hide();
+            });
+
+
+            $('#addsecextraPrimaryIncome').click(function () {
+                $('#Primarysecextraincome').val("1");
+                $('#PrimaryIncomesecExtra').show();
+                $('#addsecextraPrimaryIncome').hide();
+            });
+
+
+            $('#addextraSpouseIncome').click(function () {
+                $('#Spouseextraincome').val("1");
+                $('#Spouse_Extra_Income').show();
+                $('#addextraSpouseIncome').hide();
+            })
+
+            $('#DelextraSpouseIncome').click(function () {
+                $('#Spouseextraincome').val("0");
+                $('#Spouse_Extra_Income').hide();
+                $('#SPOUSE_MONTHLY_INCOME_EXTRA').val(0).change();
+                $('#addextraSpouseIncome').show();
+                $('#SPOUSE_EMPLOYER_NAME_EXTRA,#SPOUSE_EMPLOYER_ADDRESS_EXTRA,#SPOUSE_EMPLOYER_ADDRESS_EXTRA,#SPOUSE_OTHER_WORK_CLASSIFICATIONS_EXTRA').val('');
+            })
+
+            $('#DelextraAddress').click(function () {
+                $('#extraAddress').val("0");
+                $('#extra_Address').hide();
+                $('#addextraAddress').show();
+                $('#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_BUILDING_NUMBER,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_UNIT_NUMBER,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_LEVEL_NUMBER,#PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY,#PRIMARY_EXTRA_INVESTOR_POSTAL_CODE,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS').val('');
+            });
+
+            $('#DelsecextraAddress').click(function () {
+                $('#secextraAddress').val("0");
+                $('#secextra_Address').hide();
+                $('#addsecextraAddress').show();
+                $('#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_STREET,#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_BUILDING_NUMBER,#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_UNIT_NUMBER,#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_LEVEL_NUMBER,#PRIMAR_INVESTOR_SECEXTRA_RESIDENTIAL_CITY,#PRIMARY_SECEXTRA_INVESTOR_POSTAL_CODE,#PRIMARY_INVESTOR_SECEXTRA_RESIDENTIAL_DETAIL_ADDRESS').val('');
+            });
+
+
+            $('#DelextraPrimaryIncome').click(function () {
+                $('#Primaryextraincome').val("0");
+                $('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val(0).change();
+                $('#PrimaryIncomeExtra').hide();
+                $('#addextraPrimaryIncome').show();
+                $('#PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA,#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_EXTRA,#PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_EXTRA').val('');
+
+            });
+
+            $('#DelsecextraPrimaryIncome').click(function () {
+                $('#Primarysecextraincome').val("0");
+                $('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').val(0).change();
+                $('#PrimaryIncomesecExtra').hide();
+                $('#addsecextraPrimaryIncome').show();
+                $('#PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA,#PRIMARY_INVESTOR_EMPLOYER_ADDRESS_SECEXTRA,#PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS_SECEXTRA').val('');
+
+
+            });
+
+            $("#PRIMARY_INVESTOR_CELL_NUMBER").keyup(function (evt) {
+                var phonenum = $("#PRIMARY_INVESTOR_CELL_NUMBER").val();
+                if (phonenum.length == 1) {
+                    if (phonenum != 0) {
+                        $("#PRIMARY_INVESTOR_CELL_NUMBER").val('');
+                        return false;
+                    }
+                }
+                else if (phonenum.length == 2) {
+                    if (phonenum != 01) {
+                        var str = phonenum.substring(1, 2);
+                        if (str != 0) {
+                            $("#PRIMARY_INVESTOR_CELL_NUMBER").val('');
+                            return false;
+
+                        }
+                    }
+                }
+                else if (phonenum.length == 3) {
+                    if (phonenum != 010 || phonenum != 011 || phonenum != 012 || phonenum != 015) {
+                        phonenum = "";
+
+                        return false;
+                    }
+                    else {
+                        if (phonenum.length > 11) {
+                            return false;
+                        }
+                    }
+
+                }
+            });
+
+            $("#SPOUSE_CELL_NUMBER").keyup(function (evt) {
+                var phonenum = $("#SPOUSE_CELL_NUMBER").val();
+                //var phonenum = $("#Phone").val();
+                var strFirst = phonenum.substring(0, 1);
+                var strSec = phonenum.substring(0, 2);
+                var strtThird = phonenum.substring(0, 3);
+                if (phonenum.length >= 3) {
+                    if (strtThird == "010" || strtThird == "011" || strtThird == "012" || strtThird=="015") {
+                    } else {
+                        $("#Phone").val('');
+                        return false;
+                    }
+                }
+                /*
+                if (phonenum.length == 1) {
+                    if (phonenum != 0) {
+                        $("#Phone").val('');
+                        return false;
+                    }
+                }
+                else if (phonenum.length == 2) {
+                    if (phonenum != 01) {
+                        var str = phonenum.substring(1, 2);
+                        if (str != 0) {
+                            $("#Phone").val('');
+                            return false;
+
+                        }
+                    }
+                }
+                else if (phonenum.length == 3) {
+                    if (phonenum != "010" || phonenum != "011" || phonenum != "012" ) {
+                        phonenum = "";
+
+                        return false;
+                    }
+                    else {
+                        if (phonenum.length > 11) {
+                            return false;
+                        }
+                    }
+
+                }*/
+                if (phonenum.length == 11) {
+                    return false;
+                }
+                //if (phonenum.length == 1) {
+                //    if (phonenum != 0) {
+                //        $("#SPOUSE_CELL_NUMBER").val('');
+                //        return false;
+                //    }
+                //}
+                //else if (phonenum.length == 2) {
+                //    if (phonenum != 01) {
+                //        var str = phonenum.substring(1, 2);
+                //        if (str != 0) {
+                //            $("#SPOUSE_CELL_NUMBER").val('');
+                //            return false;
+                //        }
+                //    }
+                //}
+                //else if (phonenum.length == 3) {
+                //    if (phonenum != 010 || phonenum != 011 || phonenum != 012 || phonenum != 015) {
+                //        phonenum = "";
+
+                //        return false;
+                //    }
+                //    else {
+                //        if (phonenum.length > 11) {
+                //            return false;
+                //        }
+                //    }
+                //}
+            });
+
+            $('#SPOUSE_EGYPTIAN').change(function () {
+                var SpouseVal = $('#SPOUSE_EGYPTIAN').val();
+                if (SpouseVal == 1) {
+                    $('#nameforssn').empty();
+                    $('#nameforssn').text(' بطاقة الرقم القومي:');
+                    $('#SPOUSE_BIRTH_DATE').removeClass('birthdatepicker');
+                    $("#SPOUSE_BIRTH_DATE").datetimepicker("destroy");
+                    $("#SPOUSE_BIRTH_DATE").removeClass("hasDatepicker");
+                    $('#SPOUSE_BIRTH_DATE').removeClass('birthdatepicker');
+                    //   $("#SPOUSE_BIRTH_DATE").attr('readOnly', true);
+                } else {
+                    $('#nameforssn').empty();
+                    $('#nameforssn').text('مستند اثبات الشخصية: ');
+                    $('#SPOUSE_BIRTH_DATE').addClass('birthdatepicker');
+                    //   $("#SPOUSE_BIRTH_DATE").attr('readOnly', flase);
+                    $("#SPOUSE_BIRTH_DATE").datetimepicker({
+                        timepicker: false,
+                        format: "Y-m-d",
+                        maxDate: '+1970/01/01'
+                    });
+                }
+            });
+
+            var SpouseVal = $('#SPOUSE_EGYPTIAN').val();
+            if (SpouseVal == 1)
+            {
+                $('#nameforssn').empty();
+                $('#nameforssn').text(' بطاقة الرقم القومي:');
+                $('#SPOUSE_BIRTH_DATE').removeClass('birthdatepicker');
+                $("#SPOUSE_BIRTH_DATE").datetimepicker("destroy");
+                $("#SPOUSE_BIRTH_DATE").attr('readOnly', true);
+            }
+            else
+            {
+                $('#nameforssn').empty();
+                $('#nameforssn').text('مستند اثبات الشخصية: ');
+                $('#SPOUSE_BIRTH_DATE').addClass('birthdatepicker');
+                $("#SPOUSE_BIRTH_DATE").attr('readOnly', false);
+
+                $("#SPOUSE_BIRTH_DATE").datetimepicker({
+                    timepicker: false,
+                    format: "Y-m-d",
+                    maxDate: '+1970/01/01'
+                });
+            }
+
+            $("#MARITAL_STATUS_ID").change(function () {
+                var MARITAL_STATUSVal = $("#MARITAL_STATUS_ID").val();
+                if (MARITAL_STATUSVal == 3 || MARITAL_STATUSVal == 5 || MARITAL_STATUSVal == 6) {
+                    $("#childnumber").show();
+                } else {
+                    $("#childnumber").hide();
+                }
+
+                if (MARITAL_STATUSVal == 1 || MARITAL_STATUSVal == 6) {
+                    $('#SpouseInfo').show();
+                    // $("#ISJOINDIV").show();
+
+                } else {
+                    $('#SpouseInfo').hide();
+                    //  $("#ISJOINDIV").hide();
+                }
+                if (MARITAL_STATUSVal == 1 || MARITAL_STATUSVal == 6)
+                {
+                    $('#SpouseInfo').show();
+                }
+                else
+                {
+                    $('#SpouseInfo').hide();
+                }
+                //check marital status doc
+                if (MARITAL_STATUSVal == 1)
+                {
+                    $('#PICTURE_MARRIAGE_DIVISION_PROOFBDiv').show();
+                    $('#PICTURE_SPOUSE_SSNBDiv').show();
+                }
+                else if(MARITAL_STATUSVal == 2)
+                {
+                    $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+                    $('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                    $('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                    $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+                }else if(MARITAL_STATUSVal==3)
+                {
+                    $('#MARRIAGE_DEATH_PROOF_CHECKBOXBDiv').show();
+                    $('#WIDOWED_PROOF_CHECKBOXBDiv').show();
+                    $('#PARENT_PROOF_CHECKBOXBDiv').show();
+                }
+                else if(MARITAL_STATUSVal==4)
+                {
+                    $('#DIVORCED_PROOF_CHECKBOXBDiv').show();
+                    $('#DIVORCED_CHECKBOXBDiv').show();
+                }else if(MARITAL_STATUSVal==5){
+                    $('#DIVORCED_PROOF_CHECKBOXBDiv').show();
+                    $('#DIVORCED_CHECKBOXBDiv').show();
+                    $('#PARENT_PROOF_CHECKBOXBDiv').show();
+                }else if(MARITAL_STATUSVal==6){
+                    $('#PICTURE_MARRIAGE_DIVISION_PROOFBDiv').show();
+                    $('#PARENT_PROOF_CHECKBOXBDiv').show();
+                    $('#PICTURE_SPOUSE_SSNBDiv').show();
+                }
+            });
+
+
+            $("#SPOUSE_IS_WORKING").change(function () {
+                var SPOUSE_IS_WORKINGVal = $("#SPOUSE_IS_WORKING").val();
+                if (SPOUSE_IS_WORKINGVal == 1) {
+                    $('#spouseIncome').show();
+                    // $('#ISJOINDIV').show();
+                    $('#PICTURE_HUSBAND_NOT_WORKINGBDiv').hide();
+                    $('#PICTURE_SPOUSE_INCOME_PROOFBDiv').show();
+
+                } else {
+                    $('#spouseIncome').hide();
+                    $('#PICTURE_HUSBAND_NOT_WORKINGBDiv').show();
+                    $('#PICTURE_SPOUSE_INCOME_PROOFBDiv').hide();
+                    //$('#ISJOINDIV').hide();
+                }
+
+            });
+
+            $('#CURRENT_RESIDENCE_RESIDENCE_TYPE_ID').change(function () {
+                debugger;
+
+                var CURRENT_RESIDENCE_RESIDENCE_TYPE_IDVal = $("#CURRENT_RESIDENCE_RESIDENCE_TYPE_ID").val();
+                if (CURRENT_RESIDENCE_RESIDENCE_TYPE_IDVal == 5) {
+                    $("#OTHER_RESIDENCE").show();
+                } else {
+                    $("#OTHER_RESIDENCE").hide();
+                }
+            });
+
+
+            $('#RESIDENTIAL_EXTRA_TYPE_ID').change(function () {
+                var RESIDENTIAL_EXTRA_TYPE_IDval = $("#RESIDENTIAL_EXTRA_TYPE_ID").val();
+                if (RESIDENTIAL_EXTRA_TYPE_IDval == 5) {
+                    $("#EXTRA_OTHER_RESIDENCE").show();
+                }
+                else {
+                    $("#EXTRA_OTHER_RESIDENCE").hide();
+                }
+            });
+
+            //  PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID
+
+            $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID').change(function () {
+                var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_IDval = $("#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID").val();
+                if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_IDval == 3) {
+                    $("#Primary_OTHER_WORK").show();
+                } else {
+                    $("#Primary_OTHER_WORK").hide();
+                }
+            });
+
+            $('#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA').change(function () {
+                var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRAval = $("#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA").val();
+                if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA == 3) {
+                    $("#Primary_Extra_OTHER_WORK").show();
+                } else {
+                    $("#Primary_Extra_OTHER_WORK").hide();
+                }
+            });
+
+            $('#SPOUSE_CLASSIFICATION_OF_WORK_ID').change(function () {
+                var SPOUSE_CLASSIFICATION_OF_WORK_IDval = $("#SPOUSE_CLASSIFICATION_OF_WORK_ID").val();
+                if (SPOUSE_CLASSIFICATION_OF_WORK_IDval == 3) {
+                    $("#SPOUSE_OTHER_WORK").show();
+                } else {
+                    $("#SPOUSE_OTHER_WORK").hide();
+                }
+            });
+
+            var SPOUSE_CLASSIFICATION_OF_WORK_IDval = $("#SPOUSE_CLASSIFICATION_OF_WORK_ID").val();
+            if (SPOUSE_CLASSIFICATION_OF_WORK_IDval == 3) {
+                $("#SPOUSE_OTHER_WORK").show();
+            } else {
+                $("#SPOUSE_OTHER_WORK").hide();
+            }
+
+
+            //SPOUSE_OTHER_WORK_EXTRA
+            $('#SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA').change(function () {
+                var SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRAval = $("#SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA").val();
+                if (SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRAval == 3) {
+                    $("#SPOUSE_OTHER_WORK_EXTRA").show();
+                } else {
+                    $("#SPOUSE_OTHER_WORK_EXTRA").hide();
+                }
+            });
+            var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_IDval = $("#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID").val();
+            if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_IDval == 3) {
+                $("#Primary_OTHER_WORK").show();
+            } else {
+                $("#Primary_OTHER_WORK").hide();
+            }
+
+
+            var SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRAval = $("#SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRA").val();
+            if (SPOUSE_CLASSIFICATION_OF_WORK_ID_EXTRAval == 3) {
+                $("#SPOUSE_OTHER_WORK_EXTRA").show();
+            } else {
+                $("#SPOUSE_OTHER_WORK_EXTRA").hide();
+            }
+
+            var PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRAval = $("#PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA").val();
+            if (PRIMARY_INVESTOR_CLASSIFICATION_OF_WORK_ID_EXTRA == 3) {
+                $("#Primary_Extra_OTHER_WORK").show();
+            } else {
+                $("#Primary_Extra_OTHER_WORK").hide();
+            }
+
+
+            //edit
+
+            $("#PRIMARY_INVESTOR_FULL_NAME,#CURRENT_RESIDENCE_COMMENT,#SPOUSE_FULL_NAME,#PRIMARY_INVESTOR_EMPLOYER_NAME,#PRIMARY_INVESTOR_OTHER_WORK_CLASSIFICATIONS,#CURRENT_RESIDENCE_STREET_NAME,#CURRENT_RESIDENCE_OTHER_RESIDENCE_INFO,#SPOUSE_EMPLOYER_NAME,#SPOUSE_EMPLOYER_ADDRESS,#SPOUSE_OTHER_WORK_CLASSIFICATIONS,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_STREET,#PRIMAR_INVESTOR_EXTRA_RESIDENTIAL_CITY,#PRIMARY_INVESTOR_EXTRA_RESIDENTIAL_DETAIL_ADDRESS,#PRIMARY_INVESTOR_EMPLOYER_NAME_EXTRA,#PRIMARY_INVESTOR_EMPLOYER_NAME_SECEXTRA").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                        return true;
+                    else {
+                        if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                            return false; //disable key press
+                    }
+                }
+                var charCode = (e.which) ? e.which : e.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+                return true;
+            });
+
+
+            $('input[type=text]').on('copy paste cut', function(e) {
+                e.preventDefault();
+            });
+
+
+
+            @*$("#ReservUnit").click(function () {
+                $('.error').remove();
+                $('#pageloader').show();
+                debugger;
+                var PROJECTID = $('#PROJECTID').val();
+                if (PROJECTID == "") {
+                    $('#PROJECTID').after('<span class="text-danger error">مطلوب</span>');
+                    $('#pageloader').hide();
+                    return false;
+                }
+                var uitcode = $('#UNITCODE').val();
+                if (uitcode == "") {
+                    $('#UNITCODE').after('<span class="text-danger error">مطلوب</span>');
+                    $('#UNITCODE').focus();
+                    $('#pageloader').hide();
+
+                    return false;
+                }
+
+                $('.error').remove();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ReserveUnit", "Reservation")',
+                    dataType: 'json',
+                    data: { UnitCode: uitcode,ProjectID:PROJECTID },
+                    success: function (mems) {
+                        debugger
+                        if (mems.status == 0) {
+                            $('#UNITCODE').after('<span class="text-danger error">' + mems.errormesssage + '</span>');
+                            $('#pageloader').hide();
+                        } else if (mems.status == 1) {
+                            $('#UNITCODE').after('<span class="text-success error">' + mems.errormesssage + '</span>');
+                            $('#UNITCODE').prop('readOnly', true);
+                            $('#PROJECTID').attr('readOnly', true);
+                            $('#RequestedUnitID').val(mems.data.ID);
+                            $('#UnReservUnit').show();
+                            $('#Unitdetails').append('<div id="UnitD"><div class="col-md-12"><h4 class="block-head block-head-green green_font ng-scope">بيانات الوحدة</h4></div><div class="col-md-3">المحافظة : ' + mems.data.GOVERNORATE + '</div><div class="col-md-3">المدينة: ' + mems.data.CITY + '</div><div class="col-md-3">رقم الوحدة: ' + mems.data.UNIT_NUMBER + '</div><div class="col-md-3">رقم المبني: ' + mems.data.BUILDING_NUMBER + '</div><div class="col-md-3">الدور : ' + mems.data.LEVEL_NUMBER + '</div><div class="col-md-3">كود الوحدة : ' + mems.data.UNIT_CODE + '</div></div>');
+                            $('#ReservUnit').hide();
+                            $('#pageloader').hide();
+                        }
+                        $('#pageloader').hide();
+                    },
+                    error: function (ex) {
+                        $('#UNITCODE').after('<span class="text-danger error">برجاء التجربة مره اخري</span>');
+
+                        $('#pageloader').hide();
+
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+                return false;
+            });*@
+
+
+
+            @*$("#UnReservUnit").click(function () {
+                $('#pageloader').show();
+                debugger;
+                var uitcode = $('#UNITCODE').val();
+                if (uitcode == "") {
+                    $('#UNITCODE').after('<span class="text-danger error">مطلوب</span>');
+                    $('#UNITCODE').focus();
+                    $('#pageloader').hide();
+                    return false;
+                }
+
+                $('.error').remove();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UnReserveUnit", "Reservation")',
+                    dataType: 'json',
+                    data: { UnitCode: uitcode},
+                    success: function (mems) {
+                        debugger
+                        if (mems.status == 0){
+                            $('#UNITCODE').after('<span class="text-danger error">' + mems.errormesssage + '</span>');
+                            $('#pageloader').hide();
+                        } else if (mems.status == 1) {
+                            $('#UNITCODE').after('<span class="text-success error">' + mems.errormesssage + '</span>');
+                        }
+                        $('#UNITCODE').attr('readOnly', false);
+                        $('#PROJECTID').attr('readOnly', false);
+                        $('#RequestedUnitID').val("");
+                        $('#UnReservUnit').hide();
+                        $('#UnitD').remove();
+                        $('#ReservUnit').show();
+                        $('#pageloader').hide();
+                        $('#pageloader').hide();
+                    },
+                    error: function (ex) {
+                        $('#UNITCODE').after('<span class="text-danger error">برجاء التجربة مره اخري</span>');
+                        $('#pageloader').hide();
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+                return false;
+            });*@
+            //}
+
+
+
+            @*var uitcode = $('#UNITCODE').val();
+            if (uitcode != "") {
+                $('.error').remove();
+
+                var PROJECTID = $('#PROJECTID').val();
+                if (PROJECTID == "") {
+                    $('#PROJECTID').after('<span class="text-danger error">مطلوب</span>');
+                    $('#pageloader').hide();
+                    return false;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ReserveUnit", "Reservation")',
+                    dataType: 'json',
+                    data: { UnitCode: uitcode ,ProjectID:PROJECTID},
+                    success: function (mems) {
+                        debugger
+                        if (mems.status == 0) {
+                            $('#UNITCODE').after('<span class="text-danger error">' + mems.errormesssage + '</span>');
+                            $('#pageloader').hide();
+                        } else if (mems.status == 1) {
+                            $('#UNITCODE').after('<span class="text-success error">' + mems.errormesssage + '</span>');
+                            $('#UNITCODE').prop('readOnly', true);
+                            $('#PROJECTID').prop('readOnly', true);
+                            $('#RequestedUnitID').val(mems.data.ID);
+                            $('#UnReservUnit').show();
+                            $('#Unitdetails').append('<div id="UnitD"><div class="col"><h4 class="block-head block-head-green green_font ng-scope">بيانات الوحدة</h4></div><div class="col">المحافظة : ' + mems.data.GOVERNORATE + '</div><div class="col">المدينة: ' + mems.data.CITY + '</div><div class="col">رقم الوحدة: ' + mems.data.UNIT_NUMBER + '</div><div class="col">رقم المبني: ' + mems.data.BUILDING_NUMBER + '</div><div class="col">الدور : ' + mems.data.LEVEL_NUMBER + '</div><div class="col">كود الوحدة : ' + mems.data.UNIT_CODE + '</div></div>');
+                            $('#ReservUnit').hide();
+                            $('#pageloader').hide();
+                        }
+                        $('#pageloader').hide();
+                    },
+                    error: function (ex) {
+                        $('#UNITCODE').after('<span class="text-danger error">برجاء التجربة مره اخري</span>');
+
+                        $('#pageloader').hide();
+
+                        // alert('برجاء انشاء الطلب مره اخري');
+                    }
+                });
+            }*@
+
+
+            $(".birthdatepicker").datetimepicker({
+                timepicker: false,
+                format: "Y-m-d",
+                maxDate: '+1970/01/01'
+            });
+            $('input[name=PRIMARY_INVESTOR_MONTHLY_INCOME]').change(function () {
+                //  var primaryparseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val())
+                var spousetotal = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME').val()));
+                var spouseExtra = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME_EXTRA').val()));
+                var Primary = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val()));
+                var primaryextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val()));
+                var primarysecextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').val()));
+
+                $('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val((Primary+primaryextra+primarysecextra) * 12);
+                //$('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val((Primary+primaryextra) * 12);
+
+                $('#FAMILY_MONTHLY_INCOME').val(spousetotal + Primary + primaryextra + spouseExtra+primarysecextra);
+            });
+            //PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA
+
+            $('input[name=PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA]').change(function () {
+                // $('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val());
+                var spousetotal = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME').val()));
+                var spouseExtra = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME_EXTRA').val()));
+                var primaryextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val()));
+                var Primary = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val()));
+                var primarysecextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').val()));
+
+                $('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val((Primary+primaryextra+primarysecextra) * 12);
+                //$('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val((Primary+primaryextra) * 12);
+                $('#FAMILY_MONTHLY_INCOME').val(spousetotal + Primary + primaryextra + spouseExtra+primarysecextra);
+            });
+
+            //PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA
+            $('input[name=PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA]').change(function () {
+                // $('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val());
+                var spousetotal = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME').val()));
+                var spouseExtra = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME_EXTRA').val()));
+                var primaryextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val()));
+                var Primary = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val()));
+                var primarysecextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_SECEXTRA').val()));
+
+                $('#PRIMARY_INVESTOR_TOTAL_ANNUAL_INCOME').val((Primary+primaryextra+primarysecextra) * 12);
+                $('#FAMILY_MONTHLY_INCOME').val(spousetotal + Primary + primaryextra + spouseExtra+primarysecextra);
+            });
+
+            $('input[name=SPOUSE_MONTHLY_INCOME]').change(function () {
+
+                var spousetotal = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME').val()));
+                var spouseExtra = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME_EXTRA').val()));
+                var Primary = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val()));
+                var primaryextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val()));
+                $('#SPOUSE_TOTAL_ANNUAL_INCOME').val((spousetotal+spouseExtra) * 12);
+
+                $('#FAMILY_MONTHLY_INCOME').val(spousetotal + Primary + primaryextra + spouseExtra+primarysecextra);
+            });
+
+            $('input[name=SPOUSE_MONTHLY_INCOME_EXTRA]').change(function () {
+
+                var spousetotal = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME').val()));
+                var spouseExtra = parseFloat(getNum($('#SPOUSE_MONTHLY_INCOME_EXTRA').val()));
+                var Primary = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME').val()));
+                var primaryextra = parseFloat(getNum($('#PRIMARY_INVESTOR_MONTHLY_INCOME_EXTRA').val()));
+                $('#SPOUSE_TOTAL_ANNUAL_INCOME').val((spousetotal+spouseExtra) * 12);
+
+                $('#FAMILY_MONTHLY_INCOME').val(spousetotal + Primary + primaryextra + spouseExtra+primarysecextra);
+
+            });
+            function getNum(val) {
+                val = +val || 0
+                return val;
+            }
+        });
+    </script>
+}

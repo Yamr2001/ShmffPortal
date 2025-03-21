@@ -1,0 +1,848 @@
+﻿[
+  {
+    "projectName": "الشرقية - العاشر من رمضان 75م  جاهزة 415 ألف جنيه منخفض سكن (5)",
+    "projectId": 5002046,
+    "cityId": 8,
+    "advertismentId": 5000270
+  },
+  {
+    "projectName": "الجيزة - أكتوبر الجديدة 75م  جاهزة 415 ألف جنيه منخفض سكن (5)",
+    "projectId": 5002047,
+    "cityId": 225,
+    "advertismentId": 5000270
+  },
+  {
+    "projectName": "سوهاج - أخميم الجديدة 75 م جاهزة 415 ألأف جنيه منخفض سكن (5)",
+    "projectId": 5002048,
+    "cityId": 18,
+    "advertismentId": 5000270
+  },
+  {
+    "projectName": "المنوفية - السادات 90 م  جاهزة 500 ألف جنيه - منخفض سكن (5)",
+    "projectId": 5002049,
+    "cityId": 12,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "سوهاج - أخميم الجديدة 90 م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002050,
+    "cityId": 18,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "سوهاج - سوهاج الجديدة 90 م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002051,
+    "cityId": 19,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "قنا - قنا الجديدة 90 م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002052,
+    "cityId": 20,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "قنا - غرب قنا 90 م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002053,
+    "cityId": 227,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "الأقصر - طيبة الجديدة 90م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002054,
+    "cityId": 21,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "الجيزة - أكتوبر الجديدة 90م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002055,
+    "cityId": 225,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "المنيا - المنيا الجديدة 90م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002056,
+    "cityId": 16,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "أسوان - أسوان الجديدة 90م  جاهزة 500 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002057,
+    "cityId": 22,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "الإسكندرية - برج العرب الجديدة 90م  جاهزة 530 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002058,
+    "cityId": 6,
+    "advertismentId": 5000271
+  },
+  {
+    "projectName": "الجيزة - حدائق أكتوبر 75م  تحت الانشاء 542 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002059,
+    "cityId": 224,
+    "advertismentId": 5000272
+  },
+  {
+    "projectName": "المنوفية - السادات 75م  تحت الانشاء 542 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002060,
+    "cityId": 12,
+    "advertismentId": 5000272
+  },
+  {
+    "projectName": "المنيا - المنيا الجديدة 75م  تحت الانشاء 542 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002061,
+    "cityId": 16,
+    "advertismentId": 5000272
+  },
+  {
+    "projectName": "القاهرة - حدائق العاصمة 90م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002062,
+    "cityId": 230,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "القاهرة - 15 مايو 90م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002063,
+    "cityId": 2,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "الجيزة - حدائق أكتوبر90م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002064,
+    "cityId": 224,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "الجيزة - أكتوبر الجديدة 90م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002065,
+    "cityId": 225,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "الشرقية - العاشر من رمضان 90 م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002066,
+    "cityId": 8,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "أسوان - أسوان الجديدة 90م  تحت الانشاء 650 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002067,
+    "cityId": 22,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "الأسكندرية - برج العرب الجديدة 90م  تحت الانشاء 700ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002068,
+    "cityId": 6,
+    "advertismentId": 5000273
+  },
+  {
+    "projectName": "المنيا - بني مزار ابوجرج  75م جاهزة 184 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002069,
+    "cityId": 275,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "المنيا - بني مزار  ابطوجه  75م  جاهزة 184 ألف جنيه-منخفض سكن (5)",
+    "projectId": 5002070,
+    "cityId": 276,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - سوهاج نجع تمام  75م  جاهزة 210  الف جنيه-منخفض سكن (5)",
+    "projectId": 5002071,
+    "cityId": 291,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - سوهاج نجع النجار  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002072,
+    "cityId": 292,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - سوهاج أرض المشتل  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002073,
+    "cityId": 293,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - جهينة كوم الجرون  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002074,
+    "cityId": 294,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - جهينة  نزة المحزمين  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002075,
+    "cityId": 295,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - جهينة  نجع الحويج  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002076,
+    "cityId": 296,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - جهينة  نجع حميد  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002077,
+    "cityId": 297,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - المنشآة خارفة المنشآة 75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002078,
+    "cityId": 298,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - طهطا الشيخ زين الدين  75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002079,
+    "cityId": 299,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - طهطا الشيخ رحومة 75م جاهزة 210 الف جنيهيه-منخفض سكن (5)",
+    "projectId": 5002080,
+    "cityId": 300,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - طهطا الحريدية البحرية 75م جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002081,
+    "cityId": 301,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج-المراغة السمارنه الغريزات-الغريزات75م جاهزة210الف جنيه-منخفض سكن(5)",
+    "projectId": 5002082,
+    "cityId": 302,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - المراغة اقصاص 75م  جاهزة 210 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002083,
+    "cityId": 303,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "سوهاج - طما العزبة المستجدة - تل الزوكي 75م جاهزة 210الف جنيه-منخفض سكن (5)",
+    "projectId": 5002084,
+    "cityId": 304,
+    "advertismentId": 5000274
+  },
+  {
+    "projectName": "أسوان - كوم امبو 90م  جاهزة 250 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002085,
+    "cityId": 159,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الجيزة - جزر القطورى - العياط90م  جاهزة 250 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002086,
+    "cityId": 267,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسوان - ادفو 90م  جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002087,
+    "cityId": 80,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - ساحل سليم المطمر 90م  جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002088,
+    "cityId": 282,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - منفلوط العتامنة 90م  جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002089,
+    "cityId": 281,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الفيوم - هوارة 90م  جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002090,
+    "cityId": 268,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - الاخماس 90م  جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002091,
+    "cityId": 236,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - بديل الدير90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002092,
+    "cityId": 237,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - الصوامع 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002093,
+    "cityId": 277,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنوفية - منوف - بهواش 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002094,
+    "cityId": 278,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثر المنطقة الصناعية 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002095,
+    "cityId": 305,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الفيوم - دمشقين 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002096,
+    "cityId": 139,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الفيوم - شدموه 90م جاهزة 270 الف جنيهه-منخفض سكن (5)",
+    "projectId": 5002097,
+    "cityId": 138,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - أبوتشت بلاد المال بحري 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002098,
+    "cityId": 286,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا -أبوتشت بلاد المال قبلي90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002099,
+    "cityId": 287,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - قوص العليقات 90م جاهزة 270 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002100,
+    "cityId": 288,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - ابنوب 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002101,
+    "cityId": 84,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - منقباد 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002102,
+    "cityId": 46,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - البداري 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002103,
+    "cityId": 86,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر - ارمنت أبوقليعي 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002104,
+    "cityId": 255,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر - ارمنت الرياينة 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002105,
+    "cityId": 256,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر- اسنا الشغب 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002106,
+    "cityId": 254,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر -القرنة الضبعية 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002107,
+    "cityId": 257,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الإسماعيلية - القنطرة شرق 90م  جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002108,
+    "cityId": 51,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الشرقية - القرين 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002109,
+    "cityId": 112,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "جنوب سيناء - ابورديس 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002110,
+    "cityId": 173,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - الوقف 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002111,
+    "cityId": 76,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "شمال سيناء - العريش 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002112,
+    "cityId": 166,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "البحيرة - وادي النطرون 90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002113,
+    "cityId": 98,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - ساحل سليم بجوار الكمين 90م جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002114,
+    "cityId": 284,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر - اسنا الدير 90م جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002115,
+    "cityId": 253,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر - الطود 90م جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002116,
+    "cityId": 156,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنوفية - مركز السادات الخطاطبة 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002117,
+    "cityId": 279,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "البحيرة - كفر الدوار90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002118,
+    "cityId": 58,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "المنيا -المنيا - المطاهرة 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002119,
+    "cityId": 238,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "بني سويف - بياض العرب 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002120,
+    "cityId": 35,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - قوص العقب 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002121,
+    "cityId": 249,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثر أرض حمام السباحة 90م جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002122,
+    "cityId": 306,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثر المنطقة المثلثة 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002123,
+    "cityId": 307,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثر بجوار مدرسة المناهل 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002124,
+    "cityId": 308,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج -الكوثر منطقة البنوك 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002125,
+    "cityId": 309,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثر  خلف المخيم   90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002126,
+    "cityId": 310,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "سوهاج - الكوثرأرض الغابة  90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002127,
+    "cityId": 311,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "مطروح - الحمام 90م  جاهزة 350 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002128,
+    "cityId": 41,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الاقصر - المدامود - مدينة الشمس 90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002129,
+    "cityId": 272,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - نجع حمادي - الضمرانية 90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002130,
+    "cityId": 289,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - نجع حمادي - هو2 90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002131,
+    "cityId": 290,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "قنا - نقادة - الشيخ حسين  90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002132,
+    "cityId": 252,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الشرقية - فاقوس- الصالحية 90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002133,
+    "cityId": 273,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسيوط - منفلوط - الحما 90م  جاهزة 400 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002134,
+    "cityId": 280,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "الجيزة - جزر القطورى - العياط 90م جاهزة 250 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002135,
+    "cityId": 267,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط  - منفلوط - العتامنة 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002136,
+    "cityId": 281,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - الاخماس 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002137,
+    "cityId": 236,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - بديل الدير 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002138,
+    "cityId": 237,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنوفية - مركز السادات - الصوامع 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002139,
+    "cityId": 277,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الفيوم - دمشقين 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002140,
+    "cityId": 139,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الفيوم - شدموه 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002141,
+    "cityId": 138,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - منقباد 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002142,
+    "cityId": 46,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - الوقف - حاجر الجبل 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002143,
+    "cityId": 285,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "البحيرة - وادي النطرون 90م   جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002144,
+    "cityId": 98,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "شمال سيناء - العريش 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002145,
+    "cityId": 166,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الأقصر - الطود 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002146,
+    "cityId": 156,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنيا - المنيا  -المطاهرة 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002147,
+    "cityId": 274,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "بني سويف - بياض العرب 90م جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002148,
+    "cityId": 35,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الإسماعيلية - فايد قرية عبد الناصر90م جاهزة 300 الف جنيه-منخفض سكن (5)",
+    "projectId": 5002208,
+    "cityId": 269,
+    "advertismentId": 5000275
+  },
+  {
+    "projectName": "أسوان - كوم امبو 90م  جاهزة 250 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002225,
+    "cityId": 159,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسوان - ادفو 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002226,
+    "cityId": 80,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - ساحل سليم المطمر 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002227,
+    "cityId": 282,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الفيوم - هوارة 90م  جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002228,
+    "cityId": 268,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنوفية - منوف - بهواش 90م جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002229,
+    "cityId": 278,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثر المنطقة الصناعية 90م جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002230,
+    "cityId": 305,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "مطروح - الحمام 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002231,
+    "cityId": 41,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - أبوتشت بلاد المال بحري 90م جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002232,
+    "cityId": 286,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا -أبوتشت بلاد المال قبلي90م جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002233,
+    "cityId": 287,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - قوص العليقات 90م جاهزة 270 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002234,
+    "cityId": 248,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - ابنوب 90م جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002235,
+    "cityId": 84,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - البداري 90م جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002236,
+    "cityId": 86,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر - ارمنت أبوقليعي 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002237,
+    "cityId": 255,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر - ارمنت الرياينة 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002238,
+    "cityId": 256,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر- اسنا الشغب 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002239,
+    "cityId": 254,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر -القرنة الضبعية 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002240,
+    "cityId": 257,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الإسماعيلية - القنطرة شرق 90م  جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002241,
+    "cityId": 51,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الإسماعيلية - فايد قرية عبد الناصر90م جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002242,
+    "cityId": 269,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "جنوب سيناء - ابورديس 90م جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002243,
+    "cityId": 173,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - ساحل سليم بجوار الكمين 90م جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002244,
+    "cityId": 284,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر - اسنا الدير 90م جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002245,
+    "cityId": 253,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "المنوفية - مركز السادات الخطاطبة 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002246,
+    "cityId": 279,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "البحيرة - كفر الدوار90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002247,
+    "cityId": 58,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - قوص العقب 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002248,
+    "cityId": 249,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثر أرض حمام السباحة 90م جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002249,
+    "cityId": 306,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثر المنطقة المثلثة 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002250,
+    "cityId": 307,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثر بجوار مدرسة المناهل 90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002251,
+    "cityId": 308,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج -الكوثر منطقة البنوك   90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002252,
+    "cityId": 309,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثر  خلف المخيم   90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002253,
+    "cityId": 310,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "سوهاج - الكوثرأرض الغابة  90م  جاهزة 350 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002254,
+    "cityId": 311,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الاقصر - المدامود - مدينة الشمس 90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002255,
+    "cityId": 272,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - نجع حمادي - الضمرانية 90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002256,
+    "cityId": 289,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - نجع حمادي - هو2 90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002257,
+    "cityId": 290,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "قنا - نقادة - الشيخ حسين  90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002258,
+    "cityId": 252,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الشرقية - فاقوس- الصالحية 90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002259,
+    "cityId": 273,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "أسيوط - منفلوط - الحما 90م  جاهزة 400 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002260,
+    "cityId": 280,
+    "advertismentId": 5000276
+  },
+  {
+    "projectName": "الشرقية - القرين 90م جاهزة 300 الف جنيه-متوسط سكن (5)",
+    "projectId": 5002261,
+    "cityId": 112,
+    "advertismentId": 5000276
+  }
+]

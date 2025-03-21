@@ -1,0 +1,30 @@
+﻿@*@model System.Web.Mvc.HandleErrorInfo*@
+
+@{
+    ViewBag.Title = "تنبيه";
+}
+
+
+
+
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>@ViewBag.Title !</h2>
+                @*<ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">الرئيسية</a></li>
+                        <li class="breadcrumb-item active">إحجز وحدتك</li>
+                    </ul>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row m-0">
+            @TempData["error"]
+        </div>
+    </div>
+</div>

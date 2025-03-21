@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "ارسال كود التفعيل";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ارسال كود التفعيل</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables.min.css" />
+    <style>
+        #pageloader {
+            background: rgba( 255, 255, 255, 0.8 );
+            display: none;
+            height: 100%;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+            #pageloader img {
+                left: 50%;
+                margin-left: -32px;
+                margin-top: -32px;
+                position: absolute;
+                top: 50%;
+            }
+    </style>
+</head>
+<body>
+    <div>
+
+        @{
+            Html.BeginForm();
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-3">
+                    الرقم القومي
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="ssn" id="ssn" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="ارسال" name="Checkssn" class="btn btn-success" />
+                </div>
+            </div>
+        }
+ 
+         @if (ViewBag.msg != null)
+        {
+            <div class="row">
+                <div class="col-md-6 alert alert-warning">
+                    @ViewBag.msg
+                </div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>
+

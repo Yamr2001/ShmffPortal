@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "بدء حجز الوحدات";
+}
+@*<!DOCTYPE html>*@
+
+@{
+    Html.BeginForm();
+    @Html.AntiForgeryToken()
+    if (ViewBag.settings != null)
+    {
+        <input type="hidden" name="id" />
+        <div class="row">
+            <div class="col-md-12">
+                @if (ViewBag.settings != null)
+                {
+                    if (ViewBag.settings.STARTDATE != null)
+                    {
+                        <div class="alert alert-success">تم فتح الحجز</div>
+                        @*<div class="alert alert-success">تم فتح الحجز بتاريخ: @ViewBag.settings.STARTDATE</div>*@
+                    }
+                }
+            </div>
+        </div>
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            @if (ViewBag.settings != null)
+            {
+                if (ViewBag.settings.STARTDATE == null)
+                {
+                    <input type="submit" value="فتح الحجز" name="Checkssn" class="btn btn-success btn-lg" />
+                }
+            }
+        </div>
+    </div>
+}
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="79d4938e85a244fc86a841fe95d93454" Name="Diagram1" ZoomLevel="23">
+        <EntityTypeShape EntityType="NewPortalDBModel.v_Martial_Status" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_CLASSIFICATION_OF_WORK" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_GOVERNRATE" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_ACADEMIC_DEGREE" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_RESIDENCE_TYPE" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_ADVERTISMENT" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.HDB_Payment_Confirmation" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.RegisterSSN" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.NEWADVERTISMENT" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.TotalPaymentForClient" Width="1.5" PointX="15.375" PointY="4.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.V_Dim_subsidy" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.V_Transaction_Transformation" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.TempUnitReserverf" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.UBSIDY_REQUESTED_UNIT" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.SSNTRIESNOACCEPTE" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.subsidy_request" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.EXCEPTIONSSN" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_PROJECTS" Width="1.5" PointX="15.375" PointY="12.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.SETTING" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.Unconditional_Unit" Width="1.5" PointX="11.375" PointY="16.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.SSNPreviousTaken" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.ReservSSN" Width="1.5" PointX="3.375" PointY="12.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.Portal_Logger" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.CheckMiddelIncome" Width="1.5" PointX="19.375" PointY="4.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.EXCEPTION_SSN_RESERV" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.EXCEPTION_HAVE_APP" Width="1.5" PointX="7.375" PointY="19.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.v_Unconditional_Unit" Width="1.5" PointX="19.375" PointY="14.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.SSN_CAN_REG" Width="1.5" PointX="21.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.TamwelType" Width="1.5" PointX="21.375" PointY="3.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.Subsidy_Unit_Wish" Width="1.5" PointX="19.375" PointY="10.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.SubsidyWhish" Width="1.5" PointX="13.375" PointY="19.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.CitiesLocation" Width="1.5" PointX="17.625" PointY="23.75" />
+        <AssociationConnector Association="NewPortalDBModel.FK_CitiesLocation_NEWADVERTISMENTS" />
+        <EntityTypeShape EntityType="NewPortalDBModel.RequestStatu" Width="1.5" PointX="21.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.Allsubsidy_requests" Width="1.5" PointX="21.375" PointY="9.75" />
+        <EntityTypeShape EntityType="NewPortalDBModel.Requested_Unit" Width="1.5" PointX="7.375" PointY="22.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

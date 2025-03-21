@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "TransferData";
+}
+
+<h2>نقل البيانات</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>transfer data</h4>
+    <hr />
+    <div id="SSNError" class="alert alert-danger" style="@(ViewBag.error==null?"display:none":"display:block")">
+        @ViewBag.error
+    </div>
+    <div id="SuccessMsg" class="alert alert-success" style="@(ViewBag.Success==null?"display:none":"display:block")">
+        @ViewBag.success
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">الرقم القومي</label>
+        <div class="col-md-10">
+            <input type="text" name="CLIENT_SSN" id="CLIENT_SSN" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">كود الوحدة </label>
+
+        <div class="col-md-10">
+            <input type="text" name="UNIT_CODE" id="UNIT_CODE" class="form-control" />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}

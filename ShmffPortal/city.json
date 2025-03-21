@@ -1,0 +1,422 @@
+﻿[
+  {
+    "cityName": "15 مايو",
+    "cityId": 2,
+    "governrateId": 0
+  },
+  {
+    "cityName": "برج العرب الجديدة",
+    "cityId": 6,
+    "governrateId": 2
+  },
+  {
+    "cityName": "العاشر من رمضان",
+    "cityId": 8,
+    "governrateId": 4
+  },
+  {
+    "cityName": "السادات",
+    "cityId": 12,
+    "governrateId": 7
+  },
+  {
+    "cityName": "المنيا الجديدة",
+    "cityId": 16,
+    "governrateId": 11
+  },
+  {
+    "cityName": "أخميم الجديدة",
+    "cityId": 18,
+    "governrateId": 13
+  },
+  {
+    "cityName": "سوهاج الجديدة",
+    "cityId": 19,
+    "governrateId": 13
+  },
+  {
+    "cityName": "قنا الجديدة",
+    "cityId": 20,
+    "governrateId": 14
+  },
+  {
+    "cityName": "طيبة الجديدة",
+    "cityId": 21,
+    "governrateId": 25
+  },
+  {
+    "cityName": "أسوان الجديدة",
+    "cityId": 22,
+    "governrateId": 16
+  },
+  {
+    "cityName": "مركز بياض العرب",
+    "cityId": 35,
+    "governrateId": 10
+  },
+  {
+    "cityName": "الحمام",
+    "cityId": 41,
+    "governrateId": 21
+  },
+  {
+    "cityName": "منقباد",
+    "cityId": 46,
+    "governrateId": 12
+  },
+  {
+    "cityName": "القنطرة شرق",
+    "cityId": 51,
+    "governrateId": 19
+  },
+  {
+    "cityName": "كفر الدوار ",
+    "cityId": 58,
+    "governrateId": 8
+  },
+  {
+    "cityName": "الوقف",
+    "cityId": 76,
+    "governrateId": 14
+  },
+  {
+    "cityName": "إدفو",
+    "cityId": 80,
+    "governrateId": 16
+  },
+  {
+    "cityName": "ابنوب",
+    "cityId": 84,
+    "governrateId": 12
+  },
+  {
+    "cityName": "البدارى",
+    "cityId": 86,
+    "governrateId": 12
+  },
+  {
+    "cityName": "وادى النطرون",
+    "cityId": 98,
+    "governrateId": 8
+  },
+  {
+    "cityName": "القرين",
+    "cityId": 112,
+    "governrateId": 4
+  },
+  {
+    "cityName": "شدموه ",
+    "cityId": 138,
+    "governrateId": 9
+  },
+  {
+    "cityName": "دمشقين ",
+    "cityId": 139,
+    "governrateId": 9
+  },
+  {
+    "cityName": "الطود",
+    "cityId": 156,
+    "governrateId": 25
+  },
+  {
+    "cityName": "كوم امبو",
+    "cityId": 159,
+    "governrateId": 16
+  },
+  {
+    "cityName": "العريش",
+    "cityId": 166,
+    "governrateId": 24
+  },
+  {
+    "cityName": "ابو رديس",
+    "cityId": 173,
+    "governrateId": 23
+  },
+  {
+    "cityName": "حدائق اكتوبر",
+    "cityId": 224,
+    "governrateId": 1
+  },
+  {
+    "cityName": "اكتوبر الجديدة",
+    "cityId": 225,
+    "governrateId": 1
+  },
+  {
+    "cityName": "غرب قنا",
+    "cityId": 227,
+    "governrateId": 14
+  },
+  {
+    "cityName": "حدائق العاصمة",
+    "cityId": 230,
+    "governrateId": 0
+  },
+  {
+    "cityName": "مركز السادات(الاخماس)",
+    "cityId": 236,
+    "governrateId": 7
+  },
+  {
+    "cityName": "مركز السادات (بديل الدير)",
+    "cityId": 237,
+    "governrateId": 7
+  },
+  {
+    "cityName": "المطاهرة",
+    "cityId": 238,
+    "governrateId": 11
+  },
+  {
+    "cityName": "قوص (العليقات)",
+    "cityId": 248,
+    "governrateId": 14
+  },
+  {
+    "cityName": "قوص (العقب)",
+    "cityId": 249,
+    "governrateId": 14
+  },
+  {
+    "cityName": "نقادة (الشيخ حسين)",
+    "cityId": 252,
+    "governrateId": 14
+  },
+  {
+    "cityName": "اسنا الدير",
+    "cityId": 253,
+    "governrateId": 25
+  },
+  {
+    "cityName": "اسنا الشغب",
+    "cityId": 254,
+    "governrateId": 25
+  },
+  {
+    "cityName": "ارمنت (ابو قليعي)",
+    "cityId": 255,
+    "governrateId": 25
+  },
+  {
+    "cityName": "ارمنت (الريانية)",
+    "cityId": 256,
+    "governrateId": 25
+  },
+  {
+    "cityName": "القرنه (الضبعية)",
+    "cityId": 257,
+    "governrateId": 25
+  },
+  {
+    "cityName": "جزر القطورى - العياط",
+    "cityId": 267,
+    "governrateId": 1
+  },
+  {
+    "cityName": "هوارة",
+    "cityId": 268,
+    "governrateId": 9
+  },
+  {
+    "cityName": "فايد قرية عبد الناصر",
+    "cityId": 269,
+    "governrateId": 19
+  },
+  {
+    "cityName": "المدامود مدينة الشمس",
+    "cityId": 272,
+    "governrateId": 25
+  },
+  {
+    "cityName": "فاقوس الصالحية",
+    "cityId": 273,
+    "governrateId": 4
+  },
+  {
+    "cityName": "المنيا المطاهرة",
+    "cityId": 274,
+    "governrateId": 11
+  },
+  {
+    "cityName": "بني مزار ابوجرج",
+    "cityId": 275,
+    "governrateId": 11
+  },
+  {
+    "cityName": "بني مزار ابطوجه",
+    "cityId": 276,
+    "governrateId": 11
+  },
+  {
+    "cityName": "مركز السادات الصوامع",
+    "cityId": 277,
+    "governrateId": 7
+  },
+  {
+    "cityName": "منوف بهواش",
+    "cityId": 278,
+    "governrateId": 7
+  },
+  {
+    "cityName": "مركز السادات الخطاطبة",
+    "cityId": 279,
+    "governrateId": 7
+  },
+  {
+    "cityName": "منفلوط الحما",
+    "cityId": 280,
+    "governrateId": 12
+  },
+  {
+    "cityName": "منفلوط العتامنة",
+    "cityId": 281,
+    "governrateId": 12
+  },
+  {
+    "cityName": "ساحل سليم المطمر",
+    "cityId": 282,
+    "governrateId": 12
+  },
+  {
+    "cityName": "ساحل سليم بجوار الكمين",
+    "cityId": 284,
+    "governrateId": 12
+  },
+  {
+    "cityName": "الوقف حاجر الجبل",
+    "cityId": 285,
+    "governrateId": 14
+  },
+  {
+    "cityName": "أبوتشت بلاد المال بحري",
+    "cityId": 286,
+    "governrateId": 14
+  },
+  {
+    "cityName": "أبوتشت بلاد المال قبلي",
+    "cityId": 287,
+    "governrateId": 14
+  },
+  {
+    "cityName": "قوص العليقات",
+    "cityId": 288,
+    "governrateId": 14
+  },
+  {
+    "cityName": "نجع حمادي الضمرانية",
+    "cityId": 289,
+    "governrateId": 14
+  },
+  {
+    "cityName": "نجع حمادي هو2",
+    "cityId": 290,
+    "governrateId": 14
+  },
+  {
+    "cityName": "سوهاج نجع تمام",
+    "cityId": 291,
+    "governrateId": 13
+  },
+  {
+    "cityName": "سوهاج نجع النجار",
+    "cityId": 292,
+    "governrateId": 13
+  },
+  {
+    "cityName": "سوهاج أرض المشتل",
+    "cityId": 293,
+    "governrateId": 13
+  },
+  {
+    "cityName": "جهينة كوم الجرون",
+    "cityId": 294,
+    "governrateId": 13
+  },
+  {
+    "cityName": "جهينة نزة المحزمين",
+    "cityId": 295,
+    "governrateId": 13
+  },
+  {
+    "cityName": "جهينة نجع الحويج",
+    "cityId": 296,
+    "governrateId": 13
+  },
+  {
+    "cityName": "جهينة نجع حميد",
+    "cityId": 297,
+    "governrateId": 13
+  },
+  {
+    "cityName": "المنشآة خارفة المنشآة",
+    "cityId": 298,
+    "governrateId": 13
+  },
+  {
+    "cityName": "طهطا الشيخ زين الدين",
+    "cityId": 299,
+    "governrateId": 13
+  },
+  {
+    "cityName": "طهطا الشيخ رحومة",
+    "cityId": 300,
+    "governrateId": 13
+  },
+  {
+    "cityName": "طهطا الحريدية البحرية",
+    "cityId": 301,
+    "governrateId": 13
+  },
+  {
+    "cityName": "المراغة السمارنه الغريزات - الغريزات",
+    "cityId": 302,
+    "governrateId": 13
+  },
+  {
+    "cityName": "المراغة اقصاص",
+    "cityId": 303,
+    "governrateId": 13
+  },
+  {
+    "cityName": "طما العزبة المستجدة - تل الزوكي",
+    "cityId": 304,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر المنطقة الصناعية",
+    "cityId": 305,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر أرض حمام السباحة",
+    "cityId": 306,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر المنطقة المثلثة",
+    "cityId": 307,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر بجوار مدرسة المناهل",
+    "cityId": 308,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر منطقة البنوك",
+    "cityId": 309,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر خلف المخيم",
+    "cityId": 310,
+    "governrateId": 13
+  },
+  {
+    "cityName": "الكوثر أرض الغابة",
+    "cityId": 311,
+    "governrateId": 13
+  }
+]

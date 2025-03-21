@@ -1,0 +1,220 @@
+﻿@model IEnumerable<ShmffPortal.Models.v_Unconditional_Unit>
+
+@{
+    ViewBag.Title = "الوحدات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    #divscroll {
+        position: relative;
+        background: pink;
+        height: 800px;
+        margin-bottom: 800px;
+    }
+    /*span {
+      position: fixed;
+      right: 0;
+      bottom: 50px;
+      width: 10%;
+      height: calc(100vh - 100px);
+      background: gold;
+    }*/
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+<br />
+<br />
+<br />
+<div id="snackbar">سيتم تحديث الصفحة خلال <span class="countdown"></span></div>
+<br />
+
+<div class="row">
+    <div class="col-md-3"></div>
+        <div class="col-md-3"><span class="text-success"> عدد الوحدات المحجوزة:</span> @Model.Where(a => a.subsidy_requestID != null).Count()</div>
+        <div class="col-md-3"><span class="text-danger">عدد الوحدات المتاحة:</span> @Model.Where(a => a.subsidy_requestID == null).Count()</div>
+    <div class="col-md-3"></div>
+    </div>
+
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+          <table class="table table-bordered" id="example">
+              <thead>
+                  <tr>
+                      <th>
+                          الاعلان
+                      </th>
+                      <th>
+                          المشروع
+                      </th>
+                      <th>المدينة</th>
+
+                      <th>
+                          كود الوحدة
+                      </th>
+                      <th>
+                          الشركة المنفذة
+                      </th>
+                      <th>
+                          المنطقة
+                      </th>
+                      <th>
+                          كود المنطقة
+                      </th>
+                      <th>
+                          الموقع
+                      </th>
+                      <th>
+                          النموذج
+                      </th>
+                      <th>
+                          رقم العمارة
+                      </th>
+                      <th>
+                          رقم الوحدة
+                      </th>
+                      <th>
+                          الدور
+                      </th>
+                      <th>
+                          المساحة
+                      </th>
+                     
+
+
+
+                      <th>
+                          محجوز
+                      </th>
+                      <th>
+                          الرقم القومي
+                      </th>
+                      
+
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach (var item in Model)
+            {
+                      <tr>
+
+                          <td>
+                              @Html.DisplayFor(modelItem => item.ADV_NAME)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.PROJECT_NAME)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.CITYNAME)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.UNIT_CODE)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.CONTRACTOR)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.AREA)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.AREA_CODE)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.LOCATION)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.SAMPLE)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.BUILDING_NUMBER)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.UNIT_NUMBER)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.LEVEL_NUMBER)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.SPACE)
+                          </td>
+                         
+
+                          <td>
+                              @if (item.subsidy_requestID != null)
+                              {
+                                  <span class="text-success">محجوز</span>
+                              }
+                              else
+                              {
+                                  <span class="text-danger">غير محجوز</span>
+                              }
+                          </td>
+
+
+                          <td>
+                              @Html.DisplayFor(modelItem => item.PRIMARY_INVESTOR_SSN)
+                          </td>
+                          
+
+                      </tr>
+                  }
+              </tbody>
+          </table>
+      </div>
+      <div class="col-md-1"></div>
+</div>
+
+@section Scripts {
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json"
+            }
+        });
+    });
+
+    myFunction();
+
+    var timer2 = "2:01";
+    var interval = setInterval(function () {
+
+
+        var timer = timer2.split(':');
+        //by parsing integer, I avoid all extra string processing
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        if (minutes < 0) clearInterval(interval);
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        //minutes = (minutes < 10) ?  minutes : minutes;
+        $('.countdown').html(minutes + ':' + seconds);
+        timer2 = minutes + ':' + seconds;
+        /*  console.log(minutes)
+          console.log(seconds)*/
+        if (minutes < 0) {
+            //  alert("a")
+            location.reload();
+        };
+    }, 1000);
+
+
+    function myFunction() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () {
+            //x.className = x.className.replace("show", "");
+        }, 3000000);
+    }
+
+
+</script>
+
+ 
+}

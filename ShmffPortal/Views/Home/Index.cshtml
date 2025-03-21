@@ -1,0 +1,210 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "الصفحة الرئيسية";
+    Layout = "~/Views/Shared/_NewDesignLayout.cshtml";
+
+}
+
+<style>
+    .rowCell {
+        margin-bottom: 10px;
+    }
+</style>
+
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <h1>مرحباً بكم في صندوق الإسكان الإجتماعي ودعم التمويل العقاري</h1>
+    </div>
+</section>
+
+<!--Video Section-->
+<div class="second_sec">
+    <div class="video">
+        <h3>آلية التقديم على الموقع الإلكتروني لحجز الوحدات السكنية  </h3>
+        <div align="center">
+            <div align="center">
+                <video width="600" controls preload>
+                    <source src="~/Content/badr.mp4" type="video/mp4">
+                    <source src="~/Content/badr.mp4" type="video/ogg">
+                    Your browser does not support HTML video.
+                </video>
+            </div>
+        </div>
+
+    </div><!--End of video-->
+
+</div>
+
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+        @*@foreach (var advs in (IEnumerable<ShmffPortal.Models.NEWADVERTISMENT>)ViewBag.Advs)
+        {
+            if (DateTime.Now >= advs.ADV_STARTDATE)
+            {<div class="row">
+                    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+                        <img src="~/Content/images/@advs.ADV_IMG" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+                        <h3>
+                            للتسجيل في @advs.ADVNAME_AR
+
+                        </h3>
+                     
+                        <div class="button">
+                            <a class="btn btn-success button_save ml-3" href="~/Home/Details/@advs.ID" role="button">التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+            
+            }
+        }*@
+         
+    </div>
+</section>
+
+@*<div class="categories-shop">
+    <div class="container">
+        <div class="row">
+            @foreach (var advs in (IEnumerable<ShmffPortal.Models.NEWADVERTISMENT>)ViewBag.Advs)
+            {
+                if (DateTime.Now >= advs.ADV_STARTDATE)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="shop-cat-box">
+                            <img class="img-fluid" src="~/Content/images/@advs.ADV_IMG" alt="" />
+                            <a class="btn hvr-hover" href="~/Home/Details/@advs.ID">@advs.ADVNAME_AR</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+         
+    </div>
+</div>*@
+<!-- End Categories -->
+<!-- Start Instagram Feed  -->
+<div class="instagram-box">
+    <div class="main-instagram owl-carousel owl-theme">
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-01.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-02.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-03.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-04.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-05.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-06.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-07.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-08.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-09.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="~/Content/images/inest/instagram-img-05.jpg" alt="" />
+                <div class="hov-in">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Instagram Feed  -->
+@*<div class="jumbotron">
+
+        <p class="lead">
+            أهلا بك في صندوق الاسكان الاجتماعى ودعم التمويل العقاري
+        </p>
+    </div>
+    <div class="container">
+        <div class="row rowCell">
+            <div class="col-md-6">
+                <img src="~/Images/Dar.jpg" class="img-responsive" />
+            </div>
+            <div class="col-md-6">
+                <h2>دار مصر</h2>
+                <p><a class="btn btn-lg btn-primary" href="~/Reservation/Index?advid=5000059">أرغب في التقدم</a></p>
+            </div>
+        </div>
+        <div class="row rowCell">
+            <div class="col-md-6">
+                <img src="~/Images/SKN.jpg" class="img-responsive" />
+            </div>
+            <div class="col-md-6">
+                <h2>سكن مصر</h2>
+                <p><a class="btn btn-lg btn-primary" href="~/Reservation/Index?advid=5000058">أرغب في التقدم</a></p>
+            </div>
+        </div>
+        <div class="row rowCell">
+            <div class="col-md-6">
+                <img src="~/Images/GNA.png" class="img-responsive" />
+            </div>
+            <div class="col-md-6">
+                <h2>جنة مصر</h2>
+                <p><a class="btn btn-lg btn-primary" href="~/Reservation/Index?advid=5000057">أرغب في التقدم</a></p>
+            </div>
+        </div>
+    </div>*@
