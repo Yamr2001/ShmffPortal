@@ -1326,7 +1326,7 @@ namespace ShmffPortal.Controllers
         public ActionResult ReservUnit(int? id)
         {
 
-            return RedirectToAction("Applications");
+            //return RedirectToAction("Applications");
             ReuestedUnitVM mode = new ReuestedUnitVM();
             ViewBag.ID = id;
             if (userbll.ChecUServerifired() == false)
@@ -1338,23 +1338,23 @@ namespace ShmffPortal.Controllers
 
             #region check downpayment for adv
 
-            var middlecheck = entity.CheckMiddelIncomes.Where(a => a.WithdrawlSSN == SSN && a.ADVERTISEMENT_CODE == 5000021).FirstOrDefault();
+            //var middlecheck = entity.CheckMiddelIncomes.Where(a => a.WithdrawlSSN == SSN && a.ADVERTISEMENT_CODE == 5000021).FirstOrDefault();
             //var checkpaid = entity.TotalPaymentForClients.Where(a => a.CLIENT_SSN == SSN&&a.ADVERTISEMENT_CODE==5000023).FirstOrDefault();
             List<HDB_Payment_Confirmation> checkpaid = new List<HDB_Payment_Confirmation>();
-            if (middlecheck == null)
-            {
-                checkpaid = entity.HDB_Payment_Confirmation.Where(a => a.CLIENT_SSN == SSN).ToList();
-            }
-            else
-            {
-                checkpaid = entity.HDB_Payment_Confirmation.Where(a => a.CLIENT_SSN == SSN).ToList();
-            }
+            //if (middlecheck == null)
+            //{
+            //    checkpaid = entity.HDB_Payment_Confirmation.Where(a => a.CLIENT_SSN == SSN).ToList();
+            //}
+            //else
+            //{
+            //    checkpaid = entity.HDB_Payment_Confirmation.Where(a => a.CLIENT_SSN == SSN).ToList();
+            //}
 
-            if (checkpaid.Count() == 0)
-            {
-                TempData["Error"] = "عفواً لا يُمكنكم استكمال حجز الوحدة السكنية نظراً لعدم سداد مقدم جدية الحجز";
-                return RedirectToAction("error", "Reservation");
-            }
+            //if (checkpaid.Count() == 0)
+            //{
+            //    TempData["Error"] = "عفواً لا يُمكنكم استكمال حجز الوحدة السكنية نظراً لعدم سداد مقدم جدية الحجز";
+            //    return RedirectToAction("error", "Reservation");
+            //}
             #endregion
 
             var _Subsidy = entity.subsidy_request.Where(a => a.PRIMARY_INVESTOR_SSN == SSN && a.IS_CANCELED != 1 && a.ID == id).FirstOrDefault();
@@ -1445,11 +1445,11 @@ namespace ShmffPortal.Controllers
                 //}
             }
 
-            if (checkpaid.Sum(a => a.DOWNPAYMENT_AMOUNT_COLLECTED_MFF) < (double)ClientAdv.DOWNPAYMENT_AMOUNT)
-            {
-                TempData["Error"] = "عفواً لا يُمكنكم استكمال حجز الوحدة السكنية نظراً لعدم كفاية مقدم جدية الحجز";
-                return View(_Subsidy);
-            }
+            //if (checkpaid.Sum(a => a.DOWNPAYMENT_AMOUNT_COLLECTED_MFF) < (double)ClientAdv.DOWNPAYMENT_AMOUNT)
+            //{
+            //    TempData["Error"] = "عفواً لا يُمكنكم استكمال حجز الوحدة السكنية نظراً لعدم كفاية مقدم جدية الحجز";
+            //    return View(_Subsidy);
+            //}
 
             #endregion
 
